@@ -1,6 +1,6 @@
 ---
 name: deep-research
-description: "General-purpose topic research pipeline (Chinese-language): generate a research outline, extend it with fields/items, fan out independent deep-research agents per item, then compile everything into a markdown report. Use for academic research, benchmark/technology comparisons, or any 'research this topic and give me a structured report' request — not tied to sales/prospecting (see `web-research-prospecting` for that)."
+description: "General-purpose topic research pipeline (Chinese-language): generate a research outline, extend it with fields/items, fan out independent deep-research agents per item, then compile everything into a markdown report. Use for academic research, benchmark/technology comparisons, or any 'research this topic and give me a structured report' request — not for researching a company, competitor, or sales lead (see `browser-automation`'s `company-research`/`competitor-analysis`/`event-prospecting` for that)."
 ---
 
 # Deep Research

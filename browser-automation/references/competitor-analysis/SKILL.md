@@ -8,12 +8,17 @@ description: |
   into an HTML report with four views: overview, per-competitor deep dive, side-by-side
   feature/pricing matrix, and a chronological mentions feed (news, reviews,
   social, comparison pages, and public benchmarks).
-  Use when the user wants to: (1) analyze competitors, (2) build a competitive matrix,
-  (3) extract competitor pricing / features, (4) find comparison pages and online
-  mentions of competitors, (5) surface public benchmarks. Triggers: "competitor analysis",
-  "analyze competitors", "competitive intel", "competitor research", "competitor pricing",
-  "feature comparison", "price comparison", "find comparisons", "who's comparing us",
-  "competitor mentions", "competitor benchmarks".
+  Use when the user does NOT already have a fixed list of competitor URLs and wants
+  auto-discovery from their own company/product, or wants an interactive HTML report
+  (overview + matrix + mentions timeline + screenshots + sales battle cards) rather
+  than plain markdown profiles. Use when the user wants to: (1) analyze competitors,
+  (2) build a competitive matrix, (3) extract competitor pricing / features, (4) find
+  comparison pages and online mentions of competitors, (5) surface public benchmarks.
+  Triggers: "competitor analysis", "analyze competitors", "competitive intel",
+  "competitor research", "competitor pricing", "feature comparison", "price comparison",
+  "find comparisons", "who's comparing us", "competitor mentions", "competitor benchmarks".
+  If the user already has specific competitor URLs in hand and wants SEO/traffic/backlink
+  intelligence and review mining instead, see `competitor-profiling`.
 license: MIT
 compatibility: Requires the browse CLI (npm install -g browse) and BROWSERBASE_API_KEY env var
 allowed-tools: Bash Agent AskUserQuestion

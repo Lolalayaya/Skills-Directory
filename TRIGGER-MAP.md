@@ -1,0 +1,140 @@
+# 觸發對照表：使用者說什麼 → 觸發哪個 Skill → 它負責什麼
+
+這份文件是給「人」查的速查表，目的是讓你一眼看出「我這句話應該會叫出哪個技能」。分類方式跟 [`README.md`](README.md) 一致；每個技能實際的觸發判斷仍以各自 `SKILL.md` 的 `description` 為準，這裡只列典型範例。
+
+---
+
+## 🛠️ 開發流程與品質保證
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「幫我做一個新功能」「這個 bug 怎麼修比較好」（對話剛開始） | `using-superpowers` | 先判斷這次任務該用哪個技能，包含要問你的釐清問題 |
+| 「我想加一個 XX 功能，先幫我想想怎麼設計」 | `brainstorming` | 動手寫程式前，先探索你的意圖與需求 |
+| 「需求都確定了，幫我寫個實作計畫」 | `writing-plans` | 把需求轉成有步驟的實作計畫 |
+| 「開始做這個功能前，先開一個獨立工作區」 | `using-git-worktrees` | 用 git worktree 建立隔離的開發環境 |
+| 「照著這份計畫在新的 session 執行」 | `executing-plans` | 在獨立 session 執行已寫好的計畫，設檢查點 |
+| 「照著計畫在這個對話裡，一個任務一個任務做完」 | `subagent-driven-development` | 序列派 subagent 執行計畫裡的任務，不平行派 implementer |
+| 「這 3 個 bug 互不相關，可以同時查嗎」 | `dispatching-parallel-agents` | 派平行 agent 處理互不依賴的獨立任務（⚠️ 與上一項的分工目前不夠明確，見 `SKILL-AUDIT.md`） |
+| 「功能做完了，測試也過了，接下來怎麼合併」 | `finishing-a-development-branch` | 決定分支要 merge / PR / rebase 的方式 |
+| 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試 |
+| 「我測試過了，應該修好了」 | `verification-before-completion` | 要求你先跑驗證指令、讀懂輸出，才能宣稱完成 |
+| 「用 Playwright 幫我測一下這個網頁」 | `webapp-testing` | 對本地網頁做互動測試、截圖、console log 除錯 |
+| 「幫我審查一下這次改動」 | `code-review-expert` | 資深工程師視角審查 git 變更，抓 SOLID 違規與安全風險 |
+| 「幫我寫個 Semgrep 規則抓這種寫法」 | `semgrep` | 靜態分析工具，含自訂規則撰寫 |
+| 這段程式碼碰到輸入、驗證、檔案、DB、網路、加密、infra 設定 | `code-security`（🔁必用，不用你開口） | 主動檢查安全風險 |
+| 「我在做一個 AI/RAG 應用，這樣安全嗎」 | `llm-security` | LLM/RAG 應用的 OWASP Top 10 安全檢查 |
+| 「重要功能做完了，我該怎麼發起 code review」 | `requesting-code-review` | 教你怎麼「提出」審查請求 |
+| 「審查意見回來了，我該怎麼回應」 | `receiving-code-review` | 教你怎麼嚴謹評估、回應審查意見 |
+| 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法 |
+| 這個專案本來就用 OpenSpec 慣例管理變更 | `openspec-workflow`（含 explore/propose/apply/sync/archive 5 個階段） | 走 OpenSpec 的完整變更生命週期，取代 `brainstorming`→`writing-plans` |
+| 「這個技能該怎麼規劃架構」 | `skill-forge` | 架構設計階段：workflow checklist、資源規劃 |
+| 「幫我測試/優化這個技能的觸發率」 | `skill-creator` | eval/benchmark 迭代階段：跑測試、比對輸出、優化 description |
+| 「這個技能上線前幫我把關一下」 | `writing-skills` | 上線前驗證：TDD 式壓力測試、SDO 描述規則 |
+| 「幫我審查一下這個現成技能」 | `skill-review` | 純審查，不編輯 |
+
+## 🚀 部署與維運
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「幫我把這個部署到 Vercel」「push this live」 | `deploy-to-vercel` | 互動式部署（檢查 git remote / .vercel link / CLI 登入） |
+| 「用 CI token 部署，不要互動登入」 | `vercel-cli-with-tokens` | 用 access token 非互動部署，適合 CI |
+| 「為什麼這個 Vercel 專案這麼貴/這麼慢」 | `vercel-optimize`（`data-analysis` 底下） | 用真實用量數據（Function Invocations、Build Minutes、Core Web Vitals）找優化點 |
+| 日常伺服器/資料庫維運需求 | `infrastructure-ops` | **目前是空殼**，不會給出任何實質建議，只會告知尚無內容 |
+
+## 🌐 瀏覽器自動化與研究
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「幫我去這個網站幫我點一下、填個表單」 | `browser` | 自然語言 CLI 操控真實瀏覽器 |
+| 「只要抓這個網址的 HTML/JSON 就好，不用開瀏覽器」 | `fetch` | 純 HTTP 取內容，無 JS 渲染 |
+| 「幫我搜尋一下網路上有沒有相關資料」 | `search` | 不開瀏覽器的輕量網路搜尋，回結構化標題/URL |
+| 「這個網站要先登入才能看，幫我同步 cookie」 | `cookie-sync` | 把本機 Chrome cookie 同步進 Browserbase |
+| 「幫我測一下這次 UI 改動有沒有壞掉」 | `ui-test` | 對 git diff 有變更的部分做對抗式 UI 測試 |
+| 「這次自動化跑失敗了，幫我看看哪裡卡住」 | `browser-trace` | 擷取 DevTools trace 除錯 |
+| 「把這個瀏覽器任務變成排程/webhook」 | `functions` | 部署成 Browserbase 無伺服器函式 |
+| 「這個任務老是失敗，幫我訓練到穩定」 | `autobrowse` | 反覆執行、讀 trace、優化策略直到穩定 |
+| 「這段流量幫我轉成 API 文件」 | `browser-to-api` | 把 HTTP 流量轉成 OpenAPI 3.1 規格 |
+| 「幫我找這家公司的潛在客戶名單」 | `company-research` | 依 ICP 條件研究目標公司 |
+| 「幫我看看我們的競爭對手在做什麼」（還不知道有誰） | `competitor-analysis` | 自動探索競品、產出互動 HTML 報告與戰卡 |
+| 「幫我研究這幾個競品網址的 SEO/流量表現」（已有 URL 清單） | `competitor-profiling` | 用 Firecrawl/DataForSEO 挖 SEO/流量/評論情報，產出 Markdown |
+| 「這場研討會的講者名單，幫我篩出潛在客戶」 | `event-prospecting` | 從會議 speaker 頁抽人、按 ICP 過濾 |
+| 「幫我研究一下 XX 這個主題，給我結構化報告」（中文、非銷售場景） | `deep-research`（research→research-deep→research-report） | 通用主題研究 pipeline，⚠️ 跟上面的 `company-research` 命名容易撞車，「研究一家公司」這句話兩邊都可能觸發 |
+
+## 🎨 內容、文件與設計
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「幫我大量產生 SEO 頁面」 | `programmatic-seo` | 資料驅動產生 SEO 頁面樣板 |
+| 「幫我做一整套品牌識別+Logo+Banner+簡報」（跨多種產出、或不確定要哪個） | `design` | 全包版：內建 Logo/CIP/Banner/Icon/Slides/社群圖生成 |
+| 「只要幫我定義品牌語氣」／「只要一張 Banner」／「只要簡報」／「只要 token 規格」 | `brand`／`banner-design`／`slides`／`design-system` | 同一供應商的精簡單功能版，只做一件事、載入更少 context |
+| 「幫我建一套 design token 系統」 | `design-system` | 三層 token（primitive→semantic→component）+ 元件規格 |
+| 「幫我用 shadcn/Tailwind 刻這個 UI」 | `ui-styling` | UI 樣式實作規範 |
+| 「有沒有現成的配色/字體/風格可以參考」 | `ui-ux-pro-max` | 可搜尋的 UI/UX 資料庫（67 風格/161 配色等） |
+| 「這個 UI 看起來很有 AI 感，幫我改得有個性一點」 | `frontend-design` | 反樣板感的視覺方向判斷 |
+| 「幫我做一張海報」 | `canvas-design` | 靜態視覺藝術（PNG/PDF） |
+| 「幫我用 p5.js 生成一些演算法藝術」 | `algorithmic-art` | 種子隨機數生成藝術 |
+| 「幫這份文件/簡報套個主題」 | `theme-factory` | 套用內建 10 組預設主題 |
+| 「幫我做一個有狀態管理的複雜 claude.ai 頁面」 | `web-artifacts-builder` | React/Tailwind/shadcn 打造複雜 artifact |
+| 「幫我審查一下這個 UI 符不符合無障礙規範」 | `web-design-guidelines` | 依 Web Interface Guidelines 審查 UI 程式碼 |
+| 「幫我審查一下這份文件的語氣」 | `writing-guidelines` | 依 Writing Guidelines 審查文案語氣 |
+| 「幫我做一份簡報」 | `slides` | 用 Chart.js + design token 做策略性 HTML 簡報 |
+| 「幫我讀寫這份 Word/Excel/PPT/PDF」 | `docx`／`xlsx`／`pptx`／`pdf` | 對應檔案格式的建立、編輯、讀取 |
+| 「幫我做一個 MCP 伺服器」 | `mcp-builder` | 建置高品質 MCP 伺服器 |
+| 「這個 React/Next.js 專案效能怎麼優化」 | `vercel-react-best-practices` | 通用 React/Next.js 效能準則 |
+| 「這是 React Native/Expo 專案，效能怎麼優化」 | `vercel-react-native-skills` | 僅限行動端的效能規則 |
+| 「幫我加個 View Transition 動畫」 | `vercel-react-view-transitions` | View Transitions API 應用 |
+| 「這個元件架構怎麼設計比較好」 | `vercel-composition-patterns` | React 組合模式 |
+| 「幫我一起寫一份提案/技術規格」 | `doc-coauthoring` | 結構化共寫文件流程 |
+| 「幫我照公司格式寫一份狀態報告/電子報」 | `internal-comms` | 套用公司慣用的內部溝通格式 |
+
+## 📈 行銷
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「幫我寫一則廣告文案/投放策略」 | `ads`／`ad-creative` | 付費廣告策略與素材 |
+| 「幫我做 App Store 上架優化稽核」 | `aso` | ASO 稽核 |
+| 「怎麼讓 ChatGPT/Perplexity 這類 AI 搜尋引擎推薦我」 | `ai-seo` | 針對 AI 搜尋引擎的 SEO |
+| 「幫我做網站 SEO 健檢」 | `seo-audit` | 傳統技術/內容 SEO 健檢（跟 `ai-seo` 已互斥） |
+| 「幫我寫一篇部落格文章/文案」 | `copywriting`／`copy-editing` | 文案撰寫與潤稿 |
+| 「幫我規劃內容策略/網站架構」 | `content-strategy`／`site-architecture` | 內容與架構規劃 |
+| 「幫我優化註冊/導入流程/轉換率」 | `signup`／`onboarding`／`cro` | 各階段轉換優化 |
+| 「幫我設計定價/付費牆/優惠方案」 | `pricing`／`paywalls`／`offers` | 商業模式設計 |
+| 「使用者一直流失，幫我想辦法留住」 | `churn-prevention` | 流失防範 |
+| 「幫我寫 Email/簡訊行銷內容」 | `emails`／`sms`／`cold-email` | 對應管道的行銷內容 |
+| 「幫我設計推薦計畫/找網紅合作/做社群經營」 | `referrals`／`influencer-marketing`／`community-marketing` | 成長與夥伴關係 |
+| 「幫我規劃產品發布」 | `launch` | 產品發布計畫 |
+| 「幫我了解目標客群/建立潛在客戶名單」 | `customer-research`／`prospecting` | 客戶研究與名單開發（兩者觸發詞部分重疊） |
+| 「幫我做一份行銷計畫/找點子/多角度顧問建議」 | `marketing-plan`／`marketing-ideas`／`marketing-council` | 策略發想（三者觸發詞部分重疊） |
+| 「幫我設計 A/B 測試/歸因模型/看數據」 | `ab-testing`／`attribution`／`analytics` | 數據相關（已用明確邊界說明區分） |
+| 「幫我做競品比較頁/alternative 頁」 | `competitors` | 只做「成品頁面」，不做背後的競品研究（研究見 `browser-automation`） |
+| 其餘（`schema`／`social`／`video`／`image`／`popups`／`co-marketing`／`free-tools`／`lead-magnets`／`marketing-loops`／`marketing-psychology`／`product-marketing`／`public-relations`／`revops`／`sales-enablement`／`directory-submissions`） | 對應同名子技能 | 各自對應該行銷細分領域，觸發詞清楚，未發現重疊或模糊問題 |
+
+## 📖 學習與任務管理
+
+| 使用者可能說的話 | 觸發技能 | 它負責什麼 |
+|---|---|---|
+| 「我想系統性地讀完這本書」 | `book-study` | 間隔重複 + 精熟度測驗的讀書教練 |
+| 「幫我把這些筆記整理進知識庫」 | `wiki-ingest` | 彙整文章/筆記成結構化 wiki |
+| 「教我 XX 這個主題，用問答的方式」 | `sigma` | 蘇格拉底式 AI 家教（與 book-study 底層機制重疊，見 `SKILL-AUDIT.md`） |
+| 「這個任務很長，幫我把進度存到硬碟上」 | `business-automation`（`planning-with-files` 系列） | 跨 session 保留 task_plan/findings/progress，語言變體視你的對話語言而定 |
+
+## 🧠 Agent / 上下文工程（進階研究向）
+
+只有在你自己打造/優化 agent 系統、multi-agent 架構、context 管理策略時才會用到，一般任務幾乎不會觸發：
+
+| 使用者可能說的話 | 觸發技能 |
+|---|---|
+| 「這個 agent 為什麼中段就忘記指令了」 | `context-degradation` |
+| 「長對話怎麼做上下文壓縮/交接摘要」 | `context-compression` |
+| 「token 預算怎麼優化，要不要用 KV cache」 | `context-optimization` |
+| 「怎麼用檔案系統做持久化 scratchpad」 | `filesystem-context` |
+| 「怎麼設計跨 session 的記憶系統」 | `memory-systems` |
+| 「多 agent 系統的架構怎麼設計」 | `multi-agent-patterns` |
+| 「怎麼給 LLM 設計好用的工具」 | `tool-design` |
+| 「這個 agent 專案的開發流程怎麼走」 | `project-development` |
+| 「怎麼評估 agent 系統的表現」 | `evaluation`／`advanced-evaluation`（後者專做 LLM-as-judge、pairwise 比較） |
+| 其餘（`context-fundamentals`／`bdi-mental-states`／`hosted-agents`／`harness-engineering`／`self-improvement-loops`／`long-horizon-prompting`） | 更底層/更學術的子場景，觸發頻率極低（`latent-briefing` 已於 2026-07-31 移除，見 `SKILL-AUDIT.md`；`bdi-mental-states` 經確認後保留） |
+
+---
+
+如果實際使用時發現「我說了這句話，結果沒觸發到我以為的那個技能」，代表對應的 `description` 需要調整——回報給我，我可以直接幫你改寫該技能的 frontmatter。

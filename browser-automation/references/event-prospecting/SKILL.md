@@ -11,6 +11,9 @@ description: |
   conference, (2) prep for an event, (3) research event speakers,
   (4) build a target list from a sponsor/exhibitor page,
   (5) scrape conference speakers and rank by ICP fit.
+  This is the conference/event-speaker specialization of
+  `company-research` — for general ICP-based company discovery with no
+  event/speaker page involved, use `company-research` instead.
   Triggers: "find leads at {event}", "research speakers at",
   "prospect this conference", "stripe sessions leads",
   "ai engineer summit prospects", "event prospecting",

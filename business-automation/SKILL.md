@@ -17,7 +17,7 @@ Router skill for standardized session/task bookkeeping — turning "keep track o
 
 Follow `planning-with-files`'s scripted bookkeeping flow (`init-session`, `ledger-append`, `ledger-summary`, `phase-status`, `check-complete`, etc.) rather than improvising an ad hoc set of markdown files — the scripts keep the format consistent across sessions so a fresh session (or a fresh `/clear`) can pick up exactly where the last one left off.
 
-Localized variants (Arabic, German, Spanish, Simplified/Traditional Chinese) live alongside the English version under `references/planning-with-files-<lang>/` if the session isn't in English.
+Localized variants (Simplified/Traditional Chinese) live alongside the English version under `references/planning-with-files-<lang>/` if the session isn't in English. (Arabic/German/Spanish variants were removed 2026-07-31 as never-triggered for this workspace — see `SKILL-AUDIT.md`.)
 
 ## Note on scope
 

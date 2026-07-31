@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **136 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 17 個子技能），總計對應最初安裝的 **137 個技能**。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **130 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能），對應最初安裝的 137 個技能，經過 2026-07-31 的健檢後移除了 7 個確認不會用到的子技能（詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)）。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -210,16 +210,14 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🌐 瀏覽器自動化與研究
 
 ### 10. `browser-automation` — Browserbase 全套瀏覽器工具箱
-只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」或「研究公司/競品/活動」都算。包含 **17 個子技能**：
+只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」或「研究公司/競品/活動」都算。包含 **15 個子技能**：
 
 - **`browser`** — 用自然語言 CLI 指令自動化瀏覽器操作（瀏覽、擷取資料、截圖、填表單、點按鈕）
 - **`autobrowse`** — 自我改進的瀏覽器自動化：反覆執行任務、讀 trace、優化導覽策略直到穩定
-- **`safe-browser`** — 建立有網域白名單限制的安全瀏覽器 agent，避免超出授權範圍存取
 - **`ui-test`** — AI 驅動的對抗式 UI 測試，可只測 git diff 有變更的部分，涵蓋功能正確性、無障礙、RWD、UX 慣例
 - **`cookie-sync`** — 把本機 Chrome 的 cookie 同步到 Browserbase，讓 CLI 能存取需要登入的網站
 - **`browser-trace`** — 擷取完整 DevTools protocol trace（CDP、截圖、DOM dump），並拆分成可搜尋的分頁區塊，用於除錯
 - **`browser-to-api`** — 把觀察到的 HTTP 流量（透過 browser-trace）轉換成 OpenAPI 3.1 規格文件
-- **`browser-use-to-stagehand`** — 把 Python 的 browser-use 腳本遷移成 TypeScript 的 Stagehand v3（Browserbase）
 - **`webmcp-gen`** — 針對目標網站產生、編譯、驗證 WebMCP 初始化腳本
 - **`functions`** — 把瀏覽器自動化部署成 Browserbase 的無伺服器雲端函式（排程、webhook）
 - **`fetch`** — 不開瀏覽器、直接抓取 URL 的 HTML/JSON、檢查狀態碼與 header，適合簡單爬蟲
@@ -244,7 +242,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🎨 內容、文件與設計
 
 ### 12. `scaffolding-templating` — 樣板、腳手架與完整設計系統
-把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **17 個子技能**：
+把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **16 個子技能**：
 
 - **`programmatic-seo`** — 用資料驅動的方式大量產生 SEO 頁面樣板
 - **`design`** — 一般性設計指引
@@ -262,7 +260,6 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`web-design-guidelines`** — 依 Web Interface Guidelines 審查 UI 程式碼（無障礙、UX）
 - **`writing-guidelines`** — 依 Writing Guidelines 審查文件/文案語氣風格
 - **`slides`** — 用 Chart.js、design token、文案公式打造策略性 HTML 簡報
-- **`slack-gif-creator`** — 製作適合 Slack 的動態 GIF
 
 ### 13. `library-api-reference` — 第三方函式庫/檔案格式參考
 在動手寫程式呼叫這些函式庫前，先查這裡的參考片段、版本差異與常見錯誤。包含 **9 個子技能**：
@@ -359,21 +356,18 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`sigma`** — 一對一蘇格拉底式 AI 家教，適應式引導學習任何主題
 
 ### 17. `business-automation` — 跨 session 的檔案化任務規劃
-把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 5 種語言版本**：
+把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 2 種語言版本**（阿拉伯文/德文/西班牙文版於 2026-07-31 健檢後移除，因用不到而永遠不會觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)）：
 
 - **`planning-with-files`** — 英文版（Manus 風格檔案化規劃系統）
 - **`planning-with-files-zh`** — 簡體中文版
 - **`planning-with-files-zht`** — 繁體中文版
-- **`planning-with-files-ar`** — 阿拉伯文版
-- **`planning-with-files-de`** — 德文版
-- **`planning-with-files-es`** — 西班牙文版
 
 ---
 
 ## 🧠 Agent / 上下文工程（進階研究向）
 
 ### 18. `context-engineering-collection` — 上下文工程技能全集
-唯一一個**保持原樣、未被拆分**的技能（原本就是一個涵蓋 17 個子技能的完整集合，拆開沒有額外價值）。用於打造/優化/評估/除錯需要有效上下文管理與可靠運作迴圈的 agent 系統。包含 `skills/` 底下 **17 個子技能**：
+唯一一個**保持原樣、未被拆分**的技能（原本就是一個涵蓋 17 個子技能的完整集合，拆開沒有額外價值）。用於打造/優化/評估/除錯需要有效上下文管理與可靠運作迴圈的 agent 系統。包含 `skills/` 底下 **16 個子技能**（`latent-briefing` 於 2026-07-31 健檢後移除，因需要直接操作模型底層 KV cache、幾乎不會被觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)；`bdi-mental-states` 經確認後保留）：
 
 - **`context-fundamentals`** — 上下文工程基礎概念
 - **`context-compression`** — 長任務的上下文壓縮、結構化摘要、交接摘要
@@ -382,7 +376,6 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`filesystem-context`** — 用檔案系統支撐持久化的 scratchpad、工具輸出卸載、跨 agent 交接檔
 - **`memory-systems`** — 跨 session 的持久語意記憶：實體追蹤、時效性、圖/向量檢索
 - **`multi-agent-patterns`** — 多 agent 系統設計：上下文隔離、supervisor/swarm 協調、平行執行
-- **`latent-briefing`** — 多 agent 間共享記憶、KV cache compaction、降低 worker token 消耗
 - **`long-horizon-prompting`** — 長時間跨度任務的提示設計
 - **`bdi-mental-states`** — 用 BDI（信念-慾望-意圖）概念建模 agent 心智狀態
 - **`hosted-agents`** — 託管/背景 agent 基礎設施：沙箱執行、warm pool、session 持久化

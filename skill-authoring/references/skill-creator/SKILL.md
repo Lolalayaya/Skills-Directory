@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
+description: Eval/iterate phase of skill authoring — the draft-test-review-improve loop with real tooling (eval viewer, benchmark aggregation, description-trigger optimization). Use once a skill has at least a rough draft (from `skill-forge`'s architecture phase, or already existing) and you need to run test prompts with/without it, compare outputs, and iterate based on feedback or benchmark numbers — not for the initial architecture decisions (see `skill-forge`) or for the pre-ship verification discipline (see `writing-skills`). Use when users want to run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
 ---
 
 # Skill Creator

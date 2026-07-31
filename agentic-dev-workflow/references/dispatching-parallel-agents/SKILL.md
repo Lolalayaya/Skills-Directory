@@ -132,6 +132,7 @@ Return: Summary of what you found and what you fixed.
 **Need full context:** Understanding requires seeing entire system
 **Exploratory debugging:** You don't know what's broken yet
 **Shared state:** Agents would interfere (editing same files, using same resources)
+**Plan implementer tasks:** Tasks from the same implementation plan/branch always run sequentially, even when they look independent — they share one worktree, and parallel implementers write to it concurrently and conflict. See `subagent-driven-development`, which forbids parallel implementer dispatch for exactly this reason. This skill is for independent work *outside* a plan's own task list (unrelated bug investigations, standalone research), not for parallelizing a plan's tasks.
 
 ## Real Example from Session
 

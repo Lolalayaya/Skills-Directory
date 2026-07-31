@@ -20,7 +20,6 @@ Activate this skill when:
 Do not activate this skill for adjacent work owned by other skills:
 - Deciding task-model fit, pipeline shape, or project-level cost before topology is known: `project-development`.
 - Designing hosted sandboxes, warm pools, remote sessions, or background runtime infrastructure: `hosted-agents`.
-- Sharing orchestrator state through KV-cache compaction in controlled runtimes: `latent-briefing`.
 - Designing the tools each agent exposes: `tool-design`.
 
 ## Core Concepts
@@ -238,7 +237,6 @@ This skill owns agent topology and coordination protocols. Adjacent skills own p
 - `memory-systems`: shared persistent state across agents.
 - `tool-design`: tool specialization and spawn/status tool contracts.
 - `context-optimization`: partitioning as one token-efficiency tactic.
-- `latent-briefing`: KV-cache trajectory handoff between orchestrator and worker when models align.
 - `evaluation`: measuring whether multiple agents improve outcomes after coordination cost.
 
 ## References

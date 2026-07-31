@@ -11,6 +11,8 @@ description: |
   (5) do market research on prospects. Triggers: "find companies to sell to",
   "company research", "find prospects", "ICP research", "target companies",
   "who should we sell to", "market research", "lead research", "prospect list".
+  Not for general or academic topic research unrelated to sales/prospecting —
+  see `deep-research` for that.
 license: MIT
 compatibility: Requires browse CLI (`npm install -g browse`) and BROWSERBASE_API_KEY env var
 allowed-tools: Bash Agent

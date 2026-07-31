@@ -32,7 +32,6 @@ Router skill for "codify the best-practice pattern once, then stamp it out consi
 | Web design guidelines review | Review UI code for Web Interface Guidelines compliance — accessibility, UX audit | [references/design/web-design-guidelines/SKILL.md](references/design/web-design-guidelines/SKILL.md) |
 | Writing guidelines review | Review docs/prose for writing-style-guide compliance — tone, voice | [references/design/writing-guidelines/SKILL.md](references/design/writing-guidelines/SKILL.md) |
 | Slide decks | Strategic HTML presentations with Chart.js, design tokens, responsive layouts | [references/design/slides/SKILL.md](references/design/slides/SKILL.md) |
-| Slack GIF creation | Animated GIFs sized/validated for Slack | [references/design/slack-gif-creator/SKILL.md](references/design/slack-gif-creator/SKILL.md) |
 
 ## How to use this skill
 
@@ -41,6 +40,7 @@ Router skill for "codify the best-practice pattern once, then stamp it out consi
 3. **When multiple design domains could apply** (e.g. a slide deck needs both `slides` and `theme-factory` and `design-system` tokens), it's normal to pull from more than one — they're meant to compose.
 4. Most design domains bundle real reference data (CSVs of palettes/fonts/charts, preset theme definitions, component templates) one level under their own directory — read those on demand rather than trying to hold the full database in context; that's why they're structured as references rather than inlined here.
 5. **`brand` vs `anthropic-brand-guidelines`**: these sound similar but solve different jobs. `brand` helps *define or apply a brand system you're building* (any company's). `anthropic-brand-guidelines` applies one specific, already-fixed brand (Anthropic's) — reach for it only when the artifact is explicitly meant to carry Anthropic's look-and-feel, not as a generic "make this branded" request.
+6. **`design` vs `brand`/`design-system`/`banner-design`/`slides`**: these all come from the same source package and deliberately overlap — `design` is the all-in-one entry point that bundles its own Logo/CIP/Banner/Icon/Social-Photo/Slides generation inline (one trigger, everything), while `brand`, `design-system`, `banner-design`, and `slides` are the same package's standalone, narrower versions of those individual pieces. Neither is more "correct" — pick `design` for a request spanning multiple deliverables or when unsure, pick the standalone skill when the request is for exactly one of those things and a smaller context load is preferable. Do not merge or treat one as deprecated; the duplication is intentional on the source package's part.
 
 ## Note on scope
 

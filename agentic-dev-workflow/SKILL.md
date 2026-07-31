@@ -16,7 +16,7 @@ Router skill for the end-to-end shape of doing software work with an agent — f
 | Isolated git-worktree workspace | Stand up an isolated workspace (native tool or `git worktree` fallback) before starting feature work | [references/using-git-worktrees/SKILL.md](references/using-git-worktrees/SKILL.md) |
 | Executing plans (separate session) | Have a written implementation plan to execute with review checkpoints, potentially in a separate session | [references/executing-plans/SKILL.md](references/executing-plans/SKILL.md) |
 | Subagent-driven execution | Execute an implementation plan with independent tasks in the current session via subagents | [references/subagent-driven-development/SKILL.md](references/subagent-driven-development/SKILL.md) |
-| Dispatching parallel agents | 2+ independent tasks with no shared state or sequential dependency | [references/dispatching-parallel-agents/SKILL.md](references/dispatching-parallel-agents/SKILL.md) |
+| Dispatching parallel agents | 2+ independent tasks with no shared state or sequential dependency — a separate scenario from a plan's own implementer tasks, which stay sequential (see note under step 5 below) | [references/dispatching-parallel-agents/SKILL.md](references/dispatching-parallel-agents/SKILL.md) |
 | Finishing a development branch | Implementation complete and tests pass — decide how to integrate (merge, PR, rebase) | [references/finishing-a-development-branch/SKILL.md](references/finishing-a-development-branch/SKILL.md) |
 | Finding/using skills at all | Establishes how to discover and invoke the right skill before responding to anything, at the start of a session | [references/using-superpowers/SKILL.md](references/using-superpowers/SKILL.md) |
 
@@ -28,7 +28,7 @@ The natural lifecycle order for a non-trivial task:
 2. `writing-plans` — turn the clarified intent into a concrete, reviewable implementation plan.
 3. `using-git-worktrees` — isolate a workspace for the work if it shouldn't collide with what's currently checked out.
 4. `executing-plans` or `subagent-driven-development` — execute the plan; pick the former for a plan meant to run with checkpoints (possibly in a fresh session), the latter when independent tasks in the plan can be split across subagents within the current session.
-5. `dispatching-parallel-agents` — the specific trigger for recognizing "these N tasks don't depend on each other, dispatch them concurrently" rather than running them serially out of habit.
+5. `dispatching-parallel-agents` — a separate tool for a different kind of work: 2+ *independent* tasks that don't share a workspace (e.g. unrelated bug investigations, standalone research tasks), dispatched concurrently rather than serially out of habit. **This is not the next step after step 4 for a single plan's own tasks** — `subagent-driven-development` explicitly forbids dispatching multiple implementer subagents in parallel, because they'd write to the same worktree/branch and conflict. Use this skill only when the tasks at hand are outside the plan being executed, or don't share state at all.
 6. `finishing-a-development-branch` — once tests pass, decide the integration path (merge/PR/rebase). This is a decision step, not just a `git merge` command.
 
 After step 6, actually shipping is `cicd-deployment`'s job (deploying to Vercel, interactively or via CI token auth) — this skill stops at "how to integrate," that one picks up "how to deploy."

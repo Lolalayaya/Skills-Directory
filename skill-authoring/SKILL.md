@@ -21,7 +21,7 @@ Router skill for building the tooling that builds skills — meta, but frequentl
 1. **Starting from scratch**: `skill-forge` for architecture/design decisions, then `skill-creator` for the actual draft → eval → iterate loop.
 2. **Improving an existing skill**: `skill-review` first to get a structured audit (token efficiency, trigger accuracy, anti-patterns), then feed the findings into `skill-creator`'s improvement loop.
 3. **Before shipping any new/edited skill**: `writing-skills` for the "did I actually verify this works" discipline — don't skip straight to packaging.
-4. These four domains overlap by design (they come from different source repos but cover the same lifecycle) — when guidance conflicts, prefer `skill-creator`'s process since it's the most detailed and includes the eval/benchmark tooling (`scripts/`, `eval-viewer/`) the others don't bundle.
+4. These four domains come from different source repos and each bundle their own scripts/agents/references — they are not redundant copies of each other, they're sequential phases of the same lifecycle (design → iterate → verify → audit, with audit usable standalone at any time). Each one's `description` now states its phase explicitly and points to its neighbors; when in doubt, follow the order in point 1-3 above rather than picking one arbitrarily.
 
 ## Standing principle (shared across all four)
 

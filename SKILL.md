@@ -46,12 +46,12 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 
 | # | Skill | One-line summary | Sub-domains inside |
 |---|---|---|---|
-| 1 | `browser-automation` | Browserbase toolkit: drive/test/automate a browser, plus B2B research/prospecting | 17 — see comment block below |
+| 1 | `browser-automation` | Browserbase toolkit: drive/test/automate a browser, plus B2B research/prospecting | 15 — see comment block below |
 | 2 | `product-verification` | Prove work actually works before claiming done | 3 |
 | 3 | `data-analysis` | Metrics-driven optimization (Vercel only, for now) | 1 |
-| 4 | `business-automation` | Persistent file-based task planning across sessions | 1 (+5 language variants) |
+| 4 | `business-automation` | Persistent file-based task planning across sessions | 1 (+2 language variants) |
 | 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs | 9 |
-| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system | 17 |
+| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system | 16 |
 | 7 | `code-quality-review` | Code review, static analysis, secure coding | 6 |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
 | 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups | 1 |
@@ -63,9 +63,9 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 15 | `openspec-workflow` | OpenSpec change lifecycle | 5 |
 | 16 | `deep-research` | Generic outline-driven research pipeline (Chinese) | 5 |
 | 17 | `internal-writing-comms` | Doc co-authoring + internal comms formats | 2 |
-| 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 17 |
+| 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 136 consolidated sub-domains + `context-engineering-collection`'s own 17 (never touched by the consolidation) + the `infrastructure-ops` placeholder = everything originally installed, fully accounted for.
+Total: 130 consolidated sub-domains + `context-engineering-collection`'s own 16 (never touched by the consolidation) + the `infrastructure-ops` placeholder = everything originally installed, minus 7 removed after the 2026-07-31 health check (see `SKILL-AUDIT.md`): `browser-use-to-stagehand`, `safe-browser`, `slack-gif-creator`, `planning-with-files-ar`/`-de`/`-es`, `latent-briefing`.
 
 ## How to use this index
 
@@ -76,18 +76,21 @@ Total: 136 consolidated sub-domains + `context-engineering-collection`'s own 17 
 
 <!--
 =======================================================================
-CONSOLIDATED-SKILL AUDIT TRAIL — full list of the 136 originally
-installed skills that were folded into the 18 skills above, grouped by
-which current skill now holds them under its references/ tree.
+CONSOLIDATED-SKILL AUDIT TRAIL — full list of the (originally 136, now
+130 after the 2026-07-31 removals below) installed skills folded into
+the 18 skills above, grouped by which current skill now holds them
+under its references/ tree.
 This history exists so a future session never reinstalls one of these
-under its old name without realizing it already exists here.
+under its old name without realizing it already exists here — that
+includes the 7 REMOVALS listed at the bottom: they were deleted on
+purpose, not lost.
 =======================================================================
 
-browser-automation (17):
+browser-automation (15, was 17 — see REMOVALS below):
   agent-experience, autobrowse, browser, browser-to-api, browser-trace,
-  browser-use-to-stagehand, company-research, competitor-analysis,
-  competitor-profiling, cookie-sync, event-prospecting, fetch, functions,
-  safe-browser, search, ui-test, webmcp-gen
+  company-research, competitor-analysis, competitor-profiling,
+  cookie-sync, event-prospecting, fetch, functions, search, ui-test,
+  webmcp-gen
 
 product-verification (3):
   webapp-testing, verification-before-completion, test-driven-development
@@ -95,21 +98,20 @@ product-verification (3):
 data-analysis (1):
   vercel-optimize
 
-business-automation (6):
-  planning-with-files, planning-with-files-ar, planning-with-files-de,
-  planning-with-files-es, planning-with-files-zh, planning-with-files-zht
+business-automation (3, was 6 — see REMOVALS below):
+  planning-with-files, planning-with-files-zh, planning-with-files-zht
 
 library-api-reference (9):
   docx, xlsx, pptx, pdf, mcp-builder, vercel-react-best-practices,
   vercel-react-native-skills, vercel-react-view-transitions,
   vercel-composition-patterns
 
-scaffolding-templating (17):
+scaffolding-templating (16, was 17 — see REMOVALS below):
   programmatic-seo, design, design-system, ui-styling, ui-ux-pro-max,
   banner-design, brand, anthropic-brand-guidelines (renamed from
   brand-guidelines), canvas-design, algorithmic-art, theme-factory,
   frontend-design, web-artifacts-builder, web-design-guidelines,
-  writing-guidelines, slides, slack-gif-creator
+  writing-guidelines, slides
 
 code-quality-review (6):
   code-review-expert, semgrep, code-security, llm-security,
@@ -163,13 +165,35 @@ personal-learning (3):
   book-study, wiki-ingest, sigma
 
 -----------------------------------------------------------------------
-Total accounted for: 17+3+1+6+9+17+6+2+1+0+8+5+5+2+47+4+3 = 136
+Total accounted for: 15+3+1+3+9+16+6+2+1+0+8+5+5+2+47+4+3 = 130
 Plus context-engineering-collection: kept independent, never split
-  (originally installed as one skill covering 17 internal sub-skills;
-  re-wrapping it would have added no value).
+  (originally installed as one skill covering 17 internal sub-skills,
+  now 16 after the REMOVALS below; re-wrapping it would have added no
+  value).
 Plus infrastructure-ops: placeholder, 0 sources (no installed skill
-  matched this category as of 2026-07-31).
-136 + 1 (context-engineering-collection) = 137 = the original total
-number of skills installed before this consolidation began.
+  matched this category as of 2026-07-31; kept as a deliberate empty
+  reservation, not removed).
+130 + 1 (context-engineering-collection, counted as a single original
+install) = 131 currently-installed skill units, down from the original
+137 after the REMOVALS below.
+
+REMOVALS (2026-07-31 health check, see SKILL-AUDIT.md for the full
+methodology and reasoning) — these 7 were deleted as low/never-triggered
+and are NOT missing installs, do not reinstall them without a new reason:
+  - browser-automation/browser-use-to-stagehand — one-time Python→TS
+    migration tool, used once then never triggered again
+  - browser-automation/safe-browser — hardcoded Hacker-News demo
+    scaffold, low reusability as a generic skill
+  - scaffolding-templating/slack-gif-creator — narrow, low-frequency use
+  - business-automation/planning-with-files-ar, -de, -es — identical
+    logic to the English version, only useful if conversing in that
+    language; kept -zh and -zht since Chinese is actually used here
+  - context-engineering-collection/latent-briefing — requires direct
+    KV-cache access the user does not have; the skill's own text called
+    itself "a research idea, not deployable technology"
+Kept despite being flagged as narrow-use in the same health check:
+  anthropic-brand-guidelines (kept as a UI-styling reference when
+  producing websites) and bdi-mental-states (kept on hold, no removal
+  reason given).
 =======================================================================
 -->

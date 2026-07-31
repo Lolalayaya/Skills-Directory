@@ -190,7 +190,6 @@ This skill owns token-efficiency tactics and budget policy. Adjacent skills own 
 - `context-compression`: lossy summarization and handoff strategy.
 - `filesystem-context`: file-backed offloading for full outputs and logs.
 - `multi-agent-patterns`: partitioning work across isolated agent contexts.
-- `latent-briefing`: selective KV retention across orchestrator-worker boundaries in compatible runtimes.
 - `evaluation`: measuring whether the optimization improved quality, cost, or latency.
 - `memory-systems`: persistent retrieval layers that feed context just in time.
 

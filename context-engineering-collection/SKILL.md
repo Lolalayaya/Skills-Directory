@@ -105,7 +105,6 @@ Internal skills in this collection:
 - [filesystem-context](skills/filesystem-context/SKILL.md)
 - [hosted-agents](skills/hosted-agents/SKILL.md)
 - [context-optimization](skills/context-optimization/SKILL.md)
-- [latent-briefing](skills/latent-briefing/SKILL.md)
 - [evaluation](skills/evaluation/SKILL.md)
 - [advanced-evaluation](skills/advanced-evaluation/SKILL.md)
 - [harness-engineering](skills/harness-engineering/SKILL.md)
