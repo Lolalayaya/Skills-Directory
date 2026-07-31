@@ -19,6 +19,70 @@ Skills-Directory/
 
 ---
 
+## 🔧 安裝方式
+
+Skill 本質上就是一個「內含 `SKILL.md`（YAML frontmatter + Markdown）的資料夾」，不需要編譯、不需要伺服器，只要放到 AI 工具會掃描的路徑就能生效。以下依工具分別說明。
+
+**前置步驟：先把這個倉庫 clone 下來**
+
+```bash
+git clone https://github.com/Lolalayaya/Skills-Directory.git
+cd Skills-Directory
+```
+
+之後範例裡的 `<path-to-repo>` 都是指你 clone 下來的這個資料夾的完整路徑。
+
+### Claude Code
+
+Claude Code 會掃描兩個層級的 `skills/` 目錄，兩者可以並存：
+
+| 層級 | 路徑 | 生效範圍 | 適合放 |
+|---|---|---|---|
+| **專案級** | `<你的專案>/.claude/skills/<skill-name>/` | 只在該專案生效，會進版控 | 跟該專案高度相關、要與團隊共享的技能 |
+| **使用者級（全域）** | `~/.claude/skills/<skill-name>/`（Windows 為 `C:\Users\<user>\.claude\skills\<skill-name>\`） | 所有專案都能用 | 通用技能，例如本倉庫這 18 個 |
+
+**安裝步驟（以本倉庫任一技能資料夾為例，例如 `agentic-dev-workflow`）：**
+
+1. **直接複製**（最簡單、最穩定）：
+   ```bash
+   # macOS/Linux
+   cp -r agentic-dev-workflow ~/.claude/skills/
+
+   # Windows PowerShell（先 git clone 這個倉庫，再把 <path-to-repo> 換成你實際 clone 到的路徑）
+   Copy-Item -Recurse "<path-to-repo>\agentic-dev-workflow" "$HOME\.claude\skills\"
+   ```
+2. **或建立 symlink**（方便之後 `git pull` 這個倉庫就能同步更新，但 Windows 需要額外權限，見下方常見錯誤）：
+   ```bash
+   # macOS/Linux
+   ln -s /path/to/Skills-Directory/agentic-dev-workflow ~/.claude/skills/agentic-dev-workflow
+
+   # Windows（需以系統管理員身分執行 PowerShell，或先開啟「開發人員模式」；<path-to-repo> 換成你實際 clone 到的路徑）
+   New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\agentic-dev-workflow" -Target "<path-to-repo>\agentic-dev-workflow"
+   ```
+3. 重新開啟 Claude Code（或新開一個對話），輸入 `/skills` 確認技能已被列出。
+4. 若技能有巢狀的 `references/<子技能>/SKILL.md`，不需要額外處理——Claude Code 會依你的任務描述自動判斷要不要深入讀取子技能，不用整包都放進頂層。
+
+> 想一次裝全部 18 個技能？直接把整個 `Skills-Directory` 底下的 18 個資料夾都複製或 symlink 進 `~/.claude/skills/` 即可（`README.md`、`SKILL.md` 這兩份索引檔留在原倉庫，不用複製）。
+
+### 其他支援 Skill 的 AI CLI（Codex、GitHub Copilot CLI、Gemini CLI）
+
+這幾個工具都額外認得 `~/.agents/skills/` 這個「跨工具共用路徑」（cross-runtime alias），把技能放這裡，Claude Code 與上述工具可以共用同一份，不用複製多份：
+
+```bash
+mkdir -p ~/.agents/skills
+cp -r agentic-dev-workflow ~/.agents/skills/
+```
+
+### 沒有原生 Skill 機制的 AI 工具（Cursor、Windsurf、一般 Chat 介面等）
+
+因為 `SKILL.md` 就是純 Markdown，即使工具沒有「skill」這個概念，也可以手動搬過去：
+
+- **Cursor**：把 `SKILL.md` 內容貼進 `.cursor/rules/<skill-name>.mdc`，或整份放進 `.cursorrules`。
+- **通用做法**：把 `SKILL.md`（連同它引用的 `references/*.md`）當成一份「系統提示片段」，貼進該工具的 system prompt / custom instructions 欄位，或是專案根目錄的 `AGENTS.md` / `CLAUDE.md`（多數新一代 CLI 工具都會自動讀取專案根目錄的這類檔案）。
+- 若技能內容太長，優先貼 frontmatter 的 `description` 與 Overview／Quick Reference 段落，`references/` 底下的細節留給工具需要時再貼。
+
+---
+
 ## 🔁 全域必用技能（Universal — 不用等使用者開口）
 
 以下 5 個子技能帶有「always / MUST / before any」等強制語氣，理論上**每次符合情境就該主動套用**，不需要使用者明確要求：
@@ -318,3 +382,33 @@ Skills-Directory/
 2. 打開對應頂層技能的 `SKILL.md`，裡面會指向更細的子技能。
 3. 若任務橫跨多個技能（例如任何要出貨的程式碼，通常會依序用到 `agentic-dev-workflow` → `product-verification` → `code-quality-review` → `cicd-deployment`），依序套用而非只選一個。
 4. 之後若安裝新技能，記得在根目錄 `SKILL.md` 與本 README 都補上一筆，避免索引過時。
+
+---
+
+## 🩹 常見錯誤與解決方式
+
+安裝或使用 Skill 時最常遇到的問題，依「安裝期」與「使用期」分類：
+
+### 安裝期
+
+| 錯誤現象 | 原因 | 解決方式 |
+|---|---|---|
+| `/skills` 列表沒看到新技能 | 資料夾放錯層級，或 `SKILL.md` 沒放在該技能資料夾**最上層** | 確認路徑是 `~/.claude/skills/<name>/SKILL.md`，不是 `~/.claude/skills/SKILL.md` 或多包了一層 |
+| 建立 symlink 時出現 `無法建立符號連結，因為用戶端不具備所需的特殊權限`（Windows） | Windows 預設一般使用者不能建立 symlink | 用系統管理員身分開 PowerShell 執行 `New-Item -ItemType SymbolicLink ...`，或到「設定 → 更新與安全性 → 開發人員專用」開啟開發人員模式後即可用一般權限建立；不想處理權限問題就直接用 `Copy-Item -Recurse` 複製即可 |
+| YAML frontmatter 解析失敗 / 技能整份被當成純文字忽略 | `description` 裡有沒加引號的冒號（`:`）、或開頭/結尾的 `---` 三個減號寫錯（多了空白、少了換行） | `description` 只要包含冒號就整段用雙引號包起來，例如 `description: "Use when: X happens"`；並確認 frontmatter 上下各只有一行 `---`，前後不能有其他字元 |
+| `name` 欄位驗證失敗 | 名稱含空格、底線、括號或中文 | 只能用小寫英文字母、數字、連字號（`-`），例如 `my-skill-name` |
+| frontmatter 抓不到內容 / 疑似被截斷 | `name` + `description` 加起來超過 1024 字元上限 | 精簡 `description`，把細節搬到 `SKILL.md` 正文或 `references/` 裡 |
+| 兩個技能同時生效、行為互相打架 | 使用者級與專案級同時裝了「同名但版本不同」的技能 | 專案級 `.claude/skills/` 會覆蓋同名的使用者級技能，確認你要生效的是哪一份，另一份改名或移除 |
+| Windows 路徑含空白導致複製/連結指令失敗 | PowerShell 指令沒把路徑用雙引號包起來 | 路徑一律加雙引號，例如 `Copy-Item -Recurse "D:\My Folder\skill-name" "$HOME\.claude\skills\"` |
+
+### 使用期
+
+| 錯誤現象 | 原因 | 解決方式 |
+|---|---|---|
+| 明明情境符合，但 AI 沒有主動套用該技能 | `description` 寫成「這個技能做什麼」而不是「什麼情況該用」 | 改寫成以 `Use when...` 開頭、聚焦「觸發條件/症狀」的第三人稱描述，避免摘要技能的執行流程（否則 AI 會抄描述當結論，不會真的展開讀技能全文）——詳見 `skill-authoring` → `writing-skills` |
+| 技能有讀到，但 AI 只做了一半流程就停 | 描述裡先劇透了流程步驟，AI 讀了描述就以為知道全部了 | 描述只寫觸發條件，流程細節留在 `SKILL.md` 正文，逼 AI 真的展開讀完 |
+| 技能內連到 `references/xxx.md` 的連結失效 / AI 說找不到檔案 | 相對路徑寫錯，或搬動資料夾後忘記同步更新引用路徑 | 用 `Glob`/`grep` 檢查 `references/` 底下實際檔名，修正 `SKILL.md` 裡的相對路徑；避免用 `@` 語法強制載入整份參考檔（會一次燒光大量 context） |
+| 同一輪對話塞爆 context / 回應變慢 | 一次載入太多技能全文，尤其是本倉庫 `marketing`（47 個子技能）這種大集合 | 讓 AI 先讀頂層 `SKILL.md` 判斷該深入哪個 `references/<子技能>`，而不是整包一次讀完；必要時把不常用的子技能拆到獨立資料夾，需要才載入 |
+| 兩個技能的觸發條件重疊，AI 選錯 | 描述用詞太相近（例如兩個都寫「code review」） | 讓描述更具體地區分場景（誰發起審查 vs 誰回應審查、審查程式碼品質 vs 審查資安），必要時在 `SKILL.md` 裡互相加上「若情境是 X 請改用 Y」的提示 |
+
+> 更完整的技能撰寫規範（YAML 欄位、觸發語句寫法、token 效率、如何用壓力測試驗證技能是否真的有效）見 [`skill-authoring/references/writing-skills/SKILL.md`](skill-authoring/references/writing-skills/SKILL.md)。
