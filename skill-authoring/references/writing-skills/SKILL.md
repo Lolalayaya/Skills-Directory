@@ -1,6 +1,6 @@
 ---
 name: writing-skills
-description: Pre-ship verification discipline for skill authoring — the TDD-style "did I actually watch an agent fail without this skill, then pass with it" gate before calling a skill done, plus the SDO rules for writing a description that actually triggers. Use right before deploying/shipping any new or edited skill, as the final check after architecture (`skill-forge`) and iteration (`skill-creator`) are done — not for the initial drafting or the eval/benchmark loop themselves.
+description: Pre-ship verification discipline for skill authoring — the TDD-style "did I actually watch an agent fail without this skill, then pass with it" gate before calling a skill done, plus the SDO rules for writing a description that actually triggers. Use right before deploying/shipping any new or edited skill, as the final check after architecture (`skill-forge`) and iteration (`skill-creator`) are done — not for the initial drafting or the eval/benchmark loop themselves. For a pure vocabulary/principles reference consultable at any authoring phase rather than a testing gate, see `writing-great-skills`.
 ---
 
 # Writing Skills

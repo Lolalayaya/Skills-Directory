@@ -1,4 +1,4 @@
-# Skills Directory 健檢報告
+# Skills Directory 檢查與更新紀錄
 
 審查方法：把 18 個頂層技能 + 137 個子技能拆成 6 組，分別實際讀取每份 `SKILL.md` 的 frontmatter 與內文，核對觸發條件是否清楚、彼此是否重疊，再由人工彙整判斷（而非只看 README 摘要）。日期：2026-07-31。
 
@@ -148,3 +148,71 @@
 3. **`design` + `brand`/`design-system`/`banner-design`/`slides`**：確認全部標記 `author: claudekit`，是同一供應商刻意設計的「全包版 vs 精簡單功能版」雙軌架構（`design` 內建自己的 Logo/CIP/Banner/Icon/Slides 生成邏輯，故意不假手其他技能），並非意外重複。已在 `design` 的 description 與 `scaffolding-templating/SKILL.md` 路由裡加上這個「全包 vs 精簡」的判斷依據，不合併、不視任何一方為過時。
 
 **這帶出一個值得記住的教訓**：光看 `description` 判斷「兩個技能很像」不可靠——本次三組候選合併，三組都在讀完整份 SKILL.md 及其綁定的 scripts/references 後被推翻。之後若再懷疑技能重疊，應先完整讀過雙方內容，而非只比對 description 文字。
+
+---
+
+## 附錄：`mattpocock-skills` 匯入健檢（2026-07-31，同一天進行）
+
+在完成上述 18 個頂層技能的健檢後，使用者要求把第三方技能包 `mattpocock-skills`（作者 Matt Pocock，[aihero.dev](https://www.aihero.dev/s/skills-newsletter)，MIT 授權）整套匯入本倉庫，並套用同一套五類分類法篩選。方法：先把原始 41 個資料夾（22 個作者正式對外宣告、19 個在 deprecated/in-progress/misc/personal 分類但未正式宣告）整套複製進倉庫，再拆成 3 組分別實際讀完全文（含對照本倉庫既有的 5 組疑似重疊技能），才下分類判斷——延續上面「不能只看 description」的教訓。
+
+### 分類結果
+
+**核心常用**：`domain-modeling`、`to-spec`、`to-tickets`、`grill-with-docs`、`grilling`/`grill-me`、`setup-pre-commit`
+**偶爾需要**：`improve-codebase-architecture`、`codebase-design`、`prototype`、`wayfinder`、`triage`、`setup-matt-pocock-skills`、`resolving-merge-conflicts`、`ask-matt`、`research`、`handoff`、`git-guardrails-claude-code`、`setup-ts-deep-modules`、`to-questionnaire`、`wizard`、`writing-fragments`、`loop-me`
+**功能重疊（需決策）**：`tdd`↔`test-driven-development`、`diagnosing-bugs`↔`systematic-debugging`（真重疊）；`code-review`↔`code-review-expert`、`teach`↔`sigma`、`writing-great-skills`↔`writing-skills`、`research`↔`deep-research`（表面像，實際不同）；`batch-grill-me`/`claude-handoff`/`writing-beats`/`edit-article`（同手法的競爭版本）
+**不確定用途**：無——41 個裡沒有真正「看不出怎麼用」的半成品，這點本身出乎意料（原本預期 in-progress 資料夾會有明顯半成品）
+**可能可以刪**：`obsidian-vault`、`scaffold-exercises`、`migrate-to-shoehorn`、`implement`、`ubiquitous-language`（高信心）；`design-an-interface`、`qa`、`request-refactor-plan`（deprecated，信心不一）
+
+### 使用者決策與實際處理
+
+1. **真重疊兩對，指示「實體整合兩邊精華」**：
+   - `tdd` 併入 `test-driven-development`：貢獻 Seams（測試邊界共識）、三個具名反模式（implementation-coupled/tautological/horizontal-slicing）、Mocking 章節（系統邊界才 mock、依賴注入）。原本的紅綠重構鐵律、話術攔截表、驗證清單維持不變。
+   - `diagnosing-bugs` 併入 `systematic-debugging`：貢獻「先建可靠的紅色訊號迴圈」方法論（10 種構造手法、非決定性 bug 處理、`building-a-feedback-loop.md`）、Phase 3 從單一假設升級成 3-5 個排序假設、Phase 4 加入 debug tag 慣例與「正確 seam」判斷、結尾清理清單。原本的四階段架構、rationalization 對照表、「3 次修不好=架構問題」鐵律維持不變。
+
+2. **同手法競爭版本，指示「交叉比對後合併」**：
+   - `batch-grill-me` 併入 `grilling`/`grill-me`，變成 `--batch` 模式（整批問 vs 預設一次一題）
+   - `claude-handoff` 併入 `handoff`，變成背景 agent 交付路徑（有 `claude --bg` 就直接launch，否則存檔）
+   - `writing-beats` + `edit-article` 併入 `writing-shape`：`writing-beats` 貢獻敘事節奏的 beat 模式（含「預覽這個 beat 會解鎖什麼」技巧）；`edit-article`（只有 8 行的早期草稿）貢獻「編輯既有草稿」這個獨立場景（依賴關係排序 + 逐節重寫），但重寫時套用 `writing-shape` 原有的品質標準，捨棄 `edit-article` 那條「每段最多 240 字」的武斷規則
+
+3. **高信心可刪 5 個全刪；3 個信心不一的 deprecated 先保留**：
+   - 已刪除：`obsidian-vault`、`scaffold-exercises`、`migrate-to-shoehorn`、`implement`、`ubiquitous-language`
+   - 保留觀察：`design-an-interface`、`qa`、`request-refactor-plan`
+   - `ubiquitous-language` 刪除後，`qa` 技能裡引用其產出檔案 `UBIQUITOUS_LANGUAGE.md` 的地方，已改指向 `domain-modeling` 產出的 `CONTEXT.md`
+
+4. **4 組「表面像、實際不同」維持不合併**：`code-review`↔`code-review-expert`、`teach`↔`sigma`、`writing-great-skills`↔`writing-skills`、`research`↔`deep-research`——在四份既有技能的 description 都補上反向的互斥說明句。
+
+### 內部一致性修復
+
+匯入+刪除+合併後，逐一檢查 mattpocock-skills 內部的交叉引用是否失效：
+- `ask-matt/SKILL.md`（整套技能的流程路由文件）大量引用了 `/implement`、`/tdd`、`/diagnosing-bugs`，已全部改指向本倉庫對應的替代技能（`subagent-driven-development`、`test-driven-development`、`systematic-debugging`），並在文件開頭加註說明
+- `engineering/README.md`、`writing-great-skills/GLOSSARY.md` 裡的同類引用一併修正
+- 移除了原始廠商的 `plugin.json`（宣告的技能清單已跟實際內容不符，且本倉庫不是以 plugin 形式安裝）
+
+### 第一輪結果（後被第 5 點的決定取代）
+
+41 個資料夾 → 30 個（14 engineering + 7 productivity + 3 deprecated + 4 in-progress + 2 misc，其中 `writing-shape` 是兩次合併的匯集點，但它本身原本就是這 30 個之一，合併進來的內容不額外增加資料夾數）。當時的做法是新建一個第 19 個頂層技能 `mattpocock-skills` 收納這 30 個，並移除了廠商原本每個分類底下、內容已跟實際狀態不符的 6 份 README.md。
+
+### 5. 使用者要求：不另立第 19 個分類，直接融入既有 18 個分類
+
+使用者接著要求撤銷「獨立第 19 個頂層技能」的做法，改成把這 30 個依主題直接分散進本倉庫既有的 18 個分類裡，理由是這樣才符合原本的分類邏輯，而不是把第三方來源當成特殊待遇。實際處理：
+
+1. **確認可安全搬移**：先確認 mattpocock-skills 內部沒有任何跨資料夾的相對路徑引用（都是用 `/skill-name` 這種與位置無關的技能名稱互相引用），搬移資料夾不會弄斷內部連結。
+2. **依主題分配到 9 個既有頂層技能**：
+   - `agentic-dev-workflow`（+14）：`ask-matt`、`grill-with-docs`、`domain-modeling`、`to-spec`、`to-tickets`、`wayfinder`、`resolving-merge-conflicts`、`prototype`、`setup-matt-pocock-skills`、`grilling`、`grill-me`、`handoff`、`request-refactor-plan`、`git-guardrails-claude-code`
+   - `code-quality-review`（+6）：`improve-codebase-architecture`、`codebase-design`、`code-review`、`design-an-interface`、`setup-ts-deep-modules`、`setup-pre-commit`
+   - `incident-runbooks`（+2）：`triage`、`qa`
+   - `deep-research`（+1）：`research`（發現跟 `deep-research` 自己既有的 `research` 子技能撞名，改名並改 frontmatter `name:` 為 `background-research`，詳見下方「發現的命名衝突」）
+   - `personal-learning`（+1）：`teach`
+   - `internal-writing-comms`（+3）：`writing-fragments`、`writing-shape`、`to-questionnaire`
+   - `skill-authoring`（+1）：`writing-great-skills`
+   - `business-automation`（+1）：`loop-me`
+   - `infrastructure-ops`（+1）：`wizard`（讓這個原本空白的佔位技能第一次有真實內容，但明確標註「仍不涵蓋日常維運」，不誇大範疇）
+3. **發現的命名衝突**：`mv` 移動 `research` 到 `deep-research/references/research` 時，因為目的地已經存在同名資料夾（`deep-research` 自己 pipeline 第一階段的 `research`），`mv` 沒有覆蓋也沒有報錯，而是把來源資料夾**嵌套進**已存在的資料夾裡（變成 `deep-research/references/research/research/`）——這是操作過程中才發現的真實 bug，不是模擬。修正方式：把嵌套的資料夾拉出來重新命名為 `background-research`，並同步修改 SKILL.md 內的 `name:` frontmatter 欄位（不只資料夾名要改，技能實際的識別名稱也要改，否則兩個技能還是同名）。這之後補做了一次全倉庫 `name:` 欄位查重，確認沒有其他衝突。
+4. **建立集中授權文件**：因為內容分散到 9 個不同資料夾，不再適合放一份 `LICENSE` 檔案在單一資料夾裡，改成在倉庫根目錄新建 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)，列出完整授權全文、逐項技能對應到哪個目的地資料夾、以及 `test-driven-development`／`systematic-debugging` 這兩個「內容被吸收但檔名不變」的特殊案例。
+5. **更新 9 個目的地頂層技能自己的 `SKILL.md`**：每個都新增對應的子技能列表、調整 description 涵蓋新增能力、補上跟既有子技能的分工說明（例如 `agentic-dev-workflow` 把新增的 14 個依功能分成「逼問式規劃工具」與「Session／git 機制」兩個子分類，避免單一表格塞 22 列失去可讀性）。
+6. **移除第 19 個頂層技能**：刪除 `mattpocock-skills/` 整個資料夾（原本的 `plugin.json` 已於第一輪移除，`LICENSE` 內容併入 `THIRD-PARTY-LICENSES.md`），改回 18 個頂層技能。
+7. **確認「全域必用」問題**：搜尋這 30 個技能全文裡的 `MUST use`／`before any`／`ALWAYS use` 等字樣，找到的幾處都是技能**自己流程內部**的步驟用語（例如「claim a ticket **before any work**」是 `wayfinder`/`triage` 自己流程的一步），不是「這個技能本身必須在任何回應前使用」的宣告——確認這 30 個裡沒有一個夠資格列進 `SKILL.md` 開頭的「🔁 Universal」清單。
+
+### 最終結果
+
+18 個頂層技能維持不變，子技能數從健檢前的 130 個變成 **160 個**（130 + 30，`context-engineering-collection` 自己的 16 個維持獨立計算）。完整的最終落點、合併細節、命名衝突處理，都同步寫進了根目錄 `SKILL.md` 的 `THIRD-PARTY IMPORT` 註解區塊、`README.md` 對應的 9 個小節，以及 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)。

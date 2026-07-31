@@ -1,26 +1,22 @@
 ---
 name: infrastructure-ops
-description: "PLACEHOLDER — day-to-day infrastructure operations and maintenance (server management, database/queue administration, guardrails against destructive commands on production systems) with no installed skill content yet. Do not treat this as an authoritative source; it currently has no reference material. Fill in when an infra-ops-related skill is installed."
+description: "Interactive setup/migration wizard generation — walk a human through a one-time manual procedure (initial setup, a state transition, a third-party migration) step by step, opening URLs and capturing values as it goes. Use when the user wants an interactive guided script for a setup or migration procedure. Does NOT yet cover day-to-day infrastructure operations, server/database/queue administration, or destructive-action guardrails on running production systems — see 'Scope' below before assuming otherwise."
 ---
 
-# Infrastructure Ops (placeholder)
+# Infrastructure Ops
 
-No currently installed skill maps to this category. Of the 137 skills audited when this workspace was reorganized (2026-07-31), none covered routine infrastructure maintenance or destructive-operation guardrails — the closest adjacent material (`vercel-optimize`) is metrics/cost analysis, not day-to-day ops, and lives under `data-analysis` instead.
+Router skill for infrastructure-adjacent tooling. Currently holds one sub-skill (added 2026-07-31, from the third-party `mattpocock-skills` pack — MIT license, see [`THIRD-PARTY-LICENSES.md`](../THIRD-PARTY-LICENSES.md)); day-to-day ops coverage is still unfilled.
 
-## Intended scope (for when content exists)
+## Domains
 
-Based on the category definition this skill was reserved for:
+| Domain | When to use | Full guide |
+|---|---|---|
+| Interactive setup wizard | Generate a bash wizard that walks a human through a one-time manual procedure — setup, migration, state transition — opening URLs, capturing values, writing `.env`/secrets | [references/wizard/SKILL.md](references/wizard/SKILL.md) |
 
-- Day-to-day operational tasks: routine maintenance, health checks, scheduled housekeeping on running infrastructure.
-- Guardrails around destructive operations (deletes, force-pushes to production config, resource teardown, credential rotation) — the point is reducing both engineer cognitive load and blast radius from mistakes, not blocking legitimate ops work.
+## Scope
 
-## How to fill this in later
+**Covered**: one-time, human-in-the-loop setup/migration procedures, scripted as an interactive wizard.
 
-1. Install an ops-oriented skill (e.g. something covering server/container/database administration, infra-as-code apply/destroy workflows, or on-call runbook automation).
-2. Copy it into `references/<skill-name>/` the same way the other consolidated skills in this workspace are structured (see `library-api-reference` or `business-automation` for the pattern).
-3. Rewrite this file's frontmatter `description` and body into a real router pointing at `references/<skill-name>/SKILL.md`, following the same format as the other 8 consolidated skills.
-4. Remove the "PLACEHOLDER" language once real content exists.
+**Not covered yet**: routine maintenance, health checks, scheduled housekeeping on *running* infrastructure, or guardrails around destructive operations on production systems (deletes, force-pushes to production config, resource teardown, credential rotation). None of the skills audited in this workspace (originally 137, now 160+) covered that — the closest adjacent material (`vercel-optimize`) is cost/metrics analysis, not day-to-day ops, and lives under `data-analysis` instead.
 
-## Do not
-
-Do not attempt to give infrastructure operations guidance from general knowledge under this skill's name while it's empty — that would fabricate authority this skill doesn't have yet. If the user asks for infra-ops help before this is filled in, say so plainly and offer to help ad hoc rather than pretending this skill covers it.
+Do not give day-to-day infrastructure-operations guidance from general knowledge under this skill's name — that gap is real, not filled by `wizard`. If the user asks for that kind of help, say so plainly and offer to help ad hoc rather than pretending this skill covers it. When a real ops-oriented skill (server/container/database administration, infra-as-code apply/destroy, on-call runbook automation) gets installed, add it under `references/<skill-name>/` the same way `wizard` was added, and expand this section.

@@ -16,7 +16,20 @@
 | 「照著計畫在這個對話裡，一個任務一個任務做完」 | `subagent-driven-development` | 序列派 subagent 執行計畫裡的任務，不平行派 implementer |
 | 「這 3 個 bug 互不相關，可以同時查嗎」 | `dispatching-parallel-agents` | 派平行 agent 處理互不依賴的獨立任務（⚠️ 與上一項的分工目前不夠明確，見 `SKILL-AUDIT.md`） |
 | 「功能做完了，測試也過了，接下來怎麼合併」 | `finishing-a-development-branch` | 決定分支要 merge / PR / rebase 的方式 |
-| 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試 |
+| 「幫我逼問一下這個計畫的細節」 | `grilling`／`grill-me` | 一次一題的相關人審問式訪談（`--batch` 可切換整批問）；跟 `brainstorming` 互補，不是取代 |
+| 「幫我邊訪談邊更新專案的領域詞彙文件」 | `grill-with-docs` | 逼問訪談 + 同步更新 `CONTEXT.md`/ADR |
+| 「『帳號』這個詞在專案裡到底指什麼」 | `domain-modeling` | 挑戰模糊詞彙、解決一詞多義、記錄不可逆決策為 ADR |
+| 「把這個對話整理成一份 spec」 | `to-spec` | 合成 spec 並發布到 issue tracker |
+| 「把這份 spec 拆成一張一張的票」 | `to-tickets` | 拆成宣告依賴關係的 tracer-bullet 票 |
+| 「這個專案大到一個 session 裝不下，不知道怎麼下手」 | `wayfinder` | 用決策票地圖逐步解開超大型灰地專案 |
+| 「幫我把這個重構請求拆成可逐步提交的步驟」 | `request-refactor-plan` | 訪談 + 拆解成最小可提交步驟 |
+| 「幫我做個拋棄式原型測一下這個設計」 | `prototype` | 跑完即刪的原型驗證 |
+| 「這個專案要開始用逼問式規劃工具了，先幫我設定」 | `setup-matt-pocock-skills` | 一次性設定 issue tracker、triage 標籤等 |
+| 「把這個對話交接給下一個 session」 | `handoff` | 壓縮對話成交接文件，CLI 支援就直接 launch 背景 agent，否則存檔 |
+| 「解決一下這個 merge conflict」 | `resolving-merge-conflicts` | 逐 hunk 解決衝突，禁止 `--abort` |
+| 「幫我裝一個攔截危險 git 指令的 hook」 | `git-guardrails-claude-code` | 攔截 `push --force`、`reset --hard` 等 |
+| 「不確定該用逼問訪談還是哪個規劃工具」 | `ask-matt` | 這批工具自己的流程路由圖 |
+| 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試（已融合 mattpocock 原 `tdd` 的 Seams/反模式/Mocking 內容） |
 | 「我測試過了，應該修好了」 | `verification-before-completion` | 要求你先跑驗證指令、讀懂輸出，才能宣稱完成 |
 | 「用 Playwright 幫我測一下這個網頁」 | `webapp-testing` | 對本地網頁做互動測試、截圖、console log 除錯 |
 | 「幫我審查一下這次改動」 | `code-review-expert` | 資深工程師視角審查 git 變更，抓 SOLID 違規與安全風險 |
@@ -25,12 +38,20 @@
 | 「我在做一個 AI/RAG 應用，這樣安全嗎」 | `llm-security` | LLM/RAG 應用的 OWASP Top 10 安全檢查 |
 | 「重要功能做完了，我該怎麼發起 code review」 | `requesting-code-review` | 教你怎麼「提出」審查請求 |
 | 「審查意見回來了，我該怎麼回應」 | `receiving-code-review` | 教你怎麼嚴謹評估、回應審查意見 |
-| 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法 |
+| 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法（已融合 mattpocock 原 `diagnosing-bugs` 的「先建可靠紅色訊號迴圈」方法論） |
+| 「這些外部回報的 bug/需求幫我分類處理」 | `triage` | 用狀態機把湧入的原始回報整理成 agent 可接手的 issue |
+| 「我口頭描述一個 bug，幫我拆成 issue」 | `qa` | 背景探索程式碼理解領域語言，拆解建成 GitHub issue |
 | 這個專案本來就用 OpenSpec 慣例管理變更 | `openspec-workflow`（含 explore/propose/apply/sync/archive 5 個階段） | 走 OpenSpec 的完整變更生命週期，取代 `brainstorming`→`writing-plans` |
+| 「幫我掃一下這個 codebase 有沒有架構能改善的地方」 | `improve-codebase-architecture` | 掃描深模組化機會，產出視覺化 HTML 報告 |
+| 「這個模組的介面該怎麼設計」 | `codebase-design` | 深模組設計詞彙（interface/depth/seam/adapter） |
+| 「幫我審查一下這次的 diff，照 Standards 跟 Spec 兩個軸」 | `code-review` | 雙軸審查+Fowler smell 基準（跟 `code-review-expert` 二選一，不要同時觸發） |
+| 「用 dependency-cruiser 幫我強制模組邊界」 | `setup-ts-deep-modules` | TS 套件只能透過入口檔案被外部引用 |
+| 「幫我設定 pre-commit hook」 | `setup-pre-commit` | Husky+lint-staged+Prettier |
 | 「這個技能該怎麼規劃架構」 | `skill-forge` | 架構設計階段：workflow checklist、資源規劃 |
 | 「幫我測試/優化這個技能的觸發率」 | `skill-creator` | eval/benchmark 迭代階段：跑測試、比對輸出、優化 description |
 | 「這個技能上線前幫我把關一下」 | `writing-skills` | 上線前驗證：TDD 式壓力測試、SDO 描述規則 |
 | 「幫我審查一下這個現成技能」 | `skill-review` | 純審查，不編輯 |
+| 「技能的 description 該怎麼寫比較好」 | `writing-great-skills` | 撰寫技能的詞彙/原則參考，隨時可查（跟 `writing-skills` 的差異：參考 vs 上線前測試關卡） |
 
 ## 🚀 部署與維運
 
@@ -39,7 +60,8 @@
 | 「幫我把這個部署到 Vercel」「push this live」 | `deploy-to-vercel` | 互動式部署（檢查 git remote / .vercel link / CLI 登入） |
 | 「用 CI token 部署，不要互動登入」 | `vercel-cli-with-tokens` | 用 access token 非互動部署，適合 CI |
 | 「為什麼這個 Vercel 專案這麼貴/這麼慢」 | `vercel-optimize`（`data-analysis` 底下） | 用真實用量數據（Function Invocations、Build Minutes、Core Web Vitals）找優化點 |
-| 日常伺服器/資料庫維運需求 | `infrastructure-ops` | **目前是空殼**，不會給出任何實質建議，只會告知尚無內容 |
+| 「幫我做一個互動式的設定/遷移引導腳本」 | `wizard`（`infrastructure-ops` 底下） | 產生互動式 bash 精靈，帶人跑完一次性設定/遷移 |
+| 日常伺服器/資料庫維運、防止破壞性指令需求 | `infrastructure-ops` | **仍未涵蓋**——`wizard` 只處理一次性、需要人在場的設定流程，不是持續性維運工具，這個缺口還在 |
 
 ## 🌐 瀏覽器自動化與研究
 
@@ -59,6 +81,7 @@
 | 「幫我研究這幾個競品網址的 SEO/流量表現」（已有 URL 清單） | `competitor-profiling` | 用 Firecrawl/DataForSEO 挖 SEO/流量/評論情報，產出 Markdown |
 | 「這場研討會的講者名單，幫我篩出潛在客戶」 | `event-prospecting` | 從會議 speaker 頁抽人、按 ICP 過濾 |
 | 「幫我研究一下 XX 這個主題，給我結構化報告」（中文、非銷售場景） | `deep-research`（research→research-deep→research-report） | 通用主題研究 pipeline，⚠️ 跟上面的 `company-research` 命名容易撞車，「研究一家公司」這句話兩邊都可能觸發 |
+| 「幫我查一下這個問題，寫成一份筆記」（單一問題，不需要比較表） | `background-research`（`deep-research` 底下） | 背景 agent 單次查證，產出一份帶引用的筆記——不是 pipeline 的一部分，沒有 outline/多 agent 結構 |
 
 ## 🎨 內容、文件與設計
 
@@ -86,6 +109,9 @@
 | 「這個元件架構怎麼設計比較好」 | `vercel-composition-patterns` | React 組合模式 |
 | 「幫我一起寫一份提案/技術規格」 | `doc-coauthoring` | 結構化共寫文件流程 |
 | 「幫我照公司格式寫一份狀態報告/電子報」 | `internal-comms` | 套用公司慣用的內部溝通格式 |
+| 「幫我把這些寫作靈感先記下來，還沒想好怎麼組織」 | `writing-fragments` | 純探索，挖掘素材片段，不急著定結構 |
+| 「幫我把這堆素材寫成一篇文章」／「幫我改一下這篇文章草稿」 | `writing-shape` | 塑形成文章（含敘事 beat 模式）或編輯既有草稿 |
+| 「這幾個問題我答不出來，幫我整理成問卷發給知情人」 | `to-questionnaire` | 把答不出來的問題整理成問卷，非同步填寫或會議上討論 |
 
 ## 📈 行銷
 
@@ -116,7 +142,9 @@
 | 「我想系統性地讀完這本書」 | `book-study` | 間隔重複 + 精熟度測驗的讀書教練 |
 | 「幫我把這些筆記整理進知識庫」 | `wiki-ingest` | 彙整文章/筆記成結構化 wiki |
 | 「教我 XX 這個主題，用問答的方式」 | `sigma` | 蘇格拉底式 AI 家教（與 book-study 底層機制重疊，見 `SKILL-AUDIT.md`） |
+| 「我想長期建立一個學這個主題的工作區」 | `teach` | 長期課程資產建構（跟 `sigma` 的差異：無嚴格掌握度評分） |
 | 「這個任務很長，幫我把進度存到硬碟上」 | `business-automation`（`planning-with-files` 系列） | 跨 session 保留 task_plan/findings/progress，語言變體視你的對話語言而定 |
+| 「我生活/工作裡有個重複的模式，幫我整理成可執行的 workflow」 | `loop-me`（`business-automation` 底下） | 用逼問訪談把重複模式整理成 workflow 規格文件 |
 
 ## 🧠 Agent / 上下文工程（進階研究向）
 
@@ -136,5 +164,7 @@
 | 其餘（`context-fundamentals`／`bdi-mental-states`／`hosted-agents`／`harness-engineering`／`self-improvement-loops`／`long-horizon-prompting`） | 更底層/更學術的子場景，觸發頻率極低（`latent-briefing` 已於 2026-07-31 移除，見 `SKILL-AUDIT.md`；`bdi-mental-states` 經確認後保留） |
 
 ---
+
+> 2026-07-31 匯入的第三方 `mattpocock-skills`（Matt Pocock，MIT 授權，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）已依主題分散進上面各分類，不再獨立成一個分類——`ask-matt`／`grilling`／`grill-me`／`grill-with-docs`／`domain-modeling`／`to-spec`／`to-tickets`／`wayfinder`／`request-refactor-plan`／`prototype`／`setup-matt-pocock-skills`／`handoff`／`resolving-merge-conflicts`／`git-guardrails-claude-code` 在「開發流程與品質保證」；`triage`／`qa`／`improve-codebase-architecture`／`codebase-design`／`code-review`／`design-an-interface`／`setup-ts-deep-modules`／`setup-pre-commit` 同樣在那個分類；`background-research` 在「瀏覽器自動化與研究」；`writing-fragments`／`writing-shape`／`to-questionnaire` 在「內容、文件與設計」；`teach`／`loop-me` 在「學習與任務管理」；`wizard` 在「部署與維運」。原始的 `tdd`／`diagnosing-bugs` 已經**不存在**了——內容已實體併入 `test-driven-development`／`systematic-debugging`，說「幫我寫測試」「幫我診斷這個 bug」還是會照常觸發，只是觸發到的是合併後的版本。
 
 如果實際使用時發現「我說了這句話，結果沒觸發到我以為的那個技能」，代表對應的 `description` 需要調整——回報給我，我可以直接幫你改寫該技能的 frontmatter。

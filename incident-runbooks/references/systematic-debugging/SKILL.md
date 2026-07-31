@@ -1,6 +1,6 @@
 ---
 name: systematic-debugging
-description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
+description: Use when encountering any bug, test failure, performance regression, or unexpected behavior — before proposing fixes. Also covers "diagnose"/"debug this" requests and cases with no tight repro yet.
 ---
 
 # Systematic Debugging
@@ -48,6 +48,8 @@ You MUST complete each phase before proceeding to the next.
 ### Phase 1: Root Cause Investigation
 
 **BEFORE attempting ANY fix:**
+
+0. **Build a tight, red-capable feedback loop first.** This is the highest-leverage step in the whole process — one command that goes red on this specific bug and green once fixed. Bisection, hypothesis-testing, and instrumentation below all just consume this loop; without it, none of them converge. See [building-a-feedback-loop.md](building-a-feedback-loop.md) for the ten ways to construct one (failing test, curl/HTTP script, CLI + fixture diff, headless browser script, replayed trace, throwaway harness, fuzz loop, bisection harness, differential loop, HITL script as last resort), how to tighten a loop once you have one, and how to handle non-deterministic bugs. Do not skip straight to reading code and forming a theory before this command exists and you've run it at least once.
 
 1. **Read Error Messages Carefully**
    - Don't skip past errors or warnings
@@ -144,19 +146,19 @@ You MUST complete each phase before proceeding to the next.
 
 **Scientific method:**
 
-1. **Form Single Hypothesis**
-   - State clearly: "I think X is the root cause because Y"
-   - Write it down
-   - Be specific, not vague
+1. **Generate 3-5 Ranked Hypotheses Before Testing Any**
+   - Single-hypothesis generation anchors on the first plausible idea — generate a ranked list instead.
+   - Each hypothesis must be **falsifiable**: state the prediction it makes. Format: "If X is the cause, then changing Y will make the bug disappear / changing Z will make it worse." If you can't state the prediction, the hypothesis is a vibe — discard or sharpen it.
+   - **Show the ranked list to your human partner before testing.** They often have domain knowledge that re-ranks it instantly ("we just deployed a change to #3"), or know hypotheses already ruled out. Cheap checkpoint, big time saver — don't block on it if they're unavailable, proceed with your own ranking.
 
-2. **Test Minimally**
-   - Make the SMALLEST possible change to test hypothesis
+2. **Test Minimally, Top of the Ranking First**
+   - Make the SMALLEST possible change to test the top hypothesis
    - One variable at a time
    - Don't fix multiple things at once
 
 3. **Verify Before Continuing**
    - Did it work? Yes → Phase 4
-   - Didn't work? Form NEW hypothesis
+   - Didn't work? Move to the next ranked hypothesis (or generate new ones if the list is exhausted)
    - DON'T add more fixes on top
 
 4. **When You Don't Know**
@@ -169,33 +171,46 @@ You MUST complete each phase before proceeding to the next.
 
 **Fix the root cause, not the symptom:**
 
-1. **Create Failing Test Case**
-   - Simplest possible reproduction
-   - Automated test if possible
-   - One-off test script if no framework
-   - MUST have before fixing
-   - Use the `test-driven-development` skill for writing proper failing tests
+1. **Instrument with a tag, if you added logging**
+   - Tag every debug log with a unique prefix, e.g. `[DEBUG-a4f2]`. Cleanup at the end becomes a single grep — untagged logs survive, tagged logs die.
+   - Prefer a debugger/REPL breakpoint over logs when the environment supports it — one breakpoint beats ten logs. Never "log everything and grep."
+   - Performance regressions: logs are usually the wrong tool. Establish a baseline measurement (timing harness, profiler, query plan) first, then bisect — measure before you fix.
 
-2. **Implement Single Fix**
+2. **Create Failing Test Case — at a correct seam**
+   - Turn the minimised repro into a failing test, but only at a seam that exercises the **real bug pattern** as it occurs at the call site. A seam that's too shallow (a single-caller unit test when the bug needs multiple callers) gives false confidence, not a real regression test.
+   - **If no correct seam exists, that itself is the finding** — note it, and flag it for the architecture discussion in step 5 below. Don't force a test at the wrong seam just to have one.
+   - Simplest possible reproduction; automated test if possible, one-off test script if no framework; MUST have before fixing.
+   - Use the `test-driven-development` skill for writing proper failing tests.
+
+3. **Implement Single Fix**
    - Address the root cause identified
    - ONE change at a time
    - No "while I'm here" improvements
    - No bundled refactoring
 
-3. **Verify Fix**
+4. **Verify Fix**
    - Test passes now?
    - No other tests broken?
-   - Issue actually resolved?
+   - Issue actually resolved? Re-run the Phase 1 feedback loop against the original, un-minimised scenario.
    - Use the `verification-before-completion` skill before claiming success
 
-4. **If Fix Doesn't Work**
+5. **Cleanup — required before declaring done**
+   - [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
+   - [ ] Regression test passes (or absence of a correct seam is documented)
+   - [ ] All `[DEBUG-...]` instrumentation removed (grep the prefix)
+   - [ ] Throwaway prototypes/harnesses deleted or moved to a clearly-marked debug location
+   - [ ] The hypothesis that turned out correct is stated in the commit/PR message, so the next debugger learns
+
+**Then ask: what would have prevented this bug?** Make this call *after* the fix is in, not before — you have more information now than when you started. If the answer involves architectural change (no correct test seam, tangled callers, hidden coupling), hand off to `improve-codebase-architecture` with the specifics, or raise it in the architecture discussion below.
+
+6. **If Fix Doesn't Work**
    - STOP
    - Count: How many fixes have you tried?
    - If < 3: Return to Phase 1, re-analyze with new information
-   - **If ≥ 3: STOP and question the architecture (step 5 below)**
+   - **If ≥ 3: STOP and question the architecture (step 7 below)**
    - DON'T attempt Fix #4 without architectural discussion
 
-5. **If 3+ Fixes Failed: Question Architecture**
+7. **If 3+ Fixes Failed: Question Architecture**
 
    **Pattern indicating architectural problem:**
    - Each fix reveals new shared state/coupling/problem in different place
@@ -207,7 +222,7 @@ You MUST complete each phase before proceeding to the next.
    - Are we "sticking with it through sheer inertia"?
    - Should we refactor architecture vs. continue fixing symptoms?
 
-   **Discuss with your human partner before attempting more fixes**
+   **Discuss with your human partner before attempting more fixes** — and consider handing off to `improve-codebase-architecture` for a structured before/after report once the discussion confirms it's worth pursuing.
 
    This is NOT a failed hypothesis - this is a wrong architecture.
 
@@ -278,6 +293,7 @@ If systematic investigation reveals issue is truly environmental, timing-depende
 
 These techniques are part of systematic debugging and available in this directory:
 
+- **`building-a-feedback-loop.md`** - The ten ways to construct a tight, red-capable repro loop (Phase 1's foundational step), tightening it, and handling non-deterministic bugs
 - **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
 - **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling

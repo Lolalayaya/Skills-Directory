@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **130 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能），對應最初安裝的 137 個技能，經過 2026-07-31 的健檢後移除了 7 個確認不會用到的子技能（詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)）。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **160 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -14,6 +14,7 @@
 - `browser-automation` 的多數子技能，來自 Browserbase 相關的開源工具鏈
 - `agentic-dev-workflow` 裡 `using-superpowers`／`brainstorming`／`test-driven-development` 等，來自社群流通的開源技能框架
 - `context-engineering-collection` 是完整保留、未拆分的第三方開源集合，本身附有獨立的 [`LICENSE`](context-engineering-collection/LICENSE)（MIT License），版權標註為原作者所有
+Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布的第三方開源技能包 `mattpocock-skills`（MIT 授權）於 2026-07-31 匯入並依主題分散融入本倉庫既有的 9 個頂層技能（`agentic-dev-workflow`、`code-quality-review`、`incident-runbooks`、`deep-research`、`personal-learning`、`internal-writing-comms`、`skill-authoring`、`business-automation`、`infrastructure-ops`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -132,13 +133,16 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 | 📖 學習與任務管理 | `personal-learning`、`business-automation` |
 | 🧠 Agent / 上下文工程（進階研究向） | `context-engineering-collection` |
 
+> `agentic-dev-workflow`、`code-quality-review`、`incident-runbooks`、`deep-research`、`skill-authoring`、`personal-learning`、`internal-writing-comms`、`business-automation`、`infrastructure-ops` 這 9 個底下都含有 2026-07-31 匯入的第三方 `mattpocock-skills`（Matt Pocock，MIT）內容，各自的小節裡有標註，完整清單見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)。
+
 ---
 
 ## 🛠️ 開發流程與品質保證
 
 ### 1. `agentic-dev-workflow` — 軟體開發生命週期總成
-從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **8 個子技能**：
+從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **22 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，MIT 授權，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
+**核心生命週期（8）**：
 - **`using-superpowers`**（🔁必用）— 對話一開始就先判斷該用哪個技能
 - **`brainstorming`**（🔁必用）— 任何創意/功能開發前，先探索使用者意圖與需求、釐清設計
 - **`writing-plans`** — 拿到需求/規格後，動手寫程式前先產出實作計畫
@@ -148,6 +152,23 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`dispatching-parallel-agents`** — 遇到 2 個以上互不依賴、可平行處理的任務時派發並行 agent
 - **`finishing-a-development-branch`** — 實作完成、測試都過了之後，決定怎麼把分支合併/送出
 
+**逼問式規劃工具（10，與上面的 brainstorming/writing-plans 互補，不是取代）**：
+- **`ask-matt`** — 這批工具自己的流程路由，不確定該用哪個先問這個
+- **`grilling`**／**`grill-me`** — 逼問式訪談逼出計畫裡的隱藏假設，預設一次一題、`--batch` 可整批問
+- **`grill-with-docs`** — 同樣的逼問訪談，但邊做邊更新專案的 `CONTEXT.md`/ADR（有 codebase 時用）
+- **`domain-modeling`** — 挑戰模糊詞彙、解決一詞多義、把不可逆決策記成 ADR
+- **`to-spec`** — 把對話合成一份 spec 並發布到 issue tracker
+- **`to-tickets`** — 把計畫/spec 拆成宣告依賴關係的 tracer-bullet 票
+- **`wayfinder`** — 處理超出單一 session 能扛的超大型灰地專案，用決策票地圖逐步解開
+- **`request-refactor-plan`** — 把重構請求拆成最小可逐步提交的步驟
+- **`prototype`** — 拋棄式原型驗證單一設計問題，驗完即刪
+- **`setup-matt-pocock-skills`** — 上面這批工具的一次性專案設定（issue tracker、triage 標籤等）
+
+**Session／git 機制（4）**：
+- **`handoff`** — 把對話壓縮成交接文件，CLI 支援背景 agent 就直接 launch，否則存檔給下一個 session
+- **`resolving-merge-conflicts`** — 逐個 hunk 解決進行中的 merge/rebase 衝突，禁止 `--abort`
+- **`git-guardrails-claude-code`** — 攔截危險 git 指令（`push --force`、`reset --hard` 等）的 hook
+
 ### 2. `product-verification` — 讓「完成」有憑有據
 證明修好的功能/bug 真的可行，而不是憑感覺宣稱完成。包含 **3 個子技能**：
 
@@ -156,7 +177,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`webapp-testing`** — 用 Playwright 對本地網頁應用做互動測試，含截圖、console log、UI 除錯
 
 ### 3. `code-quality-review` — 程式碼審查與安全性
-標準化「程式碼怎麼被審查與掃描」。包含 **6 個子技能**：
+標準化「程式碼怎麼被審查與掃描」。包含 **12 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`code-review-expert`** — 以資深工程師視角審查目前 git 變更，抓 SOLID 違規與安全風險
 - **`semgrep`** — 靜態分析工具，含撰寫自訂 Semgrep 規則
@@ -164,11 +185,19 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`llm-security`** — LLM/RAG 應用程式的安全性（OWASP Top 10 for LLM）
 - **`requesting-code-review`** — 完成任務、實作重要功能或合併前，如何「提出」程式碼審查請求
 - **`receiving-code-review`** — 收到審查意見後如何嚴謹回應、驗證，而非照單全收或表面敷衍
+- **`code-review`** — 另一套審查框架：Standards+Spec 雙軸審查、Fowler smell 基準（跟 `code-review-expert` 二選一，不要同一次審查兩邊都用）
+- **`improve-codebase-architecture`** — 掃描 codebase 找深模組化機會，產出視覺化 HTML 報告
+- **`codebase-design`** — 深模組設計詞彙（module/interface/depth/seam/adapter/leverage/locality）
+- **`design-an-interface`** — 多個子代理各自產生不同限制條件下的模組介面設計，再比較取捨（作者已棄用，健檢信心不一，先保留觀察）
+- **`setup-ts-deep-modules`** — 用 dependency-cruiser 強制 TS 套件只能透過入口檔案被外部引用
+- **`setup-pre-commit`** — 設定 Husky+lint-staged+Prettier 的 pre-commit hook
 
 ### 4. `incident-runbooks` — 系統化除錯方法論
-包含 **1 個子技能**：
+包含 **3 個子技能**（其中 2 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
-- **`systematic-debugging`** — 遇到任何 bug、測試失敗或異常行為時，在提出修法前先找出根因、影響範圍，並記錄成可重用的診斷紀錄
+- **`systematic-debugging`** — 遇到任何 bug、測試失敗或異常行為時，在提出修法前先找出根因、影響範圍，並記錄成可重用的診斷紀錄。已融合 mattpocock 原 `diagnosing-bugs` 的獨特內容：先建可靠紅色訊號迴圈的方法論、多假設排序、debug tag 慣例
+- **`triage`** — 用狀態機處理外部湧入、還沒整理過的 bug 回報/需求，產出 agent 可直接接手的 issue
+- **`qa`** — 使用者口語描述 bug 時，背景探索程式碼理解領域語言，拆解建成 GitHub issue
 
 ### 5. `openspec-workflow` — OpenSpec 變更生命週期
 包含 **5 個子技能**：
@@ -180,12 +209,13 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`openspec-archive-change`** — 實作完成後歸檔並定案該變更
 
 ### 6. `skill-authoring` — 打造/優化技能本身
-包含 **4 個子技能**：
+包含 **5 個子技能**（其中 1 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`skill-creator`** — 從零建立新技能、修改既有技能、跑評測衡量表現
 - **`skill-forge`** — 技能鍛造/優化工具
 - **`skill-review`** — 上線前依最佳實踐審查技能
 - **`writing-skills`** — 撰寫新技能、編輯既有技能、部署前驗證是否可用
+- **`writing-great-skills`** — 撰寫/編輯技能的詞彙與原則參考，隨時可查（跟 `writing-skills` 的差異：前者是參考、後者是上線前的測試關卡）
 
 ---
 
@@ -202,8 +232,12 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 
 - **`vercel-optimize`** — 分析 Vercel 專案的 Function Invocations、Build Minutes、Fast Data Transfer、Core Web Vitals、快取狀況等，找出真正值得優化、且有數據佐證的成本/效能問題
 
-### 9. `infrastructure-ops` — 佔位技能（尚無內容）
-目前是**空的佔位資料夾**，預留給未來的日常維運（伺服器管理、資料庫/佇列維運、防止破壞性指令的防呆機制）技能，目前無任何實質內容，不應被當作權威來源使用。
+### 9. `infrastructure-ops` — 互動式設定精靈（日常維運仍未填補）
+包含 **1 個子技能**（來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+
+- **`wizard`** — 產生互動式 bash 引導腳本，帶人一步步跑完一次性第三方設定/遷移（開網址、記錄輸入值、寫入 `.env`）
+
+**仍未涵蓋**：日常維運（伺服器管理、資料庫/佇列維運）、防止破壞性指令的防呆機制——`wizard` 只處理「一次性、需要人在場」的設定流程，不是持續性的維運工具，這個缺口還在，不要把 `wizard` 誤當成涵蓋整個 infra-ops 範疇。
 
 ---
 
@@ -229,13 +263,14 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`event-prospecting`** — 活動/研討會開發潛在客戶
 
 ### 11. `deep-research` — 通用主題研究流程（中文）
-先產生研究大綱，再擴充欄位/研究對象，接著為每個項目派出獨立的深度研究 agent，最後彙整成一份 Markdown 報告。適合學術研究、技術/產品比較、或任何「幫我研究這個主題並給結構化報告」的需求。包含 **5 個子技能**：
+先產生研究大綱，再擴充欄位/研究對象，接著為每個項目派出獨立的深度研究 agent，最後彙整成一份 Markdown 報告。適合學術研究、技術/產品比較、或任何「幫我研究這個主題並給結構化報告」的需求。包含 **6 個子技能**（其中 1 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`research`** — 對目標主題做初步調研，產生調研大綱
 - **`research-add-fields`** — 向既有大綱補充欄位定義
 - **`research-add-items`** — 向既有大綱補充研究對象（items）
 - **`research-deep`** — 讀取大綱，為每個 item 各自啟動獨立 agent 做深度調研
 - **`research-report`** — 把深度調研結果彙整成涵蓋所有欄位的 Markdown 報告
+- **`background-research`** — 單一問題的一次性背景查證，產出一份帶引用的筆記（不是這條 pipeline 的一部分，沒有 outline/多 agent 結構）
 
 ---
 
@@ -275,10 +310,13 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`vercel-composition-patterns`** — Vercel/React 組合模式（composition patterns）
 
 ### 14. `internal-writing-comms` — 文件協作與內部溝通
-包含 **2 個子技能**：
+包含 **5 個子技能**（其中 3 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`doc-coauthoring`** — 結構化流程協助共同撰寫文件（提案、技術規格、決策文件），透過反覆迭代確認內容對讀者有效
 - **`internal-comms`** — 依公司慣用格式撰寫內部溝通（狀態報告、主管更新、公司電子報、FAQ、事故報告、專案更新等）
+- **`writing-fragments`** — 純探索階段，挖掘寫作素材片段、不急著定結構
+- **`writing-shape`** — 把素材塑形成文章（含敘事節奏的 beat 模式），或編輯既有草稿
+- **`to-questionnaire`** — 把答不出來的問題整理成問卷，發給知情人非同步填寫或會議上討論
 
 ---
 
@@ -349,18 +387,20 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 📖 學習與任務管理
 
 ### 16. `personal-learning` — 個人知識學習工具
-包含 **3 個子技能**：
+包含 **4 個子技能**（其中 1 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`book-study`** — 系統化讀書教練，含間隔重複與精熟度測驗
 - **`wiki-ingest`** — 把文章/文件/筆記彙整進結構化的 wiki 知識庫
 - **`sigma`** — 一對一蘇格拉底式 AI 家教，適應式引導學習任何主題
+- **`teach`** — 把目前目錄當長期教學工作區，圍繞學習動機建課程資產（跟 `sigma` 的差異：這個不做嚴格掌握度追蹤）
 
 ### 17. `business-automation` — 跨 session 的檔案化任務規劃
-把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 2 種語言版本**（阿拉伯文/德文/西班牙文版於 2026-07-31 健檢後移除，因用不到而永遠不會觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)）：
+把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 2 種語言版本**（阿拉伯文/德文/西班牙文版於 2026-07-31 健檢後移除，因用不到而永遠不會觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)），另加 1 個來自第三方 `mattpocock-skills` 的規格設計工具，共 **4 個子技能**：
 
 - **`planning-with-files`** — 英文版（Manus 風格檔案化規劃系統）
 - **`planning-with-files-zh`** — 簡體中文版
 - **`planning-with-files-zht`** — 繁體中文版
+- **`loop-me`** — 用逼問訪談把生活/業務裡的重複模式整理成 workflow 規格文件
 
 ---
 
@@ -395,7 +435,35 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 1. 先看「技能分類地圖」判斷任務屬於哪個大類。
 2. 打開對應頂層技能的 `SKILL.md`，裡面會指向更細的子技能。
 3. 若任務橫跨多個技能（例如任何要出貨的程式碼，通常會依序用到 `agentic-dev-workflow` → `product-verification` → `code-quality-review` → `cicd-deployment`），依序套用而非只選一個。
-4. 之後若安裝新技能，記得在根目錄 `SKILL.md` 與本 README 都補上一筆，避免索引過時。
+4. 之後若安裝新技能，依下方「新增技能的標準流程」處理，不要只是丟進去就不管，避免索引過時。
+
+---
+
+## ➕ 新增技能的標準流程
+
+2026-07-31 匯入並拆散 `mattpocock-skills` 之後訂出的標準流程（完整實例見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)）。英文版、給 Claude 讀取的完整版本在根目錄 [`SKILL.md`](SKILL.md) 的「Standard procedure for adding a new skill」。每次有新技能要加入，依序走完以下 4 階段，不要跳著做。
+
+### 階段 A｜評估
+1. **確認是否與既有技能重疊或相抵觸**——不能只比對 description 文字。這次同一個 session 裡因為只看 description 就誤判「該合併」，發生了 3 次。務必實際讀完新技能與疑似重疊的既有技能的完整 `SKILL.md`，以及各自綁定的 `scripts/`／`references/`／`agents/`，才能下判斷。
+
+### 階段 B｜決定分類與整併方式
+2. **併入現有 18 個分類中最合適的一個**（依主題判斷，不是依來源出處）。真的沒有任何分類合適，才提出來跟使用者討論是否要新增分類——不要自己單方面新增第 19 個分類。（這次就先犯過一次：建立第 19 個頂層技能後，又被要求撤銷改成融入既有分類，融入既有分類才是預設做法，新增分類是需要使用者同意的例外。）
+3. **對新內容套用五類分類法**：核心常用／偶爾需要／功能重疊／不確定用途／可能可以刪，作為篩選依據。
+4. **遇到「功能重疊」，預設先澄清 description＋互相加註「見 X」的說明，不要預設做實體合併**。只有讀完全文確認雙方是真重疊（核心邏輯相同、沒有各自獨立可用的工具/腳本），且使用者明確要求整合內容，才動手合併。
+
+### 階段 C｜執行搬遷／整合
+5. **動手搬移前先查命名衝突**——新技能的資料夾名稱跟 `SKILL.md` 裡的 `name:` frontmatter，都要跟本倉庫現有技能核對一遍（一次全倉庫的 `name:` 查重指令就能做到）。`mv` 到已經存在同名資料夾時**不會報錯、也不會覆蓋**，而是把來源資料夾嵌套進去一層——這是這次實際發生過的 bug，發現衝突就把資料夾名稱跟 frontmatter 的 `name:` 兩個都改掉。
+6. **確認內部交叉引用還連得到**——如果新技能包內部靠技能名稱或相對路徑互相引用，搬移/合併/改名後要逐一確認引用還有效（廠商自己的路由文件/README 最容易在這裡出包）。
+7. **刪除廠商自帶的分類層級索引檔**——內容分散安置後，這些檔案會立刻跟實際狀態脫節，留著等於兩份會漂移的索引，直接刪除。
+8. **處理版權歸屬**：第三方內容整批放單一資料夾，沿用它自己的 LICENSE 即可；分散到多個既有分類，就建立/更新根目錄的 `THIRD-PARTY-LICENSES.md`，並同步更新本 README 的版權聲明段落。
+9. **檢查是否夠資格列進「全域必用」**：搜尋新技能全文裡的 `MUST use`／`before any`／`ALWAYS use` 等字樣，但要分清楚「技能自己流程裡的步驟用語」跟「這個技能必須在任何回應前使用」的宣告——多數比對到的都是前者。
+
+### 階段 D｜更新文件
+10. **更新每個受影響頂層技能自己的 `SKILL.md`**：新增 Domains 表格列、必要時調整 description、補上跟新鄰居的分工說明。
+11. **更新本 README**：受影響分類的小節（新增條目、更新子技能數量、標註第三方來源），以及版權聲明段落。
+12. **更新根目錄 `SKILL.md`**：Quick lookup、Full skill list 的子技能數量、審計追蹤註解區塊（新增一筆帶日期的紀錄，不要把舊紀錄改沒了）。
+13. **更新 `SKILL-AUDIT.md`**：記下分類結果、安置決策與理由、命名衝突等踩坑細節——這是讓未來的 session 能判斷「這個之前已經考慮過了」而不是重新爭論一次的依據。
+14. **更新 `TRIGGER-MAP.md`**：把新子技能的觸發範例併入對應的既有分類小節，不要另立一個獨立區塊（呼應階段 B 第 2 點）。
 
 ---
 

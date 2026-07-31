@@ -28,6 +28,32 @@ Write the test first. Watch it fail. Write minimal code to pass.
 
 Thinking "skip TDD just this once"? Stop. That's rationalization.
 
+## Seams — Where Tests Go
+
+A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
+
+**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with your human partner. No test is written at an unconfirmed seam. You can't test everything — agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+
+Ask: "What's the public interface, and which seams should we test?"
+
+If a project has `CONTEXT.md` (domain vocabulary) or ADRs, read them first so test names and seam choices match the project's language and prior decisions.
+
+## Anti-Patterns
+
+Beyond "test after" (covered by the Iron Law above), three shapes of test are worse than no test — they pass without proving anything:
+
+- **Implementation-coupled** — mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). The tell: the test breaks when you refactor but behavior hasn't changed.
+- **Tautological** — the assertion recomputes the expected value the way the code does (`expect(add(a, b)).toBe(a + b)`, a snapshot derived by hand the same way), so it passes by construction and can never disagree with the code. Expected values must come from an independent source of truth — a known-good literal, a worked example, the spec.
+- **Horizontal slicing** — writing all tests first, then all implementation. Bulk tests verify _imagined_ behavior: you test the _shape_ of things rather than user-facing behavior, and you commit to test structure before understanding the implementation. Work in **vertical slices** instead — one test → one implementation → repeat, each test a **tracer bullet** that responds to what the last cycle taught you.
+
+See [anti-pattern-examples.md](anti-pattern-examples.md) for good/bad code side-by-side.
+
+## Mocking
+
+Mock at **system boundaries** only — external APIs, databases (prefer a test DB when practical), time/randomness, filesystem. Don't mock your own classes, internal collaborators, or anything you control — that's what makes a test implementation-coupled (above).
+
+At the boundaries you do mock, design for mockability: inject dependencies rather than constructing them internally, and prefer one specific function per external operation over a single generic fetcher with conditional logic. See [mocking.md](mocking.md) for the full rationale and examples.
+
 ## The Iron Law
 
 ```
