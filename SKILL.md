@@ -9,7 +9,7 @@ One-stop map of this workspace's 18 skills. Each row's "Full skill" links straig
 
 ## 🔁 Universal — apply these without being asked
 
-These sub-domains carry "always / before any / MUST" language in their own source material. Don't wait for the user to invoke them by name. (A 2026-07-31 audit of a newly-imported third-party pack, `mattpocock-skills`, checked all 30 of its sub-domains for this same language and found none — see `SKILL-AUDIT.md`. This list is unchanged by that import.)
+These sub-domains carry "always / before any / MUST" language in their own source material. Don't wait for the user to invoke them by name. (A 2026-07-31 audit of a newly-imported third-party pack, `mattpocock-skills`, checked all 30 of its sub-domains for this same language and found none — see `SKILL-AUDIT.md`. This list is unchanged by that import. A 2026-08-02 import, `ip-guard`, reads as broader "invoke before any code/content generation" language than any entry below, but was explicitly kept OUT of this table per the user's own scoping decision — see `SKILL-AUDIT.md` for the full reasoning.)
 
 | Trigger point | Sub-domain | Lives in | Why it's universal |
 |---|---|---|---|
@@ -29,7 +29,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | Keep a long task's plan/progress on disk across sessions and `/clear`, or turn a recurring pattern into a workflow spec | `business-automation` |
 | Create/edit .docx/.xlsx/.pptx/.pdf, build an MCP server, write React/Next.js/React Native code | `library-api-reference` |
 | Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates | `scaffolding-templating` |
-| Review code for quality/SOLID/security (two frameworks available), run Semgrep, request/receive a code review, scan for deep-module opportunities, set up quality-gate hooks | `code-quality-review` |
+| Review code for quality/SOLID/security (two frameworks available), run Semgrep, request/receive a code review, scan for deep-module opportunities, set up quality-gate hooks, check IP/license compliance and dependency security before shipping generated code/content | `code-quality-review` |
 | Deploy to Vercel (interactive or CI/token-based) | `cicd-deployment` |
 | Diagnose a bug/test failure systematically before proposing a fix, or triage incoming bug reports into agent-ready issues | `incident-runbooks` |
 | Generate an interactive setup/migration wizard (day-to-day ops guardrails still unfilled) | `infrastructure-ops` |
@@ -52,7 +52,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 5 (1 core +2 language variants +2 from third-party imports) |
 | 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs | 9 |
 | 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system | 16 |
-| 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, architecture scanning | 13 — see comment block below |
+| 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, IP/license + dependency-security guardrails, architecture scanning | 14 — see comment block below |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
 | 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + issue triage | 4 |
 | 10 | `infrastructure-ops` | Interactive setup/migration wizard (day-to-day ops still unfilled) | 1 |
@@ -65,7 +65,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires | 5 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 165 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 181 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 166 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 182 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -147,12 +147,13 @@ scaffolding-templating (16, was 17 — see REMOVALS below):
   frontend-design, web-artifacts-builder, web-design-guidelines,
   writing-guidelines, slides
 
-code-quality-review (13, was 6, +6 from the mattpocock-skills import,
-  +1 from the awesome-llm-apps import):
+code-quality-review (14, was 6, +6 from the mattpocock-skills import,
+  +1 from the awesome-llm-apps import, +1 from the claude-skill-ip-guard
+  import):
   code-review-expert, semgrep, code-security, llm-security,
   requesting-code-review, receiving-code-review, code-review,
   improve-codebase-architecture, codebase-design, design-an-interface,
-  setup-ts-deep-modules, setup-pre-commit, scope-creep-detector
+  setup-ts-deep-modules, setup-pre-commit, scope-creep-detector, ip-guard
 
 cicd-deployment (2):
   deploy-to-vercel, vercel-cli-with-tokens
@@ -216,19 +217,19 @@ personal-learning (4, was 3, +1 from the third-party import):
   book-study, wiki-ingest, sigma, teach
 
 -----------------------------------------------------------------------
-Total accounted for: 15+3+1+5+9+16+13+2+4+1+24+5+6+5+47+5+4 = 165
+Total accounted for: 15+3+1+5+9+16+14+2+4+1+24+5+6+5+47+5+4 = 166
 Plus context-engineering-collection: kept independent, never split
   (originally installed as one skill covering 17 internal sub-skills,
   now 16 after the REMOVALS below; re-wrapping it would have added no
   value).
-165 sub-domains across 17 skills + context-engineering-collection's own
-16 = 181 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 = 172
-originally-installed-or-imported skill units after 7 removals from the
-first batch (see REMOVALS below) — the 181 vs 172 discrepancy is because
-"sub-domains" here counts each merge target once even where 2+ original
-skills fed into it (test-driven-development, systematic-debugging,
-writing-shape each absorbed one or two others' unique content without
-becoming a second file).
+166 sub-domains across 17 skills + context-engineering-collection's own
+16 = 182 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 + 1 =
+173 originally-installed-or-imported skill units after 7 removals from
+the first batch (see REMOVALS below) — the 182 vs 173 discrepancy is
+because "sub-domains" here counts each merge target once even where 2+
+original skills fed into it (test-driven-development, systematic-
+debugging, writing-shape each absorbed one or two others' unique content
+without becoming a second file).
 
 REMOVALS (2026-07-31 health check on the original 137, see SKILL-AUDIT.md
 for the full methodology and reasoning) — these 7 were deleted as
@@ -426,4 +427,73 @@ any response" language — each is scoped to a specific triggering
 situation (rambling input, pre-PR diff, abandoned-project question,
 pre-edit history question), not a standing trigger.
 =======================================================================
+
+THIRD-PARTY IMPORT — claude-skill-ip-guard (Mugdha Vairagade, Apache-2.0
+license), 2026-08-02. Full license text and attribution:
+THIRD-PARTY-LICENSES.md.
+
+Source repo (github.com/mugdhav/claude-skill-ip-guard) ships one skill,
+ip-guard/SKILL.md plus references/license-compatibility.md,
+references/dependency-security.md, scripts/license_audit.sh, and
+scripts/dependency_security_scan.sh. Vendor root docs (README.md,
+CHANGELOG.md, CONTRIBUTING.md, LICENSE, user-reports/ example write-ups)
+are the vendor's own marketing/install scaffolding, not additional skill
+content — none of those were copied in, per this repo's standing
+convention that SKILL.md is the only index going forward.
+
+Read in full against the two existing skills it resembles by theme
+(code-quality-review/code-security, code-quality-review/llm-security)
+before deciding: no true duplicate found on either side — code-security
+is a general secure-coding checklist (injection, auth, file ops, crypto,
+infra config) with no license/IP content; llm-security's supply-chain
+section covers LLM/model supply chain (unverified model downloads,
+malicious pickle files, LoRA adapters), not general npm/pip/cargo
+dependency licensing or transitive vulnerability scanning. ip-guard is a
+three-stage IP/license compliance + dependency-security-scan guardrail
+with its own bundled scripts, so it was kept as its own file (not merged
+into either) with cross-reference notes added on all three sides.
+
+Scripts were read in full before copying: license_audit.sh and
+dependency_security_scan.sh only install/invoke standard, name-brand
+scanning tools (pip-audit, pipdeptree, npm audit, cargo-audit,
+license-checker, pip-licenses, cargo-license, go-licenses) against the
+current project's own manifest/lockfile — no network exfiltration, no
+destructive operations, nothing outside the project directory except the
+already-standard "install the CLI scanner tool itself" step every
+license/audit tool in this repo already does the same way.
+
+Folded into code-quality-review (not a new top-level category) as
+`references/ip-guard/SKILL.md`, listed in that skill's own SKILL.md
+domain table with an explicit cross-reference disambiguating it from
+code-security and llm-security. No name collision with any existing
+skill's folder or frontmatter `name:`. No internal cross-references in
+the source file needed fixing (all relative paths point within its own
+folder: references/license-compatibility.md,
+references/dependency-security.md, scripts/*.sh).
+
+Universal-tier eligibility — the one non-default judgment call in this
+import: ip-guard's own description reads as "activates automatically
+whenever Claude is about to generate code, suggest dependencies, or
+produce content for commercial use... even if the user doesn't mention
+copyright" — broader in scope than any of the 5 entries in the Universal
+table above (those trigger on specific sensitive surfaces; this reads as
+"any generation task"). Per the standard procedure's Phase C step 9,
+this was flagged to the user rather than decided unilaterally, since
+adding it to the Universal table would add license-declaration/
+dependency-plan/provenance-block overhead to every future code
+generation across every project on this machine — a much bigger
+blast-radius decision than a normal skill import. The user's explicit
+decision (2026-08-02): do NOT add it to the Universal table, and scope
+its actual triggering granularity to (a) once per newly-introduced
+external dependency (Stage 1b/2 of the skill's own design) and (b) once
+per completed file/artifact for the provenance block (Stage 3) — not
+per conversational turn/paragraph. This matches the skill's own
+as-authored design already (Stage 1/2 fire on new-dependency events,
+Stage 3 fires per artifact), so no internal rewrite of ip-guard/SKILL.md
+was needed — only the placement decision (kept out of the Universal
+table) and a documentation note in code-quality-review/SKILL.md and this
+file spelling out the agreed granularity, so a future session doesn't
+re-promote it to Universal without re-checking this reasoning.
+=======================================================================
 -->
+

@@ -39,6 +39,7 @@
 | 「幫我寫個 Semgrep 規則抓這種寫法」 | `semgrep` | 靜態分析工具，含自訂規則撰寫 |
 | 這段程式碼碰到輸入、驗證、檔案、DB、網路、加密、infra 設定 | `code-security`（🔁必用，不用你開口） | 主動檢查安全風險 |
 | 「我在做一個 AI/RAG 應用，這樣安全嗎」 | `llm-security` | LLM/RAG 應用的 OWASP Top 10 安全檢查 |
+| 「幫我加個 xxx 套件」「這個檔案寫完了，附一下授權/相依套件的檢查結果」「這是要商用/開源釋出的專案，先確認一下授權沒問題」 | `ip-guard` | 新增外部相依套件前做授權相容性+遞移相依安全掃描（OSV+隔離套件狀態），每完成一個檔案/artifact 附加 provenance block；觸發粒度是「每次新增依賴」與「每完成一個檔案」，不是每次回應都觸發，也未列入全域必用（與 `code-security`／`llm-security` 的 supply-chain 章節是不同軸線，互不重疊） |
 | 「重要功能做完了，我該怎麼發起 code review」 | `requesting-code-review` | 教你怎麼「提出」審查請求 |
 | 「審查意見回來了，我該怎麼回應」 | `receiving-code-review` | 教你怎麼嚴謹評估、回應審查意見 |
 | 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法（已融合 mattpocock 原 `diagnosing-bugs` 的「先建可靠紅色訊號迴圈」方法論） |

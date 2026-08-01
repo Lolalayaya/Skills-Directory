@@ -17,6 +17,7 @@
 Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布的第三方開源技能包 `mattpocock-skills`（MIT 授權）於 2026-07-31 匯入並依主題分散融入本倉庫既有的 9 個頂層技能（`agentic-dev-workflow`、`code-quality-review`、`incident-runbooks`、`deep-research`、`personal-learning`、`internal-writing-comms`、`skill-authoring`、`business-automation`、`infrastructure-ops`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
 - forrestchang 發布的第三方開源技能包 `andrej-karpathy-skills`（[github.com/forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)，MIT 授權）於 2026-08-01 匯入，內含單一技能 `karpathy-guidelines`，依主題併入既有的 `agentic-dev-workflow`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Shubham Saboo 發布的第三方開源專案 `awesome-llm-apps`（[github.com/Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)，Apache-2.0 授權，其中個別技能由 Shubham Saboo 或 Matt Van Horn 撰寫）的 `agent_skills/` 資料夾於 2026-08-01 匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），依主題分散融入本倉庫既有的 4 個頂層技能（`incident-runbooks`、`business-automation`、`code-quality-review`、`agentic-dev-workflow`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
+- Mugdha Vairagade 發布的第三方開源技能 `claude-skill-ip-guard`（[github.com/mugdhav/claude-skill-ip-guard](https://github.com/mugdhav/claude-skill-ip-guard)，Apache-2.0 授權）於 2026-08-02 匯入，內含單一技能 `ip-guard`（程式碼/內容產出的 IP 與授權合規防護、相依套件安全掃描），依主題併入既有的 `code-quality-review`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -109,7 +110,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 
 ## 🔁 全域必用技能（Universal — 不用等使用者開口）
 
-以下 5 個子技能帶有「always / MUST / before any」等強制語氣，理論上**每次符合情境就該主動套用**，不需要使用者明確要求：
+以下 5 個子技能帶有「always / MUST / before any」等強制語氣，理論上**每次符合情境就該主動套用**，不需要使用者明確要求。（2026-08-02 匯入 `ip-guard` 時也套用了同一套判斷標準：它自己的說明文字寫得像「任何程式碼/內容產出前都要自動觸發」，範圍比下表這 5 個更廣，但經與使用者確認後，決定不列入此表——維持一般子技能、觸發粒度限定在「每個完成的檔案/artifact」與「每次新增外部相依套件」，理由與完整討論見 `SKILL-AUDIT.md`。）
 
 | 觸發時機 | 子技能 | 所屬技能 | 為什麼是必用 |
 |---|---|---|---|
@@ -185,8 +186,9 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`webapp-testing`** — 用 Playwright 對本地網頁應用做互動測試，含截圖、console log、UI 除錯
 
 ### 3. `code-quality-review` — 程式碼審查與安全性
-標準化「程式碼怎麼被審查與掃描」。包含 **13 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，MIT 授權；1 個來自第三方 `awesome-llm-apps`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+標準化「程式碼怎麼被審查與掃描」。包含 **14 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，MIT 授權；1 個來自第三方 `awesome-llm-apps`，Apache-2.0 授權；1 個來自第三方 `claude-skill-ip-guard`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
+- **`ip-guard`**（來自第三方 `claude-skill-ip-guard`）— 產生程式碼/內容前先宣告專案授權目標，新增外部相依套件時做授權相容性檢查與遞移相依套件安全掃描（OSV 資料庫、隔離套件狀態），每完成一個檔案/artifact 就附加一份 provenance block；觸發粒度是「每個完成的檔案」與「每次新增外部相依套件」，不是每次回應都觸發，也未列入本倉庫的「全域必用」清單（理由見 `SKILL-AUDIT.md`）；跟 `code-security`（一般資安）、`llm-security` 的 supply-chain 章節（LLM/模型供應鏈，不是一般 npm/pip/cargo 套件授權）是不同軸線，不重疊
 - **`scope-creep-detector`**（來自第三方 `awesome-llm-apps`）— 開 PR 前，比對 git diff 跟原本宣稱的意圖，抓範圍蔓延/新依賴/API 改名/設定檔異動，給出 keep/split/justify 建議；純範圍分流，不做品質/安全審查（見 `code-review-expert`）
 - **`code-review-expert`** — 以資深工程師視角審查目前 git 變更，抓 SOLID 違規與安全風險
 - **`semgrep`** — 靜態分析工具，含撰寫自訂 Semgrep 規則

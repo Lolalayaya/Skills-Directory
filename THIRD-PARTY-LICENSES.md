@@ -276,6 +276,59 @@ A fifth sub-skill in that folder, `advisor-orchestrator-worker`, was deliberatel
    limitations under the License.
 ```
 
+## Mugdha Vairagade — `claude-skill-ip-guard`
+
+The following sub-skill, imported 2026-08-02 and folded into this repo's existing `code-quality-review` category, originates from Mugdha Vairagade's open-source skill ([github.com/mugdhav/claude-skill-ip-guard](https://github.com/mugdhav/claude-skill-ip-guard)):
+
+- `code-quality-review/references/`: `ip-guard`
+
+The source repo's own `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, and `user-reports/` example files were dropped rather than copied, per this repo's own convention that `SKILL.md` is the only index going forward.
+
+```
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+   (See the Apache License 2.0 full text under the Shubham Saboo section
+   above for the complete terms — identical license, reproduced there in
+   full to avoid triplicating ~180 lines of boilerplate in this file.)
+
+   Copyright 2026 Mugdha Vairagade
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+
 ## `context-engineering-collection`
 
 Kept whole as a single top-level folder rather than distributed, so its own [`LICENSE`](context-engineering-collection/LICENSE) (MIT, Context Engineering Agent Skills Contributors) still applies directly — no duplication needed here.

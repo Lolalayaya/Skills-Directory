@@ -286,3 +286,36 @@
 **本機安裝**：把修改後的 `incident-runbooks`、`business-automation`、`code-quality-review`、`agentic-dev-workflow` 四個資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\` 對應同名資料夾，讓全域安裝同步含有這 4 個新子技能。
 
 **最終結果**：18 個頂層技能維持不變，`incident-runbooks` 3→4、`business-automation` 4→5、`code-quality-review` 12→13、`agentic-dev-workflow` 23→24，全倉庫子技能總數 161→165。`advisor-orchestrator-worker` 確認不匯入（與內建 `Workflow` 工具重疊）。
+
+---
+
+## 2026-08-02：匯入第三方技能 `claude-skill-ip-guard`（Mugdha Vairagade，Apache-2.0）
+
+使用者提供來源：`https://github.com/mugdhav/claude-skill-ip-guard.git`，要求（1）新增這個 skill 到專案中、（2）評估合併、（3）重新安裝到本機。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後確認這是單一技能的獨立倉庫，只有一個技能 `ip-guard/SKILL.md`，附 `references/license-compatibility.md`（12+ 種授權相容矩陣）、`references/dependency-security.md`（掃描結果判讀、修復劇本、`.pth` 持久化偵測）、`scripts/license_audit.sh`（呼叫 license-checker/pip-licenses/cargo-license/go-licenses）、`scripts/dependency_security_scan.sh`（解析遞移相依樹並對照 OSV 資料庫與隔離套件狀態）。倉庫根目錄另有 `README.md`／`CHANGELOG.md`／`CONTRIBUTING.md`／`LICENSE`（Apache-2.0）／`user-reports/`（兩份使用者回饋範例），皆為廠商自己的行銷/流程文件，非技能內容本身。
+
+**技能做什麼**：三階段 IP/授權合規防護——(1) 產生程式碼/內容前先確立專案授權目標、列出計畫使用的相依套件並做授權相容性檢查、解析完整遞移相依樹並對照 OSV 弱點資料庫與套件隔離狀態（❌ 發現會阻擋繼續生成）；(2) 生成過程中即時標記 GPL/AGPL 不相容、超過 10 行的逐字重製、疑似專利演算法、來源不明的資產；(3) 每個產出的檔案/文件/UI 元件都附加一段 provenance block（記錄用了哪些相依套件、授權相容性、掃描結果、需要人工複查的項目）。另有 Fast Mode（"fast mode"/"prototype" 等關鍵字觸發）跳過階段一、二的檢查，只留精簡版 provenance block。
+
+**階段 A（評估）**：完整讀完 `ip-guard/SKILL.md`、兩份 `references/*.md`、兩支 `scripts/*.sh`（逐行確認腳本只呼叫標準弱點/授權掃描工具如 pip-audit、npm audit、cargo-audit、license-checker 等，掃描對象限於目前專案自己的 manifest/lockfile，無外洩、無破壞性操作）。比對主題相近的既有技能全文：
+- vs `code-quality-review/code-security`：後者是一般安全編碼守則（注入、驗證、檔案操作、加密、基礎設施設定），完全沒有授權/IP 內容，無重疊。
+- vs `code-quality-review/llm-security` 的 supply-chain 章節：該章節談的是 **LLM/模型供應鏈**（未驗證的模型下載、惡意 pickle 檔、LoRA adapter），不是一般 npm/pip/cargo 套件的授權或遞移弱點掃描，軸線不同，無重疊。
+
+結論：無真重疊，`ip-guard` 保留為獨立子技能，三邊互相加交叉引用說明分工。
+
+**階段 B（分類與落點）**：分類為「偶爾需要」（情境明確：要出貨的程式碼/內容、商業專案、開源釋出時才需要）。依主題併入既有的 `code-quality-review`（跟既有的程式碼審查/安全掃描工具同屬「出貨前把關」的範疇），未另立新分類。
+
+**階段 C（執行）**：
+1. 命名衝突查核：`ip-guard` 資料夾名稱與 frontmatter `name:` 與本倉庫現有技能全文查重，無衝突。
+2. 內部交叉引用：`SKILL.md` 只引用自己資料夾內的 `references/license-compatibility.md`、`references/dependency-security.md`、`scripts/*.sh`，搬移後路徑仍相對於自身資料夾，全部正常解析，無需修正。
+3. 廠商自帶的 `README.md`／`CHANGELOG.md`／`CONTRIBUTING.md`／`user-reports/` 全數未搬入——比照本倉庫既有慣例，`SKILL.md` 是唯一索引。
+4. 授權歸屬：單一技能併入既有分類（非獨立頂層資料夾），比照 andrej-karpathy-skills 的做法，在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 Apache-2.0 全文與出處。
+5. **全域必用資格查核（本次唯一需要使用者拍板的判斷）**：`ip-guard` 自己的 `description` 寫的是「Activates automatically whenever Claude is about to generate code... even if the user doesn't mention copyright」——語氣比現有 5 個「全域必用」條目都更廣（那 5 個只在觸碰輸入/驗證/DB/加密等**特定敏感面向**時觸發；這個讀起來像是「任何」程式碼/內容產出都要觸發）。因為列入全域必用會讓「之後所有專案的每一次程式碼產出」都多出授權宣告與 provenance block 的開銷，屬於影響範圍遠超過一般技能安裝的決策，因此依標準流程階段 C 第 9 點的精神，主動提出來讓使用者決定，而不是單方面判斷。
+
+   使用者的決定：**不列入「全域必用」清單**；觸發粒度確認為 (a) 每次新增外部相依套件時觸發一次授權/安全檢查（對應技能原本的 Stage 1b/2 設計）、(b) 每完成一個檔案/artifact 時觸發一次 provenance block（對應原本的 Stage 3 設計）——不是每次回應/每個段落都觸發。這剛好符合 `ip-guard` 原作者自己的設計粒度，因此不需要改寫 `ip-guard/SKILL.md` 本身的邏輯，只需要：(i) 不把它加進 `SKILL.md` 的「🔁 Universal」表格、(ii) 在 `code-quality-review/SKILL.md` 與本檔案明確記錄這個決策與理由，避免未來的 session 誤以為它應該被升級為全域必用。
+
+**階段 D（文件更新）**：`code-quality-review/SKILL.md`（新增 domain 列＋description 補充＋「How to use」新增一點）、`README.md`（`code-quality-review` 小節新增條目與子技能數 13→14、頂部版權聲明段落新增一條、Universal 表格前言補充本次判斷）、根目錄 `SKILL.md`（Quick lookup、Full skill list 子技能數 13→14、Universal 表格前言補充、稽核區塊新增 `THIRD-PARTY IMPORT` 段落、Total 165→166）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）、`TRIGGER-MAP.md`（同步新增觸發範例，併入既有的 `code-quality-review` 小節）。
+
+**本機安裝**：把更新後的 `code-quality-review` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\code-quality-review\`，讓全域安裝同步含有 `ip-guard` 這個新子技能。
+
+**最終結果**：18 個頂層技能維持不變，`code-quality-review` 13→14，全倉庫子技能總數 165→166。`ip-guard` **未**列入「全域必用」清單（使用者明確決策），觸發粒度限定在「每次新增外部相依套件」與「每完成一個檔案/artifact」。
