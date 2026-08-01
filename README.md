@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **160 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **161 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -15,6 +15,7 @@
 - `agentic-dev-workflow` 裡 `using-superpowers`／`brainstorming`／`test-driven-development` 等，來自社群流通的開源技能框架
 - `context-engineering-collection` 是完整保留、未拆分的第三方開源集合，本身附有獨立的 [`LICENSE`](context-engineering-collection/LICENSE)（MIT License），版權標註為原作者所有
 Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布的第三方開源技能包 `mattpocock-skills`（MIT 授權）於 2026-07-31 匯入並依主題分散融入本倉庫既有的 9 個頂層技能（`agentic-dev-workflow`、`code-quality-review`、`incident-runbooks`、`deep-research`、`personal-learning`、`internal-writing-comms`、`skill-authoring`、`business-automation`、`infrastructure-ops`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
+- forrestchang 發布的第三方開源技能包 `andrej-karpathy-skills`（[github.com/forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)，MIT 授權）於 2026-08-01 匯入，內含單一技能 `karpathy-guidelines`，依主題併入既有的 `agentic-dev-workflow`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -140,7 +141,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🛠️ 開發流程與品質保證
 
 ### 1. `agentic-dev-workflow` — 軟體開發生命週期總成
-從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **22 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，MIT 授權，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **23 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，1 個來自 2026-08-01 匯入的第三方 `andrej-karpathy-skills`，皆為 MIT 授權，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 **核心生命週期（8）**：
 - **`using-superpowers`**（🔁必用）— 對話一開始就先判斷該用哪個技能
@@ -151,6 +152,9 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`subagent-driven-development`** — 在目前 session 中執行含獨立任務的實作計畫
 - **`dispatching-parallel-agents`** — 遇到 2 個以上互不依賴、可平行處理的任務時派發並行 agent
 - **`finishing-a-development-branch`** — 實作完成、測試都過了之後，決定怎麼把分支合併/送出
+
+**輕量行為守則（1，來自第三方 `andrej-karpathy-skills`）**：
+- **`karpathy-guidelines`** — 撰寫/審查/重構程式碼時的 4 條行為準則濃縮版（動手前先想清楚、精簡優先、只動手術刀式的必要修改、目標導向可驗證的成功條件），是隨時可查的守則而非流程步驟，與 `brainstorming`／`product-verification` 的 TDD/驗證／`code-quality-review` 精神相通但不重複其細節流程
 
 **逼問式規劃工具（10，與上面的 brainstorming/writing-plans 互補，不是取代）**：
 - **`ask-matt`** — 這批工具自己的流程路由，不確定該用哪個先問這個

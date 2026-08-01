@@ -29,6 +29,7 @@
 | 「解決一下這個 merge conflict」 | `resolving-merge-conflicts` | 逐 hunk 解決衝突，禁止 `--abort` |
 | 「幫我裝一個攔截危險 git 指令的 hook」 | `git-guardrails-claude-code` | 攔截 `push --force`、`reset --hard` 等 |
 | 「不確定該用逼問訪談還是哪個規劃工具」 | `ask-matt` | 這批工具自己的流程路由圖 |
+| 「寫/改程式碼前，提醒我一下不要過度設計、只動手術刀式修改」 | `karpathy-guidelines` | 4 條濃縮行為守則：動手前先想清楚、精簡優先、手術刀式修改、目標導向可驗證；與 `brainstorming`／TDD/驗證／code review 精神相通但不是同一套流程 |
 | 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試（已融合 mattpocock 原 `tdd` 的 Seams/反模式/Mocking 內容） |
 | 「我測試過了，應該修好了」 | `verification-before-completion` | 要求你先跑驗證指令、讀懂輸出，才能宣稱完成 |
 | 「用 Playwright 幫我測一下這個網頁」 | `webapp-testing` | 對本地網頁做互動測試、截圖、console log 除錯 |

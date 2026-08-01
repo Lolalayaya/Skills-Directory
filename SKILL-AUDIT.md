@@ -216,3 +216,35 @@
 ### 最終結果
 
 18 個頂層技能維持不變，子技能數從健檢前的 130 個變成 **160 個**（130 + 30，`context-engineering-collection` 自己的 16 個維持獨立計算）。完整的最終落點、合併細節、命名衝突處理，都同步寫進了根目錄 `SKILL.md` 的 `THIRD-PARTY IMPORT` 註解區塊、`README.md` 對應的 9 個小節，以及 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)。
+
+---
+
+## 2026-08-01：匯入第三方技能包 `andrej-karpathy-skills`（forrestchang，MIT）
+
+使用者提供來源：`https://github.com/multica-ai/andrej-karpathy-skills.git`（forrestchang 原倉庫 `github.com/forrestchang/andrej-karpathy-skills` 的鏡像）。要求依照標準流程（階段 A-D）評估、決定分類、整併、更新文件，並同步安裝到本機 `~/.claude/skills/`。
+
+**內容**：clone 後確認整個倉庫只含 **1 個技能**——`skills/karpathy-guidelines/SKILL.md`，濃縮成 4 條行為準則（Think Before Coding／Simplicity First／Surgical Changes／Goal-Driven Execution），衍生自 Andrej Karpathy 對 LLM coding 常見毛病的觀察。倉庫其餘檔案（`README.md`、`README.zh.md`、`CLAUDE.md`、`CURSOR.md`、`EXAMPLES.md`、`.claude-plugin/`、`.cursor/`）都是廠商自己的安裝/plugin 腳手架，不是額外的技能內容，未複製進本倉庫。沒有獨立 `LICENSE` 檔，MIT 授權宣告在 `SKILL.md` frontmatter 與 `README.md` 裡；作者資訊取自 `.claude-plugin/plugin.json`（`forrestchang`）。
+
+**階段 A（評估）**：完整讀完這唯一一個技能的全文，並比對 3 個表面主題相近的既有技能全文：
+- `agentic-dev-workflow/brainstorming`（Think Before Coding 的「先釐清假設」精神相近，但 brainstorming 是一套結構化、多步驟、產出 spec 文件並要求使用者核准的流程，karpathy-guidelines 只是一段隨時可查的行為守則，機制完全不同）
+- `product-verification` 的 `test-driven-development` + `verification-before-completion`（Goal-Driven Execution 精神相近，但兩者是具體的紅綠重構鐵律與「宣稱完成前必須真的跑驗證指令」協議，karpathy-guidelines 只是一句「define success criteria」的提醒）
+- `code-quality-review`（Simplicity First／Surgical Changes 精神相近，但 code-quality-review 是事後審查協議與靜態分析工具，karpathy-guidelines 是事前/當下的編碼守則）
+
+結論：三邊都不構成「真重疊」（核心邏輯不同、無共用機制），依標準流程第 4 點，**不物理合併**，維持獨立檔案，只在目的地技能的 `SKILL.md` 裡加註跟這三者的關係說明。
+
+**階段 B（分類與落點）**：套用五類分類法——判定為「偶爾需要」（不是核心常用，但情境明確：撰寫/審查/重構程式碼時可查）。依主題（而非來源）併入既有 18 分類中最相關的 `agentic-dev-workflow`（軟體開發生命週期總成），因為這 4 條準則橫跨「動手前想清楚」到「目標導向驗證」的整個開發生命週期，比單獨塞進 `code-quality-review` 或 `product-verification` 其中一邊更貼切。沒有另立第 19 個分類。
+
+**階段 C（執行）**：
+1. 命名衝突查核：`karpathy-guidelines` 資料夾名稱與 frontmatter `name:` 皆與本倉庫現有技能查重，無衝突。
+2. 內部交叉引用：`SKILL.md` 本身不含指向其他檔案的相對路徑引用，搬移後無需修正。
+3. 未搬入廠商自己的分類索引檔（`README.md` 等）——這些本來就只是廠商的安裝文件，非技能索引，直接略過不搬。
+4. 授權歸屬：因為只併入單一目的地分類（不像 mattpocock-skills 分散到 9 個分類），理論上可以只放一份 `LICENSE`，但因為是併入既有資料夾而非獨立資料夾，比照 mattpocock-skills 的做法，改在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄全文與出處，保持全站授權文件單一入口。
+5. 全域必用資格查核：搜尋 `SKILL.md` 全文的 `MUST use`／`before any`／`ALWAYS use` 等字樣——`description` 寫的是「Use when writing, reviewing, or refactoring code」，屬於情境觸發用語，不是「必須在任何回應前使用」的宣告，不列入 `SKILL.md` 的「🔁 Universal」清單。
+
+**階段 D（文件更新）**：`agentic-dev-workflow/SKILL.md`（新增 domain 列＋簡介段落註明來源）、`README.md`（該小節新增條目、子技能數 22→23、頂部總數 160→161、版權聲明段落）、根目錄 `SKILL.md`（Quick lookup 摘要調整、Full skill list 子技能數、稽核區塊新增 `THIRD-PARTY IMPORT` 段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）。`TRIGGER-MAP.md` 同步新增觸發範例，見該檔案。
+
+**額外備註（非標準流程項目，但值得記錄）**：這 4 條準則跟 Claude Code 系統層級提示本身既有的行為規範（例如「不引入超出需求的抽象」「預設不寫註解」「宣稱完成前要跑驗證」）高度重疊——這不影響是否要收錄這個技能（使用者明確要求安裝），但代表這個技能的邊際效益主要在於「把已隱含的規範明文化、方便查閱／分享給其他工具（Cursor 等沒有這層系統提示的環境）」，而不是引入全新規則。
+
+**本機安裝**：確認 `~/.claude/skills/agentic-dev-workflow`（Windows：`C:\Users\user\.claude\skills\agentic-dev-workflow`）是本倉庫同名資料夾的完整複製（非 symlink），修改完倉庫版本後，把整個資料夾重新複製過去覆蓋，讓全域安裝同步含有 `karpathy-guidelines`。
+
+**最終結果**：18 個頂層技能維持不變，`agentic-dev-workflow` 子技能數 22→23，全倉庫子技能總數 160→161。

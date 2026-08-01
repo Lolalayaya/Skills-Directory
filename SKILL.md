@@ -59,13 +59,13 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 11 | `marketing` | Full-funnel marketing, 5 internal sub-groups | 47 |
 | 12 | `skill-authoring` | Build/audit/optimize skills themselves | 5 |
 | 13 | `personal-learning` | Book study, knowledge base, Socratic tutor, multi-session course workspace | 4 |
-| 14 | `agentic-dev-workflow` | Brainstorm → plan → isolate → execute → finish branch, plus interview-driven planning and git/session mechanics | 22 — see comment block below |
+| 14 | `agentic-dev-workflow` | Brainstorm → plan → isolate → execute → finish branch, plus interview-driven planning, git/session mechanics, and a condensed coding-discipline reference | 23 — see comment block below |
 | 15 | `openspec-workflow` | OpenSpec change lifecycle | 5 |
 | 16 | `deep-research` | Generic outline-driven research pipeline (Chinese), plus single-question background lookup | 6 |
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires | 5 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 160 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 176 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 161 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 177 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -164,14 +164,15 @@ infrastructure-ops (1, was 0 placeholder, +1 from the third-party
   import):
   wizard
 
-agentic-dev-workflow (22, was 8, +14 from the third-party import):
+agentic-dev-workflow (23, was 8, +14 from the mattpocock-skills import,
+  +1 from the andrej-karpathy-skills import):
   brainstorming, dispatching-parallel-agents, executing-plans,
   subagent-driven-development, using-superpowers, writing-plans,
   using-git-worktrees, finishing-a-development-branch,
   ask-matt, grilling, grill-me, grill-with-docs, domain-modeling,
   to-spec, to-tickets, wayfinder, request-refactor-plan, prototype,
   setup-matt-pocock-skills, handoff, resolving-merge-conflicts,
-  git-guardrails-claude-code
+  git-guardrails-claude-code, karpathy-guidelines
 
 openspec-workflow (5):
   openspec-apply-change, openspec-archive-change, openspec-explore,
@@ -212,15 +213,15 @@ personal-learning (4, was 3, +1 from the third-party import):
   book-study, wiki-ingest, sigma, teach
 
 -----------------------------------------------------------------------
-Total accounted for: 15+3+1+4+9+16+12+2+3+1+22+5+6+5+47+5+4 = 160
+Total accounted for: 15+3+1+4+9+16+12+2+3+1+23+5+6+5+47+5+4 = 161
 Plus context-engineering-collection: kept independent, never split
   (originally installed as one skill covering 17 internal sub-skills,
   now 16 after the REMOVALS below; re-wrapping it would have added no
   value).
-160 sub-domains across 17 skills + context-engineering-collection's own
-16 = 176 sub-skill-level SKILL.md files, down from 137 + 30 = 167
+161 sub-domains across 17 skills + context-engineering-collection's own
+16 = 177 sub-skill-level SKILL.md files, down from 137 + 30 + 1 = 168
 originally-installed-or-imported skill units after 7 removals from the
-first batch (see REMOVALS below) — the 176 vs 167 discrepancy is because
+first batch (see REMOVALS below) — the 177 vs 168 discrepancy is because
 "sub-domains" here counts each merge target once even where 2+ original
 skills fed into it (test-driven-development, systematic-debugging,
 writing-shape each absorbed one or two others' unique content without
@@ -324,5 +325,40 @@ engineering/, in-progress/, misc/, personal/, productivity/) were all
 removed as duplicate, now-stale indexes once distributed — this file,
 each destination skill's own SKILL.md, and SKILL-AUDIT.md are the index
 now.
+=======================================================================
+
+THIRD-PARTY IMPORT — andrej-karpathy-skills (forrestchang, MIT license),
+2026-08-01. Full license text and attribution: THIRD-PARTY-LICENSES.md.
+
+Source repo (github.com/forrestchang/andrej-karpathy-skills, mirrored at
+github.com/multica-ai/andrej-karpathy-skills) ships a Claude Code plugin
+containing exactly one skill, skills/karpathy-guidelines/SKILL.md (a
+condensed 4-principle behavioral checklist: Think Before Coding,
+Simplicity First, Surgical Changes, Goal-Driven Execution), plus vendor
+root docs (README.md, README.zh.md, CLAUDE.md, CURSOR.md, EXAMPLES.md,
+.claude-plugin/, .cursor/) that are the vendor's own installation/plugin
+scaffolding, not additional skill content — none of those were copied in.
+
+Read in full against the three existing skills it resembles by theme
+(agentic-dev-workflow/brainstorming, product-verification's
+test-driven-development + verification-before-completion,
+code-quality-review) before deciding: no true duplicate found on any
+side — brainstorming is a structured multi-step interview/spec-writing
+process, the verification pair is a specific red-green-refactor +
+evidence-before-claiming protocol, and code-quality-review is an
+after-the-fact review protocol. karpathy-guidelines is a short, general,
+in-the-moment coding-discipline reference that doesn't overlap in
+mechanism with any of them, so it was kept as its own file (not merged
+into any of the three) and given cross-reference notes instead, per the
+"don't merge on thematic overlap alone" rule.
+
+Folded into agentic-dev-workflow (not a new top-level category) as
+`references/karpathy-guidelines/SKILL.md`, listed in that skill's own
+SKILL.md as a standing reference rather than a lifecycle step. No name
+collision with any existing skill's folder or frontmatter `name:`. No
+internal cross-references in the source file needed fixing (self-
+contained, no relative links to other files). Not added to the Universal
+table: its description is phrased "Use when writing/reviewing/
+refactoring code," not an explicit "invoke before any response" claim.
 =======================================================================
 -->
