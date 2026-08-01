@@ -49,23 +49,23 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 1 | `browser-automation` | Browserbase toolkit: drive/test/automate a browser, plus B2B research/prospecting | 15 — see comment block below |
 | 2 | `product-verification` | Prove work actually works before claiming done | 3 |
 | 3 | `data-analysis` | Metrics-driven optimization (Vercel only, for now) | 1 |
-| 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 4 (1 core +2 language variants +1 from third-party import) |
+| 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 5 (1 core +2 language variants +2 from third-party imports) |
 | 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs | 9 |
 | 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system | 16 |
-| 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, architecture scanning | 12 — see comment block below |
+| 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, architecture scanning | 13 — see comment block below |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
-| 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + issue triage | 3 |
+| 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + issue triage | 4 |
 | 10 | `infrastructure-ops` | Interactive setup/migration wizard (day-to-day ops still unfilled) | 1 |
 | 11 | `marketing` | Full-funnel marketing, 5 internal sub-groups | 47 |
 | 12 | `skill-authoring` | Build/audit/optimize skills themselves | 5 |
 | 13 | `personal-learning` | Book study, knowledge base, Socratic tutor, multi-session course workspace | 4 |
-| 14 | `agentic-dev-workflow` | Brainstorm → plan → isolate → execute → finish branch, plus interview-driven planning, git/session mechanics, and a condensed coding-discipline reference | 23 — see comment block below |
+| 14 | `agentic-dev-workflow` | Brainstorm → plan → isolate → execute → finish branch, plus interview-driven planning, git/session mechanics, and a condensed coding-discipline reference | 24 — see comment block below |
 | 15 | `openspec-workflow` | OpenSpec change lifecycle | 5 |
 | 16 | `deep-research` | Generic outline-driven research pipeline (Chinese), plus single-question background lookup | 6 |
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires | 5 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 161 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 177 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 165 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 181 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -130,10 +130,10 @@ product-verification (3):
 data-analysis (1):
   vercel-optimize
 
-business-automation (4, was 3 after the 2026-07-31 removals, +1 from the
-  third-party import):
+business-automation (5, was 3 after the 2026-07-31 removals, +1 from the
+  mattpocock-skills import, +1 from the awesome-llm-apps import):
   planning-with-files, planning-with-files-zh, planning-with-files-zht,
-  loop-me
+  loop-me, project-graveyard
 
 library-api-reference (9):
   docx, xlsx, pptx, pdf, mcp-builder, vercel-react-best-practices,
@@ -147,32 +147,35 @@ scaffolding-templating (16, was 17 — see REMOVALS below):
   frontend-design, web-artifacts-builder, web-design-guidelines,
   writing-guidelines, slides
 
-code-quality-review (12, was 6, +6 from the third-party import):
+code-quality-review (13, was 6, +6 from the mattpocock-skills import,
+  +1 from the awesome-llm-apps import):
   code-review-expert, semgrep, code-security, llm-security,
   requesting-code-review, receiving-code-review, code-review,
   improve-codebase-architecture, codebase-design, design-an-interface,
-  setup-ts-deep-modules, setup-pre-commit
+  setup-ts-deep-modules, setup-pre-commit, scope-creep-detector
 
 cicd-deployment (2):
   deploy-to-vercel, vercel-cli-with-tokens
 
-incident-runbooks (3, was 1, +2 from the third-party import):
+incident-runbooks (4, was 1, +2 from the mattpocock-skills import,
+  +1 from the awesome-llm-apps import):
   systematic-debugging (absorbed mattpocock-skills' diagnosing-bugs —
-  see THIRD-PARTY IMPORT below), triage, qa
+  see THIRD-PARTY IMPORT below), triage, qa, commit-archaeologist
 
 infrastructure-ops (1, was 0 placeholder, +1 from the third-party
   import):
   wizard
 
-agentic-dev-workflow (23, was 8, +14 from the mattpocock-skills import,
-  +1 from the andrej-karpathy-skills import):
+agentic-dev-workflow (24, was 8, +14 from the mattpocock-skills import,
+  +1 from the andrej-karpathy-skills import, +1 from the awesome-llm-apps
+  import):
   brainstorming, dispatching-parallel-agents, executing-plans,
   subagent-driven-development, using-superpowers, writing-plans,
   using-git-worktrees, finishing-a-development-branch,
   ask-matt, grilling, grill-me, grill-with-docs, domain-modeling,
   to-spec, to-tickets, wayfinder, request-refactor-plan, prototype,
   setup-matt-pocock-skills, handoff, resolving-merge-conflicts,
-  git-guardrails-claude-code, karpathy-guidelines
+  git-guardrails-claude-code, karpathy-guidelines, thinking-out-loud
 
 openspec-workflow (5):
   openspec-apply-change, openspec-archive-change, openspec-explore,
@@ -213,15 +216,15 @@ personal-learning (4, was 3, +1 from the third-party import):
   book-study, wiki-ingest, sigma, teach
 
 -----------------------------------------------------------------------
-Total accounted for: 15+3+1+4+9+16+12+2+3+1+23+5+6+5+47+5+4 = 161
+Total accounted for: 15+3+1+5+9+16+13+2+4+1+24+5+6+5+47+5+4 = 165
 Plus context-engineering-collection: kept independent, never split
   (originally installed as one skill covering 17 internal sub-skills,
   now 16 after the REMOVALS below; re-wrapping it would have added no
   value).
-161 sub-domains across 17 skills + context-engineering-collection's own
-16 = 177 sub-skill-level SKILL.md files, down from 137 + 30 + 1 = 168
+165 sub-domains across 17 skills + context-engineering-collection's own
+16 = 181 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 = 172
 originally-installed-or-imported skill units after 7 removals from the
-first batch (see REMOVALS below) — the 177 vs 168 discrepancy is because
+first batch (see REMOVALS below) — the 181 vs 172 discrepancy is because
 "sub-domains" here counts each merge target once even where 2+ original
 skills fed into it (test-driven-development, systematic-debugging,
 writing-shape each absorbed one or two others' unique content without
@@ -360,5 +363,67 @@ internal cross-references in the source file needed fixing (self-
 contained, no relative links to other files). Not added to the Universal
 table: its description is phrased "Use when writing/reviewing/
 refactoring code," not an explicit "invoke before any response" claim.
+=======================================================================
+
+THIRD-PARTY IMPORT — awesome-llm-apps agent_skills/ (Shubham Saboo /
+Matt Van Horn, Apache-2.0 license), 2026-08-01. Full license text and
+attribution: THIRD-PARTY-LICENSES.md.
+
+Source repo (github.com/Shubhamsaboo/awesome-llm-apps) is mostly a large
+collection of unrelated example LLM applications; only its agent_skills/
+subfolder contains actual SKILL.md-format skills (5 of them), plus a
+non-skill demo web app (self-improving-agent-skills/, a Next.js+Python
+tool, not copied in) and its own evals/ test harness (not copied in —
+this repo's imports don't carry source-repo test suites).
+
+Read all 5 skills' full SKILL.md + bundled scripts/references in full
+before deciding. 4 were kept: commit-archaeologist, project-graveyard,
+scope-creep-detector, thinking-out-loud. The 5th,
+advisor-orchestrator-worker, was excluded — it re-implements a
+model-team orchestration loop (advisor reviews plan, worker models
+execute) that duplicates this environment's own native multi-agent
+`Workflow` tool; importing it would add a second, conflicting mechanism
+for the same job.
+
+Each kept skill was compared against the existing skill it most
+resembled by theme, full-content not description-only:
+  - commit-archaeologist vs incident-runbooks/systematic-debugging: both
+    are "investigate before you act" disciplines, but distinct axes
+    (why code exists historically vs. root-causing a live bug) — no
+    duplicate, folded in as a sibling domain.
+  - project-graveyard: no existing skill does machine-wide dead-project
+    scanning/triage; novel, placed in business-automation as a
+    prioritization/planning decision tool.
+  - scope-creep-detector vs code-quality-review/code-review-expert +
+    receiving-code-review: three distinct axes (diff-vs-intent scope
+    triage vs. SOLID/security review vs. feedback-reception etiquette) —
+    no duplicate, cross-references added on both sides instead of
+    merging.
+  - thinking-out-loud vs agentic-dev-workflow/brainstorming: distinct —
+    thinking-out-loud is a front-end listening/echo-confirmation
+    discipline for messy rambling input, brainstorming is a
+    spec-production pipeline that assumes already-parseable intent; no
+    duplicate, cross-references added on both sides (thinking-out-loud
+    hands off an approved brief to brainstorming when the brief
+    describes creative/feature work).
+
+Each kept skill's own per-repo README.md (source repo's own marketing
+copy, `npx skills add` install instructions, externally-hosted demo
+GIFs) was dropped rather than copied — per this repo's own convention
+that SKILL.md is the only index going forward. No name collisions with
+any existing skill's folder or frontmatter `name:`. Internal
+references/scripts links inside each kept skill are self-contained
+(relative to their own folder) and needed no fixing after the move.
+
+Folded into 4 different existing top-level skills (not a new category):
+  - commit-archaeologist → incident-runbooks/references/
+  - project-graveyard → business-automation/references/
+  - scope-creep-detector → code-quality-review/references/
+  - thinking-out-loud → agentic-dev-workflow/references/
+
+Not added to the Universal table: none of the 4 carry "MUST use before
+any response" language — each is scoped to a specific triggering
+situation (rambling input, pre-PR diff, abandoned-project question,
+pre-edit history question), not a standing trigger.
 =======================================================================
 -->

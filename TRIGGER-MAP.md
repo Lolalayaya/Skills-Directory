@@ -9,6 +9,7 @@
 | 使用者可能說的話 | 觸發技能 | 它負責什麼 |
 |---|---|---|
 | 「幫我做一個新功能」「這個 bug 怎麼修比較好」（對話剛開始） | `using-superpowers` | 先判斷這次任務該用哪個技能，包含要問你的釐清問題 |
+| （長串雜亂、口語/語音口述式的碎念，還沒整理成一句話的需求） | `thinking-out-loud` | 先產出 echo 摘要（含推論/猜測標註區）讓你確認，才動手做任何事；確認後若是要做功能設計，銜接到 `brainstorming` |
 | 「我想加一個 XX 功能，先幫我想想怎麼設計」 | `brainstorming` | 動手寫程式前，先探索你的意圖與需求 |
 | 「需求都確定了，幫我寫個實作計畫」 | `writing-plans` | 把需求轉成有步驟的實作計畫 |
 | 「開始做這個功能前，先開一個獨立工作區」 | `using-git-worktrees` | 用 git worktree 建立隔離的開發環境 |
@@ -33,6 +34,7 @@
 | 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試（已融合 mattpocock 原 `tdd` 的 Seams/反模式/Mocking 內容） |
 | 「我測試過了，應該修好了」 | `verification-before-completion` | 要求你先跑驗證指令、讀懂輸出，才能宣稱完成 |
 | 「用 Playwright 幫我測一下這個網頁」 | `webapp-testing` | 對本地網頁做互動測試、截圖、console log 除錯 |
+| 「開 PR 前先看一下這個改動有沒有超出範圍」「這個 diff 是不是改太多了」 | `scope-creep-detector` | 比對 git diff 跟宣稱的意圖，抓範圍蔓延/新依賴/API 改名，給 keep/split/justify 建議；純範圍分流，不做品質/安全審查 |
 | 「幫我審查一下這次改動」 | `code-review-expert` | 資深工程師視角審查 git 變更，抓 SOLID 違規與安全風險 |
 | 「幫我寫個 Semgrep 規則抓這種寫法」 | `semgrep` | 靜態分析工具，含自訂規則撰寫 |
 | 這段程式碼碰到輸入、驗證、檔案、DB、網路、加密、infra 設定 | `code-security`（🔁必用，不用你開口） | 主動檢查安全風險 |
@@ -40,6 +42,7 @@
 | 「重要功能做完了，我該怎麼發起 code review」 | `requesting-code-review` | 教你怎麼「提出」審查請求 |
 | 「審查意見回來了，我該怎麼回應」 | `receiving-code-review` | 教你怎麼嚴謹評估、回應審查意見 |
 | 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法（已融合 mattpocock 原 `diagnosing-bugs` 的「先建可靠紅色訊號迴圈」方法論） |
+| 「這段程式碼到底為什麼會這樣寫」「重構前先幫我查一下這裡的歷史」 | `commit-archaeologist` | 用本地 git 歷史（非僅 blame）重建程式碼存在的原因：起源 commit、後續變更、常一起改的檔案、意圖線索 |
 | 「這些外部回報的 bug/需求幫我分類處理」 | `triage` | 用狀態機把湧入的原始回報整理成 agent 可接手的 issue |
 | 「我口頭描述一個 bug，幫我拆成 issue」 | `qa` | 背景探索程式碼理解領域語言，拆解建成 GitHub issue |
 | 這個專案本來就用 OpenSpec 慣例管理變更 | `openspec-workflow`（含 explore/propose/apply/sync/archive 5 個階段） | 走 OpenSpec 的完整變更生命週期，取代 `brainstorming`→`writing-plans` |
@@ -146,6 +149,7 @@
 | 「我想長期建立一個學這個主題的工作區」 | `teach` | 長期課程資產建構（跟 `sigma` 的差異：無嚴格掌握度評分） |
 | 「這個任務很長，幫我把進度存到硬碟上」 | `business-automation`（`planning-with-files` 系列） | 跨 session 保留 task_plan/findings/progress，語言變體視你的對話語言而定 |
 | 「我生活/工作裡有個重複的模式，幫我整理成可執行的 workflow」 | `loop-me`（`business-automation` 底下） | 用逼問訪談把重複模式整理成 workflow 規格文件 |
+| 「我電腦裡一堆做到一半就放棄的專案，幫我看看該救哪個」「為什麼我老是沒把專案做完」 | `project-graveyard`（`business-automation` 底下） | 掃描機器上被放棄的側專案，從 git 歷史解剖死因、找出失敗模式，挑一個最值得復活的並協助動手 |
 
 ## 🧠 Agent / 上下文工程（進階研究向）
 

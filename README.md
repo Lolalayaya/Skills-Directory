@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **161 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **165 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -16,6 +16,7 @@
 - `context-engineering-collection` 是完整保留、未拆分的第三方開源集合，本身附有獨立的 [`LICENSE`](context-engineering-collection/LICENSE)（MIT License），版權標註為原作者所有
 Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布的第三方開源技能包 `mattpocock-skills`（MIT 授權）於 2026-07-31 匯入並依主題分散融入本倉庫既有的 9 個頂層技能（`agentic-dev-workflow`、`code-quality-review`、`incident-runbooks`、`deep-research`、`personal-learning`、`internal-writing-comms`、`skill-authoring`、`business-automation`、`infrastructure-ops`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
 - forrestchang 發布的第三方開源技能包 `andrej-karpathy-skills`（[github.com/forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)，MIT 授權）於 2026-08-01 匯入，內含單一技能 `karpathy-guidelines`，依主題併入既有的 `agentic-dev-workflow`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Shubham Saboo 發布的第三方開源專案 `awesome-llm-apps`（[github.com/Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)，Apache-2.0 授權，其中個別技能由 Shubham Saboo 或 Matt Van Horn 撰寫）的 `agent_skills/` 資料夾於 2026-08-01 匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），依主題分散融入本倉庫既有的 4 個頂層技能（`incident-runbooks`、`business-automation`、`code-quality-review`、`agentic-dev-workflow`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -141,7 +142,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🛠️ 開發流程與品質保證
 
 ### 1. `agentic-dev-workflow` — 軟體開發生命週期總成
-從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **23 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，1 個來自 2026-08-01 匯入的第三方 `andrej-karpathy-skills`，皆為 MIT 授權，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **24 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，MIT 授權；1 個來自 2026-08-01 匯入的第三方 `andrej-karpathy-skills`，MIT 授權；1 個來自同日匯入的第三方 `awesome-llm-apps`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 **核心生命週期（8）**：
 - **`using-superpowers`**（🔁必用）— 對話一開始就先判斷該用哪個技能
@@ -155,6 +156,9 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 
 **輕量行為守則（1，來自第三方 `andrej-karpathy-skills`）**：
 - **`karpathy-guidelines`** — 撰寫/審查/重構程式碼時的 4 條行為準則濃縮版（動手前先想清楚、精簡優先、只動手術刀式的必要修改、目標導向可驗證的成功條件），是隨時可查的守則而非流程步驟，與 `brainstorming`／`product-verification` 的 TDD/驗證／`code-quality-review` 精神相通但不重複其細節流程
+
+**雜亂輸入前處理（1，來自第三方 `awesome-llm-apps`）**：
+- **`thinking-out-loud`** — 收到一長串雜亂、語音口述式的碎念輸入時，先產出「echo 摘要」（含推論/猜測的標註區）讓使用者確認，才動手做任何事；確認後若內容是要做功能設計，銜接到 `brainstorming` 繼續
 
 **逼問式規劃工具（10，與上面的 brainstorming/writing-plans 互補，不是取代）**：
 - **`ask-matt`** — 這批工具自己的流程路由，不確定該用哪個先問這個
@@ -181,8 +185,9 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`webapp-testing`** — 用 Playwright 對本地網頁應用做互動測試，含截圖、console log、UI 除錯
 
 ### 3. `code-quality-review` — 程式碼審查與安全性
-標準化「程式碼怎麼被審查與掃描」。包含 **12 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+標準化「程式碼怎麼被審查與掃描」。包含 **13 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，MIT 授權；1 個來自第三方 `awesome-llm-apps`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
+- **`scope-creep-detector`**（來自第三方 `awesome-llm-apps`）— 開 PR 前，比對 git diff 跟原本宣稱的意圖，抓範圍蔓延/新依賴/API 改名/設定檔異動，給出 keep/split/justify 建議；純範圍分流，不做品質/安全審查（見 `code-review-expert`）
 - **`code-review-expert`** — 以資深工程師視角審查目前 git 變更，抓 SOLID 違規與安全風險
 - **`semgrep`** — 靜態分析工具，含撰寫自訂 Semgrep 規則
 - **`code-security`**（🔁必用）— 涉及輸入/驗證/檔案/DB/網路/加密/基礎設施設定的程式碼安全守則
@@ -197,9 +202,10 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`setup-pre-commit`** — 設定 Husky+lint-staged+Prettier 的 pre-commit hook
 
 ### 4. `incident-runbooks` — 系統化除錯方法論
-包含 **3 個子技能**（其中 2 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+包含 **4 個子技能**（其中 2 個來自第三方 `mattpocock-skills`，MIT 授權；1 個來自第三方 `awesome-llm-apps`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`systematic-debugging`** — 遇到任何 bug、測試失敗或異常行為時，在提出修法前先找出根因、影響範圍，並記錄成可重用的診斷紀錄。已融合 mattpocock 原 `diagnosing-bugs` 的獨特內容：先建可靠紅色訊號迴圈的方法論、多假設排序、debug tag 慣例
+- **`commit-archaeologist`**（來自第三方 `awesome-llm-apps`）— 動手重構/改動風險程式碼前，用本地 git 歷史（非僅 blame）重建「這段程式碼為什麼存在」：起源 commit、後續變更、常一起改的檔案、commit 訊息裡的意圖線索
 - **`triage`** — 用狀態機處理外部湧入、還沒整理過的 bug 回報/需求，產出 agent 可直接接手的 issue
 - **`qa`** — 使用者口語描述 bug 時，背景探索程式碼理解領域語言，拆解建成 GitHub issue
 
@@ -399,11 +405,12 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`teach`** — 把目前目錄當長期教學工作區，圍繞學習動機建課程資產（跟 `sigma` 的差異：這個不做嚴格掌握度追蹤）
 
 ### 17. `business-automation` — 跨 session 的檔案化任務規劃
-把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 2 種語言版本**（阿拉伯文/德文/西班牙文版於 2026-07-31 健檢後移除，因用不到而永遠不會觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)），另加 1 個來自第三方 `mattpocock-skills` 的規格設計工具，共 **4 個子技能**：
+把 `task_plan.md`、`findings.md`、`progress.md` 寫在硬碟上，讓長任務的規劃/進度在 `/clear` 或 context 重置後依然存在。核心邏輯 **1 種，附 2 種語言版本**（阿拉伯文/德文/西班牙文版於 2026-07-31 健檢後移除，因用不到而永遠不會觸發，見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)），另加 1 個來自第三方 `mattpocock-skills` 的規格設計工具、1 個來自第三方 `awesome-llm-apps`（Apache-2.0 授權）的個人專案盤點工具，共 **5 個子技能**：
 
 - **`planning-with-files`** — 英文版（Manus 風格檔案化規劃系統）
 - **`planning-with-files-zh`** — 簡體中文版
 - **`planning-with-files-zht`** — 繁體中文版
+- **`project-graveyard`**（來自第三方 `awesome-llm-apps`）— 掃描機器上被放棄的側專案，從 git 歷史解剖每個專案的「死因」，找出使用者自己的失敗模式，挑一個最值得復活的並協助動手
 - **`loop-me`** — 用逼問訪談把生活/業務裡的重複模式整理成 workflow 規格文件
 
 ---

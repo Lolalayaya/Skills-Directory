@@ -1,6 +1,6 @@
 ---
 name: code-review-expert
-description: "Expert code review of current git changes with a senior engineer lens. Detects SOLID violations, security risks, and proposes actionable improvements. For a two-axis Standards+Spec review with a Fowler smell baseline instead, see `mattpocock-skills`' `code-review` — pick one per review, don't run both on the same diff."
+description: "Expert code review of current git changes with a senior engineer lens. Detects SOLID violations, security risks, and proposes actionable improvements. For a two-axis Standards+Spec review with a Fowler smell baseline instead, see `mattpocock-skills`' `code-review` — pick one per review, don't run both on the same diff. For triaging whether a diff grew beyond its stated intent before this quality/security review even starts, see `scope-creep-detector`."
 ---
 
 # Code Review Expert

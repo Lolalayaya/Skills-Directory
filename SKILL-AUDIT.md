@@ -248,3 +248,41 @@
 **本機安裝**：確認 `~/.claude/skills/agentic-dev-workflow`（Windows：`C:\Users\user\.claude\skills\agentic-dev-workflow`）是本倉庫同名資料夾的完整複製（非 symlink），修改完倉庫版本後，把整個資料夾重新複製過去覆蓋，讓全域安裝同步含有 `karpathy-guidelines`。
 
 **最終結果**：18 個頂層技能維持不變，`agentic-dev-workflow` 子技能數 22→23，全倉庫子技能總數 160→161。
+
+## 2026-08-01：匯入第三方倉庫 `awesome-llm-apps` 的 `agent_skills/` 資料夾（Shubham Saboo / Matt Van Horn，Apache-2.0）
+
+使用者提供來源：`https://github.com/Shubhamsaboo/awesome-llm-apps.git`，要求（1）新增這個 skill 到專案中、（2）評估合併、（3）重新安裝到本機。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後發現這是一個以「LLM 應用範例集」為主體的大型倉庫（`advanced_ai_agents/`、`rag_tutorials/`、`starter_ai_agents/` 等，數百個不相關的範例 app），**不是**一個單一技能。真正符合 `SKILL.md` 格式的技能，只在 `agent_skills/` 子資料夾裡，共 5 個：`advisor-orchestrator-worker`、`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`。同資料夾下另有 `evals/`（每個技能的測試案例，未匯入）與 `self-improving-agent-skills/`（Next.js+Python 的完整 demo 網頁 app，不是技能，未匯入）。倉庫整體採 Apache-2.0 授權（根目錄 `LICENSE`），各技能 `SKILL.md` frontmatter 的 `metadata.author` 分別標註實際作者（Shubham Saboo 或 Matt Van Horn）。
+
+因為使用者訊息只給了倉庫網址、沒有指定要哪個技能，先向使用者說明「這其實是 5 個技能＋大量不相關範例」，並逐一列出 5 個技能的用途讓使用者確認要哪些。
+
+**階段 A（評估）**：完整讀完 5 個技能的全文（含 frontmatter、bundled `scripts/`、`references/`）：
+- `advisor-orchestrator-worker`：三層模型團隊編排（advisor 審計畫、worker 平行執行），依賴外部 CLI（`agy`/`claude`）與 API key、大量 bash。判定與此環境**內建的多代理 `Workflow` 工具**功能重疊，建議不匯入。使用者確認同意排除。
+- `commit-archaeologist`：純本地 Python script，走 git 歷史重建「這段程式碼為什麼存在」。
+- `project-graveyard`：純本地 Python script，掃描機器上的廢棄側專案並解剖死因。
+- `scope-creep-detector`：純本地 Python script，比對 git diff 與宣稱意圖，抓範圍蔓延。
+- `thinking-out-loud`：處理雜亂語音輸入的 echo 確認機制，無 script，純 prompt 流程。
+
+比對表面主題相近的既有技能全文（委派 Explore agent 執行，讀取完整內容而非只看描述）：
+- `thinking-out-loud` vs `agentic-dev-workflow/brainstorming`：`brainstorming` 的 checklist 假設輸入已經「可提問」（從"Explore project context"、"Ask clarifying questions"開始），完全沒有處理雜亂/語音輸入的階段；`thinking-out-loud` 是輸入前的「聽懂了什麼」稽核機制，兩者機制不同、無共用邏輯。結論：不合併，互相加交叉引用，`thinking-out-loud` 產出的核准摘要若涉及功能設計則銜接到 `brainstorming`。
+- `scope-creep-detector` vs `code-quality-review/receiving-code-review` + `code-review-expert`：`receiving-code-review` 談的是「收到意見後怎麼回應」的態度協議，`code-review-expert` 是 SOLID/安全性審查，`scope-creep-detector` 明確自稱「pre-PR 範圍分流，不是完整審查（正確性/安全性/測試品質故意排除在外）」——三邊軸線完全不同，皆無真重疊。結論：三個都保留，互相加交叉引用。
+
+**階段 B（分類與落點）**：4 個保留技能都屬於「偶爾需要」（情境明確：git 歷史調查、廢棄專案盤點、PR 範圍檢查、雜亂輸入處理）。依主題（非來源）分散融入 4 個既有頂層分類，未另立新分類：
+- `commit-archaeologist` → `incident-runbooks`（跟 `systematic-debugging` 同屬「動手前先系統性調查」模式）
+- `project-graveyard` → `business-automation`（屬於專案優先順序/該不該繼續的規劃決策）
+- `scope-creep-detector` → `code-quality-review`（跟既有 code review 工具同主題、互補）
+- `thinking-out-loud` → `agentic-dev-workflow`（自然銜接既有的 `brainstorming` 流程）
+
+**階段 C（執行）**：
+1. 命名衝突查核：4 個資料夾名稱與 frontmatter `name:` 皆與本倉庫現有技能全文查重，無衝突。
+2. 內部交叉引用：各技能的 `SKILL.md` 只引用自己資料夾內的 `references/*.md`／`scripts/*.py`，搬移後路徑仍相對於自身資料夾，全部正常解析，無需修正。
+3. 各技能自帶的 `README.md`（來源倉庫自己的行銷文案、`npx skills add` 安裝指令、外部託管 demo GIF）全數未搬入——比照本倉庫既有慣例，`SKILL.md` 是唯一索引。
+4. 授權歸屬：4 個技能分散到 4 個不同頂層分類（非單一獨立資料夾），比照 mattpocock-skills／andrej-karpathy-skills 的做法，在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 Apache-2.0 全文、出處與逐檔歸屬（含個別作者）。
+5. 全域必用資格查核：4 個技能的 `description` 都沒有「MUST use before any response」這類宣告，均為情境觸發（雜亂輸入、PR 前、廢棄專案提問、動手改動前的歷史提問），未列入 `SKILL.md` 的「🔁 Universal」清單。
+
+**階段 D（文件更新）**：`incident-runbooks/SKILL.md`／`business-automation/SKILL.md`／`code-quality-review/SKILL.md`／`agentic-dev-workflow/SKILL.md`（新增 domain 列＋交叉引用）、`README.md`（4 個小節新增條目與子技能數：`incident-runbooks` 3→4、`business-automation` 4→5、`code-quality-review` 12→13、`agentic-dev-workflow` 23→24；頂部總數 161→165；版權聲明段落）、根目錄 `SKILL.md`（Full skill list 子技能數、稽核區塊新增 `THIRD-PARTY IMPORT` 段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）。`TRIGGER-MAP.md` 同步新增觸發範例。
+
+**本機安裝**：把修改後的 `incident-runbooks`、`business-automation`、`code-quality-review`、`agentic-dev-workflow` 四個資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\` 對應同名資料夾，讓全域安裝同步含有這 4 個新子技能。
+
+**最終結果**：18 個頂層技能維持不變，`incident-runbooks` 3→4、`business-automation` 4→5、`code-quality-review` 12→13、`agentic-dev-workflow` 23→24，全倉庫子技能總數 161→165。`advisor-orchestrator-worker` 確認不匯入（與內建 `Workflow` 工具重疊）。

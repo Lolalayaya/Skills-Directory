@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. If the input itself arrives as a long, weakly punctuated, voice-dictated ramble that needs untangling before it's even askable, run `thinking-out-loud` first to produce an approved echo brief, then start this checklist."
 ---
 
 # Brainstorming Ideas Into Designs
