@@ -69,6 +69,7 @@ Total: 166 sub-domains across the 17 non-`context-engineering-collection` skills
 
 ## How to use this index
 
+0. For a human searching by keyword rather than scanning tables, open [`skills-search.html`](skills-search.html) — a static, self-contained HTML page mirroring every row of `TRIGGER-MAP.md` with instant keyword filtering. It's a snapshot, not a live view (see the maintenance note in the standard procedure below, step 15).
 1. Scan the quick-lookup table first — most tasks match one row directly.
 2. If a task spans more than one skill (common for anything shipping code: `agentic-dev-workflow` → `product-verification` → `code-quality-review` → `cicd-deployment`), open each in that order rather than picking just one.
 3. If nothing matches, the task may not be covered yet — say so rather than forcing a mismatched skill onto it.
@@ -103,6 +104,7 @@ Established 2026-07-31 after importing and distributing `mattpocock-skills` (see
 12. **Update this file (`SKILL.md`)**: the Quick-lookup table, the Full skill list's sub-domain counts, and the audit-trail comment block at the bottom (add a new dated entry rather than editing history away).
 13. **Update `SKILL-AUDIT.md`**: record the classification results, the placement decision and why, and any collisions/fixes from Phase C — this is what lets a future session judge "was this already considered?" instead of re-litigating it.
 14. **Update `TRIGGER-MAP.md`**: fold trigger examples for the new sub-domain(s) into the relevant existing category section (not a new standalone section, per Phase B point 2).
+15. **Regenerate `skills-search.html`**: this is a static, self-contained searchable HTML index of every row in `TRIGGER-MAP.md` (built 2026-08-02, see the note below the table) — it is a local file, not a published Artifact, and has no way to read `TRIGGER-MAP.md` at runtime. After step 14 changes that file, add/update the matching entries in `skills-search.html`'s inline `DATA` array by hand so the two never drift apart. Skipping this step is exactly how the search page goes stale.
 
 <!--
 =======================================================================

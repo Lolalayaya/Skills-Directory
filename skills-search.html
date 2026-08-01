@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills 觸發速查</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Palette: "Luxury/Premium Brand" (warm stone neutrals + single bronze/gold accent),
+     via ui-ux-pro-max --domain color. Deliberately one accent hue throughout (incl. <mark>)
+     rather than a second competing color — restraint reads as more considered/premium. */
+  :root{
+    --bg:#faf9f7;
+    --surface:#ffffff;
+    --surface-hover:#fbfaf8;
+    --border:#e7e3de;
+    --text:#1c1917;
+    --text-muted:#78716c;
+    --text-faint:#a8a29e;
+    --accent:#a16207;
+    --accent-text:#854d0e;
+    --accent-soft:#faf0d7;
+    --mark-bg:#f5e2b8;
+    --mark-text:#5c3d05;
+    --chip-bg:#f0ede8;
+    --chip-active-bg:#a16207;
+    --chip-active-text:#ffffff;
+    --shadow:0 1px 2px rgba(28,25,23,0.06), 0 1px 1px rgba(28,25,23,0.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#17130f;
+      --surface:#221d18;
+      --surface-hover:#2a2420;
+      --border:#3f3630;
+      --text:#faf8f6;
+      --text-muted:#a8a29e;
+      --text-faint:#78716c;
+      --accent:#eab308;
+      --accent-text:#fcd34d;
+      --accent-soft:rgba(234,179,8,0.14);
+      --mark-bg:#4a3712;
+      --mark-text:#f5e2b8;
+      --chip-bg:#2a2420;
+      --chip-active-bg:#eab308;
+      --chip-active-text:#17130f;
+      --shadow:0 1px 2px rgba(0,0,0,0.35);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{
+    font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,"SF Mono",Consolas,"Liberation Mono",monospace;
+  }
+  .icon{
+    display:inline-flex;
+    flex-shrink:0;
+    vertical-align:-3px;
+  }
+
+  .page{
+    max-width:840px;
+    margin:0 auto;
+    padding:28px 20px 64px;
+  }
+
+  header.top{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:var(--bg);
+    padding:8px 0 14px;
+    margin-bottom:6px;
+  }
+  h1{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:0 0 4px;
+  }
+  .subtitle{
+    color:var(--text-muted);
+    font-size:13.5px;
+    margin:0 0 16px;
+  }
+
+  .search-wrap{
+    position:relative;
+    margin-bottom:12px;
+  }
+  .search-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--text-faint);
+    pointer-events:none;
+  }
+  #q{
+    width:100%;
+    font-size:16px;
+    padding:12px 40px 12px 40px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  #q:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  #clear-btn{
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    color:var(--text-faint);
+    cursor:pointer;
+    font-size:13px;
+    padding:6px 8px;
+    border-radius:6px;
+    display:none;
+  }
+  #clear-btn:hover{ background:var(--chip-bg); color:var(--text); }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:10px;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:12.5px;
+    font-family:inherit;
+    padding:6px 12px;
+    border-radius:999px;
+    background:var(--chip-bg);
+    color:var(--text-muted);
+    border:none;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .12s ease, color .12s ease;
+  }
+  .chip:hover{ background:var(--accent-soft); color:var(--text); }
+  .chip.active{ background:var(--chip-active-bg); color:var(--chip-active-text); }
+
+  .meta-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    color:var(--text-faint);
+    font-size:12.5px;
+    padding-top:2px;
+  }
+  .meta-row span.count b{ color:var(--text-muted); font-weight:600; }
+
+  .list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:14px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    box-shadow:var(--shadow);
+  }
+  .card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .cat-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--text-faint);
+    white-space:nowrap;
+  }
+  .skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    justify-content:flex-end;
+  }
+  .skill-badge{
+    font-size:12px;
+    padding:3px 9px;
+    border-radius:6px;
+    background:var(--accent-soft);
+    color:var(--accent-text);
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .universal-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:6px;
+    background:var(--mark-bg);
+    color:var(--mark-text);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .phrase{
+    font-size:15px;
+    color:var(--text);
+    margin:0 0 6px;
+  }
+  .desc{
+    font-size:13px;
+    color:var(--text-muted);
+    margin:0;
+  }
+  mark{
+    background:var(--mark-bg);
+    color:var(--mark-text);
+    border-radius:3px;
+    padding:0 1px;
+  }
+
+  .empty{
+    text-align:center;
+    color:var(--text-faint);
+    padding:56px 20px;
+    font-size:14px;
+  }
+
+  footer{
+    margin-top:28px;
+    padding-top:14px;
+    border-top:1px solid var(--border);
+    color:var(--text-faint);
+    font-size:12px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  @media (max-width: 480px){
+    .card-top{ flex-direction:column; align-items:flex-start; }
+    .skills{ justify-content:flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <h1>Skills 觸發速查</h1>
+    <p class="subtitle">打幾個字，秒找對應的 skill —— 來源：<code class="mono">TRIGGER-MAP.md</code> 快照</p>
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </span>
+      <input id="q" type="text" placeholder="輸入關鍵字或情境，例如：部署、code review、寫測試…" autocomplete="off" spellcheck="false"/>
+      <button id="clear-btn" type="button">清除</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="meta-row">
+      <span class="count" id="count"></span>
+      <span id="active-filter"></span>
+    </div>
+  </header>
+
+  <div class="list" id="list"></div>
+  <div class="empty" id="empty" style="display:none">沒有符合的結果——換個關鍵字，或直接問我「我要做 XX，該用哪個 skill」。</div>
+
+  <footer>
+    <span>資料來源 <code class="mono">TRIGGER-MAP.md</code>（靜態快照，非即時同步）</span>
+    <span>找不到你要的觸發詞？回報給我，我可以直接改對應技能的 description。</span>
+  </footer>
+</div>
+
+<script>
+const CATS = [
+  {key:"dev",   label:"開發流程與品質保證"},
+  {key:"ops",   label:"部署與維運"},
+  {key:"web",   label:"瀏覽器自動化與研究"},
+  {key:"design",label:"內容、文件與設計"},
+  {key:"mkt",   label:"行銷"},
+  {key:"learn", label:"學習與任務管理"},
+  {key:"agent", label:"Agent / 上下文工程"}
+];
+
+/* Outline icon set (no emoji-as-icon, per ui-ux-pro-max style-selection rule):
+   one consistent stroke-based visual language across all category markers. */
+const ICON_PATHS = {
+  dev:    '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>',
+  ops:    '<polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>',
+  web:    '<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>',
+  design: '<path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle>',
+  mkt:    '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>',
+  learn:  '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>',
+  agent:  '<rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>',
+  repeat: '<polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path>'
+};
+function iconSvg(key, size){
+  size = size || 14;
+  return '<svg class="icon" width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+ICON_PATHS[key]+'</svg>';
+}
+
+const DATA = [
+// ---- 開發流程與品質保證 ----
+{cat:"dev", phrase:"「幫我做一個新功能」「這個 bug 怎麼修比較好」（對話剛開始）", skills:["using-superpowers"], desc:"先判斷這次任務該用哪個技能，包含要問你的釐清問題", universal:true},
+{cat:"dev", phrase:"（長串雜亂、口語/語音口述式的碎念，還沒整理成一句話的需求）", skills:["thinking-out-loud"], desc:"先產出 echo 摘要（含推論/猜測標註區）讓你確認，才動手做任何事；確認後若是要做功能設計，銜接到 brainstorming"},
+{cat:"dev", phrase:"「我想加一個 XX 功能，先幫我想想怎麼設計」", skills:["brainstorming"], desc:"動手寫程式前，先探索你的意圖與需求", universal:true},
+{cat:"dev", phrase:"「需求都確定了，幫我寫個實作計畫」", skills:["writing-plans"], desc:"把需求轉成有步驟的實作計畫"},
+{cat:"dev", phrase:"「開始做這個功能前，先開一個獨立工作區」", skills:["using-git-worktrees"], desc:"用 git worktree 建立隔離的開發環境"},
+{cat:"dev", phrase:"「照著這份計畫在新的 session 執行」", skills:["executing-plans"], desc:"在獨立 session 執行已寫好的計畫，設檢查點"},
+{cat:"dev", phrase:"「照著計畫在這個對話裡，一個任務一個任務做完」", skills:["subagent-driven-development"], desc:"序列派 subagent 執行計畫裡的任務，不平行派 implementer"},
+{cat:"dev", phrase:"「這 3 個 bug 互不相關，可以同時查嗎」", skills:["dispatching-parallel-agents"], desc:"派平行 agent 處理互不依賴的獨立任務（⚠️ 與上一項的分工目前不夠明確，見 SKILL-AUDIT.md）"},
+{cat:"dev", phrase:"「功能做完了，測試也過了，接下來怎麼合併」", skills:["finishing-a-development-branch"], desc:"決定分支要 merge / PR / rebase 的方式"},
+{cat:"dev", phrase:"「幫我逼問一下這個計畫的細節」", skills:["grilling","grill-me"], desc:"一次一題的相關人審問式訪談（--batch 可切換整批問）；跟 brainstorming 互補，不是取代"},
+{cat:"dev", phrase:"「幫我邊訪談邊更新專案的領域詞彙文件」", skills:["grill-with-docs"], desc:"逼問訪談 + 同步更新 CONTEXT.md/ADR"},
+{cat:"dev", phrase:"「『帳號』這個詞在專案裡到底指什麼」", skills:["domain-modeling"], desc:"挑戰模糊詞彙、解決一詞多義、記錄不可逆決策為 ADR"},
+{cat:"dev", phrase:"「把這個對話整理成一份 spec」", skills:["to-spec"], desc:"合成 spec 並發布到 issue tracker"},
+{cat:"dev", phrase:"「把這份 spec 拆成一張一張的票」", skills:["to-tickets"], desc:"拆成宣告依賴關係的 tracer-bullet 票"},
+{cat:"dev", phrase:"「這個專案大到一個 session 裝不下，不知道怎麼下手」", skills:["wayfinder"], desc:"用決策票地圖逐步解開超大型灰地專案"},
+{cat:"dev", phrase:"「幫我把這個重構請求拆成可逐步提交的步驟」", skills:["request-refactor-plan"], desc:"訪談 + 拆解成最小可提交步驟"},
+{cat:"dev", phrase:"「幫我做個拋棄式原型測一下這個設計」", skills:["prototype"], desc:"跑完即刪的原型驗證"},
+{cat:"dev", phrase:"「這個專案要開始用逼問式規劃工具了，先幫我設定」", skills:["setup-matt-pocock-skills"], desc:"一次性設定 issue tracker、triage 標籤等"},
+{cat:"dev", phrase:"「把這個對話交接給下一個 session」", skills:["handoff"], desc:"壓縮對話成交接文件，CLI 支援就直接 launch 背景 agent，否則存檔"},
+{cat:"dev", phrase:"「解決一下這個 merge conflict」", skills:["resolving-merge-conflicts"], desc:"逐 hunk 解決衝突，禁止 --abort"},
+{cat:"dev", phrase:"「幫我裝一個攔截危險 git 指令的 hook」", skills:["git-guardrails-claude-code"], desc:"攔截 push --force、reset --hard 等"},
+{cat:"dev", phrase:"「不確定該用逼問訪談還是哪個規劃工具」", skills:["ask-matt"], desc:"這批工具自己的流程路由圖"},
+{cat:"dev", phrase:"「寫/改程式碼前，提醒我一下不要過度設計、只動手術刀式修改」", skills:["karpathy-guidelines"], desc:"4 條濃縮行為守則：動手前先想清楚、精簡優先、手術刀式修改、目標導向可驗證；與 brainstorming／TDD/驗證／code review 精神相通但不是同一套流程"},
+{cat:"dev", phrase:"「開始寫這個功能前先寫測試」", skills:["test-driven-development"], desc:"Red-Green-Refactor：先寫定義成功的測試（已融合 mattpocock 原 tdd 的 Seams/反模式/Mocking 內容）", universal:true},
+{cat:"dev", phrase:"「我測試過了，應該修好了」", skills:["verification-before-completion"], desc:"要求你先跑驗證指令、讀懂輸出，才能宣稱完成", universal:true},
+{cat:"dev", phrase:"「用 Playwright 幫我測一下這個網頁」", skills:["webapp-testing"], desc:"對本地網頁做互動測試、截圖、console log 除錯"},
+{cat:"dev", phrase:"「開 PR 前先看一下這個改動有沒有超出範圍」「這個 diff 是不是改太多了」", skills:["scope-creep-detector"], desc:"比對 git diff 跟宣稱的意圖，抓範圍蔓延/新依賴/API 改名，給 keep/split/justify 建議；純範圍分流，不做品質/安全審查"},
+{cat:"dev", phrase:"「幫我審查一下這次改動」", skills:["code-review-expert"], desc:"資深工程師視角審查 git 變更，抓 SOLID 違規與安全風險"},
+{cat:"dev", phrase:"「幫我寫個 Semgrep 規則抓這種寫法」", skills:["semgrep"], desc:"靜態分析工具，含自訂規則撰寫"},
+{cat:"dev", phrase:"這段程式碼碰到輸入、驗證、檔案、DB、網路、加密、infra 設定", skills:["code-security"], desc:"主動檢查安全風險，不用你開口", universal:true},
+{cat:"dev", phrase:"「我在做一個 AI/RAG 應用，這樣安全嗎」", skills:["llm-security"], desc:"LLM/RAG 應用的 OWASP Top 10 安全檢查"},
+{cat:"dev", phrase:"「幫我加個 xxx 套件」「這個檔案寫完了，附一下授權/相依套件的檢查結果」「這是要商用/開源釋出的專案，先確認一下授權沒問題」", skills:["ip-guard"], desc:"新增外部相依套件前做授權相容性+遞移相依安全掃描（OSV+隔離套件狀態），每完成一個檔案/artifact 附加 provenance block；觸發粒度是「每次新增依賴」與「每完成一個檔案」，非每次回應都觸發"},
+{cat:"dev", phrase:"「重要功能做完了，我該怎麼發起 code review」", skills:["requesting-code-review"], desc:"教你怎麼「提出」審查請求"},
+{cat:"dev", phrase:"「審查意見回來了，我該怎麼回應」", skills:["receiving-code-review"], desc:"教你怎麼嚴謹評估、回應審查意見"},
+{cat:"dev", phrase:"「這個 bug 到底為什麼會發生」", skills:["systematic-debugging"], desc:"先找根因、影響範圍，再提修法（已融合 mattpocock 原 diagnosing-bugs 的「先建可靠紅色訊號迴圈」方法論）"},
+{cat:"dev", phrase:"「這段程式碼到底為什麼會這樣寫」「重構前先幫我查一下這裡的歷史」", skills:["commit-archaeologist"], desc:"用本地 git 歷史（非僅 blame）重建程式碼存在的原因：起源 commit、後續變更、常一起改的檔案、意圖線索"},
+{cat:"dev", phrase:"「這些外部回報的 bug/需求幫我分類處理」", skills:["triage"], desc:"用狀態機把湧入的原始回報整理成 agent 可接手的 issue"},
+{cat:"dev", phrase:"「我口頭描述一個 bug，幫我拆成 issue」", skills:["qa"], desc:"背景探索程式碼理解領域語言，拆解建成 GitHub issue"},
+{cat:"dev", phrase:"這個專案本來就用 OpenSpec 慣例管理變更", skills:["openspec-workflow"], desc:"走 OpenSpec 的完整變更生命週期（explore/propose/apply/sync/archive），取代 brainstorming→writing-plans"},
+{cat:"dev", phrase:"「幫我掃一下這個 codebase 有沒有架構能改善的地方」", skills:["improve-codebase-architecture"], desc:"掃描深模組化機會，產出視覺化 HTML 報告"},
+{cat:"dev", phrase:"「這個模組的介面該怎麼設計」", skills:["codebase-design"], desc:"深模組設計詞彙（interface/depth/seam/adapter）"},
+{cat:"dev", phrase:"「幫我審查一下這次的 diff，照 Standards 跟 Spec 兩個軸」", skills:["code-review"], desc:"雙軸審查+Fowler smell 基準（跟 code-review-expert 二選一，不要同時觸發）"},
+{cat:"dev", phrase:"「用 dependency-cruiser 幫我強制模組邊界」", skills:["setup-ts-deep-modules"], desc:"TS 套件只能透過入口檔案被外部引用"},
+{cat:"dev", phrase:"「幫我設定 pre-commit hook」", skills:["setup-pre-commit"], desc:"Husky+lint-staged+Prettier"},
+{cat:"dev", phrase:"「這個技能該怎麼規劃架構」", skills:["skill-forge"], desc:"架構設計階段：workflow checklist、資源規劃"},
+{cat:"dev", phrase:"「幫我測試/優化這個技能的觸發率」", skills:["skill-creator"], desc:"eval/benchmark 迭代階段：跑測試、比對輸出、優化 description"},
+{cat:"dev", phrase:"「這個技能上線前幫我把關一下」", skills:["writing-skills"], desc:"上線前驗證：TDD 式壓力測試、SDO 描述規則"},
+{cat:"dev", phrase:"「幫我審查一下這個現成技能」", skills:["skill-review"], desc:"純審查，不編輯"},
+{cat:"dev", phrase:"「技能的 description 該怎麼寫比較好」", skills:["writing-great-skills"], desc:"撰寫技能的詞彙/原則參考，隨時可查（跟 writing-skills 的差異：參考 vs 上線前測試關卡）"},
+
+// ---- 部署與維運 ----
+{cat:"ops", phrase:"「幫我把這個部署到 Vercel」「push this live」", skills:["deploy-to-vercel"], desc:"互動式部署（檢查 git remote / .vercel link / CLI 登入）"},
+{cat:"ops", phrase:"「用 CI token 部署，不要互動登入」", skills:["vercel-cli-with-tokens"], desc:"用 access token 非互動部署，適合 CI"},
+{cat:"ops", phrase:"「為什麼這個 Vercel 專案這麼貴/這麼慢」", skills:["vercel-optimize"], desc:"用真實用量數據（Function Invocations、Build Minutes、Core Web Vitals）找優化點（data-analysis 底下）"},
+{cat:"ops", phrase:"「幫我做一個互動式的設定/遷移引導腳本」", skills:["wizard"], desc:"產生互動式 bash 精靈，帶人跑完一次性設定/遷移（infrastructure-ops 底下）"},
+{cat:"ops", phrase:"日常伺服器/資料庫維運、防止破壞性指令需求", skills:["infrastructure-ops"], desc:"仍未涵蓋——wizard 只處理一次性、需要人在場的設定流程，不是持續性維運工具，這個缺口還在"},
+
+// ---- 瀏覽器自動化與研究 ----
+{cat:"web", phrase:"「幫我去這個網站幫我點一下、填個表單」", skills:["browser"], desc:"自然語言 CLI 操控真實瀏覽器"},
+{cat:"web", phrase:"「只要抓這個網址的 HTML/JSON 就好，不用開瀏覽器」", skills:["fetch"], desc:"純 HTTP 取內容，無 JS 渲染"},
+{cat:"web", phrase:"「幫我搜尋一下網路上有沒有相關資料」", skills:["search"], desc:"不開瀏覽器的輕量網路搜尋，回結構化標題/URL"},
+{cat:"web", phrase:"「這個網站要先登入才能看，幫我同步 cookie」", skills:["cookie-sync"], desc:"把本機 Chrome cookie 同步進 Browserbase"},
+{cat:"web", phrase:"「幫我測一下這次 UI 改動有沒有壞掉」", skills:["ui-test"], desc:"對 git diff 有變更的部分做對抗式 UI 測試"},
+{cat:"web", phrase:"「這次自動化跑失敗了，幫我看看哪裡卡住」", skills:["browser-trace"], desc:"擷取 DevTools trace 除錯"},
+{cat:"web", phrase:"「把這個瀏覽器任務變成排程/webhook」", skills:["functions"], desc:"部署成 Browserbase 無伺服器函式"},
+{cat:"web", phrase:"「這個任務老是失敗，幫我訓練到穩定」", skills:["autobrowse"], desc:"反覆執行、讀 trace、優化策略直到穩定"},
+{cat:"web", phrase:"「這段流量幫我轉成 API 文件」", skills:["browser-to-api"], desc:"把 HTTP 流量轉成 OpenAPI 3.1 規格"},
+{cat:"web", phrase:"「幫我找這家公司的潛在客戶名單」", skills:["company-research"], desc:"依 ICP 條件研究目標公司"},
+{cat:"web", phrase:"「幫我看看我們的競爭對手在做什麼」（還不知道有誰）", skills:["competitor-analysis"], desc:"自動探索競品、產出互動 HTML 報告與戰卡"},
+{cat:"web", phrase:"「幫我研究這幾個競品網址的 SEO/流量表現」（已有 URL 清單）", skills:["competitor-profiling"], desc:"用 Firecrawl/DataForSEO 挖 SEO/流量/評論情報，產出 Markdown"},
+{cat:"web", phrase:"「這場研討會的講者名單，幫我篩出潛在客戶」", skills:["event-prospecting"], desc:"從會議 speaker 頁抽人、按 ICP 過濾"},
+{cat:"web", phrase:"「幫我研究一下 XX 這個主題，給我結構化報告」（中文、非銷售場景）", skills:["deep-research"], desc:"通用主題研究 pipeline（research→research-deep→research-report）；⚠️ 跟 company-research 命名容易撞車"},
+{cat:"web", phrase:"「幫我查一下這個問題，寫成一份筆記」（單一問題，不需要比較表）", skills:["background-research"], desc:"背景 agent 單次查證，產出一份帶引用的筆記——不是 pipeline 的一部分（deep-research 底下）"},
+
+// ---- 內容、文件與設計 ----
+{cat:"design", phrase:"「幫我大量產生 SEO 頁面」", skills:["programmatic-seo"], desc:"資料驅動產生 SEO 頁面樣板"},
+{cat:"design", phrase:"「幫我做一整套品牌識別+Logo+Banner+簡報」（跨多種產出、或不確定要哪個）", skills:["design"], desc:"全包版：內建 Logo/CIP/Banner/Icon/Slides/社群圖生成"},
+{cat:"design", phrase:"「只要幫我定義品牌語氣」／「只要一張 Banner」／「只要簡報」／「只要 token 規格」", skills:["brand","banner-design","slides","design-system"], desc:"同一供應商的精簡單功能版，只做一件事、載入更少 context"},
+{cat:"design", phrase:"「幫我建一套 design token 系統」", skills:["design-system"], desc:"三層 token（primitive→semantic→component）+ 元件規格"},
+{cat:"design", phrase:"「幫我用 shadcn/Tailwind 刻這個 UI」", skills:["ui-styling"], desc:"UI 樣式實作規範"},
+{cat:"design", phrase:"「有沒有現成的配色/字體/風格可以參考」", skills:["ui-ux-pro-max"], desc:"可搜尋的 UI/UX 資料庫（67 風格/161 配色等）"},
+{cat:"design", phrase:"「這個 UI 看起來很有 AI 感，幫我改得有個性一點」", skills:["frontend-design"], desc:"反樣板感的視覺方向判斷"},
+{cat:"design", phrase:"「幫我做一張海報」", skills:["canvas-design"], desc:"靜態視覺藝術（PNG/PDF）"},
+{cat:"design", phrase:"「幫我用 p5.js 生成一些演算法藝術」", skills:["algorithmic-art"], desc:"種子隨機數生成藝術"},
+{cat:"design", phrase:"「幫這份文件/簡報套個主題」", skills:["theme-factory"], desc:"套用內建 10 組預設主題"},
+{cat:"design", phrase:"「幫我做一個有狀態管理的複雜 claude.ai 頁面」", skills:["web-artifacts-builder"], desc:"React/Tailwind/shadcn 打造複雜 artifact"},
+{cat:"design", phrase:"「幫我審查一下這個 UI 符不符合無障礙規範」", skills:["web-design-guidelines"], desc:"依 Web Interface Guidelines 審查 UI 程式碼"},
+{cat:"design", phrase:"「幫我審查一下這份文件的語氣」", skills:["writing-guidelines"], desc:"依 Writing Guidelines 審查文案語氣"},
+{cat:"design", phrase:"「幫我做一份簡報」", skills:["slides"], desc:"用 Chart.js + design token 做策略性 HTML 簡報"},
+{cat:"design", phrase:"「幫我讀寫這份 Word/Excel/PPT/PDF」", skills:["docx","xlsx","pptx","pdf"], desc:"對應檔案格式的建立、編輯、讀取"},
+{cat:"design", phrase:"「幫我做一個 MCP 伺服器」", skills:["mcp-builder"], desc:"建置高品質 MCP 伺服器"},
+{cat:"design", phrase:"「這個 React/Next.js 專案效能怎麼優化」", skills:["vercel-react-best-practices"], desc:"通用 React/Next.js 效能準則"},
+{cat:"design", phrase:"「這是 React Native/Expo 專案，效能怎麼優化」", skills:["vercel-react-native-skills"], desc:"僅限行動端的效能規則"},
+{cat:"design", phrase:"「幫我加個 View Transition 動畫」", skills:["vercel-react-view-transitions"], desc:"View Transitions API 應用"},
+{cat:"design", phrase:"「這個元件架構怎麼設計比較好」", skills:["vercel-composition-patterns"], desc:"React 組合模式"},
+{cat:"design", phrase:"「幫我一起寫一份提案/技術規格」", skills:["doc-coauthoring"], desc:"結構化共寫文件流程"},
+{cat:"design", phrase:"「幫我照公司格式寫一份狀態報告/電子報」", skills:["internal-comms"], desc:"套用公司慣用的內部溝通格式"},
+{cat:"design", phrase:"「幫我把這些寫作靈感先記下來，還沒想好怎麼組織」", skills:["writing-fragments"], desc:"純探索，挖掘素材片段，不急著定結構"},
+{cat:"design", phrase:"「幫我把這堆素材寫成一篇文章」／「幫我改一下這篇文章草稿」", skills:["writing-shape"], desc:"塑形成文章（含敘事 beat 模式）或編輯既有草稿"},
+{cat:"design", phrase:"「這幾個問題我答不出來，幫我整理成問卷發給知情人」", skills:["to-questionnaire"], desc:"把答不出來的問題整理成問卷，非同步填寫或會議上討論"},
+
+// ---- 行銷 ----
+{cat:"mkt", phrase:"「幫我寫一則廣告文案/投放策略」", skills:["ads","ad-creative"], desc:"付費廣告策略與素材"},
+{cat:"mkt", phrase:"「幫我做 App Store 上架優化稽核」", skills:["aso"], desc:"ASO 稽核"},
+{cat:"mkt", phrase:"「怎麼讓 ChatGPT/Perplexity 這類 AI 搜尋引擎推薦我」", skills:["ai-seo"], desc:"針對 AI 搜尋引擎的 SEO"},
+{cat:"mkt", phrase:"「幫我做網站 SEO 健檢」", skills:["seo-audit"], desc:"傳統技術/內容 SEO 健檢（跟 ai-seo 已互斥）"},
+{cat:"mkt", phrase:"「幫我寫一篇部落格文章/文案」", skills:["copywriting","copy-editing"], desc:"文案撰寫與潤稿"},
+{cat:"mkt", phrase:"「幫我規劃內容策略/網站架構」", skills:["content-strategy","site-architecture"], desc:"內容與架構規劃"},
+{cat:"mkt", phrase:"「幫我優化註冊/導入流程/轉換率」", skills:["signup","onboarding","cro"], desc:"各階段轉換優化"},
+{cat:"mkt", phrase:"「幫我設計定價/付費牆/優惠方案」", skills:["pricing","paywalls","offers"], desc:"商業模式設計"},
+{cat:"mkt", phrase:"「使用者一直流失，幫我想辦法留住」", skills:["churn-prevention"], desc:"流失防範"},
+{cat:"mkt", phrase:"「幫我寫 Email/簡訊行銷內容」", skills:["emails","sms","cold-email"], desc:"對應管道的行銷內容"},
+{cat:"mkt", phrase:"「幫我設計推薦計畫/找網紅合作/做社群經營」", skills:["referrals","influencer-marketing","community-marketing"], desc:"成長與夥伴關係"},
+{cat:"mkt", phrase:"「幫我規劃產品發布」", skills:["launch"], desc:"產品發布計畫"},
+{cat:"mkt", phrase:"「幫我了解目標客群/建立潛在客戶名單」", skills:["customer-research","prospecting"], desc:"客戶研究與名單開發（兩者觸發詞部分重疊）"},
+{cat:"mkt", phrase:"「幫我做一份行銷計畫/找點子/多角度顧問建議」", skills:["marketing-plan","marketing-ideas","marketing-council"], desc:"策略發想（三者觸發詞部分重疊）"},
+{cat:"mkt", phrase:"「幫我設計 A/B 測試/歸因模型/看數據」", skills:["ab-testing","attribution","analytics"], desc:"數據相關（已用明確邊界說明區分）"},
+{cat:"mkt", phrase:"「幫我做競品比較頁/alternative 頁」", skills:["competitors"], desc:"只做「成品頁面」，不做背後的競品研究（研究見 browser-automation）"},
+{cat:"mkt", phrase:"其餘行銷細分領域", skills:["schema","social","video","image","popups","co-marketing","free-tools","lead-magnets","marketing-loops","marketing-psychology","product-marketing","public-relations","revops","sales-enablement","directory-submissions"], desc:"各自對應該行銷細分領域，觸發詞清楚，未發現重疊或模糊問題"},
+
+// ---- 學習與任務管理 ----
+{cat:"learn", phrase:"「我想系統性地讀完這本書」", skills:["book-study"], desc:"間隔重複 + 精熟度測驗的讀書教練"},
+{cat:"learn", phrase:"「幫我把這些筆記整理進知識庫」", skills:["wiki-ingest"], desc:"彙整文章/筆記成結構化 wiki"},
+{cat:"learn", phrase:"「教我 XX 這個主題，用問答的方式」", skills:["sigma"], desc:"蘇格拉底式 AI 家教（與 book-study 底層機制重疊）"},
+{cat:"learn", phrase:"「我想長期建立一個學這個主題的工作區」", skills:["teach"], desc:"長期課程資產建構（跟 sigma 的差異：無嚴格掌握度評分）"},
+{cat:"learn", phrase:"「這個任務很長，幫我把進度存到硬碟上」", skills:["business-automation"], desc:"跨 session 保留 task_plan/findings/progress，語言變體視你的對話語言而定（planning-with-files 系列）"},
+{cat:"learn", phrase:"「我生活/工作裡有個重複的模式，幫我整理成可執行的 workflow」", skills:["loop-me"], desc:"用逼問訪談把重複模式整理成 workflow 規格文件（business-automation 底下）"},
+{cat:"learn", phrase:"「我電腦裡一堆做到一半就放棄的專案，幫我看看該救哪個」「為什麼我老是沒把專案做完」", skills:["project-graveyard"], desc:"掃描機器上被放棄的側專案，從 git 歷史解剖死因、找出失敗模式，挑一個最值得復活的並協助動手（business-automation 底下）"},
+
+// ---- Agent / 上下文工程 ----
+{cat:"agent", phrase:"「這個 agent 為什麼中段就忘記指令了」", skills:["context-degradation"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「長對話怎麼做上下文壓縮/交接摘要」", skills:["context-compression"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「token 預算怎麼優化，要不要用 KV cache」", skills:["context-optimization"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「怎麼用檔案系統做持久化 scratchpad」", skills:["filesystem-context"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「怎麼設計跨 session 的記憶系統」", skills:["memory-systems"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「多 agent 系統的架構怎麼設計」", skills:["multi-agent-patterns"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「怎麼給 LLM 設計好用的工具」", skills:["tool-design"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「這個 agent 專案的開發流程怎麼走」", skills:["project-development"], desc:"進階研究向，一般任務幾乎不會觸發"},
+{cat:"agent", phrase:"「怎麼評估 agent 系統的表現」", skills:["evaluation","advanced-evaluation"], desc:"後者專做 LLM-as-judge、pairwise 比較"},
+{cat:"agent", phrase:"其餘更底層/學術子場景", skills:["context-fundamentals","bdi-mental-states","hosted-agents","harness-engineering","self-improvement-loops","long-horizon-prompting"], desc:"觸發頻率極低"},
+];
+
+const catInfo = Object.fromEntries(CATS.map(c => [c.key, c]));
+let activeCat = null;
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+function highlight(text, tokens){
+  let escaped = escapeHtml(text);
+  if(!tokens.length) return escaped;
+  tokens.forEach(t => {
+    if(!t) return;
+    const escapedTok = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    escaped = escaped.replace(new RegExp('('+escapedTok+')', 'gi'), '<mark>$1</mark>');
+  });
+  return escaped;
+}
+
+function buildChips(){
+  const chipsEl = document.getElementById('chips');
+  chipsEl.innerHTML = '';
+  CATS.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (activeCat === c.key ? ' active' : '');
+    btn.innerHTML = iconSvg(c.key, 13) + ' <span>' + c.label + '</span>';
+    btn.onclick = () => { activeCat = (activeCat === c.key) ? null : c.key; render(); };
+    chipsEl.appendChild(btn);
+  });
+}
+
+function render(){
+  buildChips();
+  const q = document.getElementById('q').value.trim();
+  const tokens = q.split(/\s+/).filter(Boolean);
+  document.getElementById('clear-btn').style.display = q ? 'block' : 'none';
+
+  const searchable = e => (e.phrase + ' ' + e.skills.join(' ') + ' ' + e.desc + ' ' + catInfo[e.cat].label).toLowerCase();
+
+  let results = DATA.filter(e => {
+    if(activeCat && e.cat !== activeCat) return false;
+    if(!tokens.length) return true;
+    const hay = searchable(e);
+    return tokens.every(t => hay.includes(t.toLowerCase()));
+  });
+
+  const listEl = document.getElementById('list');
+  const emptyEl = document.getElementById('empty');
+  const countEl = document.getElementById('count');
+  const filterEl = document.getElementById('active-filter');
+
+  countEl.innerHTML = '符合 <b>' + results.length + '</b> / ' + DATA.length + ' 條';
+  filterEl.textContent = activeCat ? ('篩選中：' + catInfo[activeCat].icon + ' ' + catInfo[activeCat].label) : '';
+
+  if(!results.length){
+    listEl.innerHTML = '';
+    emptyEl.style.display = 'block';
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  listEl.innerHTML = results.map(e => {
+    const info = catInfo[e.cat];
+    const skillBadges = e.skills.map(s => '<span class="skill-badge mono">' + highlight(s, tokens) + '</span>').join('');
+    const universalBadge = e.universal ? '<span class="universal-badge">' + iconSvg('repeat', 11) + ' 必用</span>' : '';
+    return '<div class="card">' +
+      '<div class="card-top">' +
+        '<span class="cat-tag">' + iconSvg(e.cat, 13) + ' ' + info.label + '</span>' +
+        '<div class="skills">' + universalBadge + skillBadges + '</div>' +
+      '</div>' +
+      '<p class="phrase">' + highlight(e.phrase, tokens) + '</p>' +
+      '<p class="desc">' + highlight(e.desc, tokens) + '</p>' +
+    '</div>';
+  }).join('');
+}
+
+document.getElementById('q').addEventListener('input', render);
+document.getElementById('clear-btn').addEventListener('click', () => {
+  document.getElementById('q').value = '';
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
