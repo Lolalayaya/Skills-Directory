@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **165 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **179 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -18,6 +18,8 @@ Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布�
 - forrestchang 發布的第三方開源技能包 `andrej-karpathy-skills`（[github.com/forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)，MIT 授權）於 2026-08-01 匯入，內含單一技能 `karpathy-guidelines`，依主題併入既有的 `agentic-dev-workflow`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Shubham Saboo 發布的第三方開源專案 `awesome-llm-apps`（[github.com/Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)，Apache-2.0 授權，其中個別技能由 Shubham Saboo 或 Matt Van Horn 撰寫）的 `agent_skills/` 資料夾於 2026-08-01 匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），依主題分散融入本倉庫既有的 4 個頂層技能（`incident-runbooks`、`business-automation`、`code-quality-review`、`agentic-dev-workflow`），完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)；原始文字內容的著作權仍屬於原作者
 - Mugdha Vairagade 發布的第三方開源技能 `claude-skill-ip-guard`（[github.com/mugdhav/claude-skill-ip-guard](https://github.com/mugdhav/claude-skill-ip-guard)，Apache-2.0 授權）於 2026-08-02 匯入，內含單一技能 `ip-guard`（程式碼/內容產出的 IP 與授權合規防護、相依套件安全掃描），依主題併入既有的 `code-quality-review`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Leonxlnx 發布的第三方開源技能包 `taste-skill`（[github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)，MIT 授權）於 2026-08-05 匯入，內含 12 個前端設計/反 AI 樣板技能，其中 11 個依主題併入既有的 `scaffolding-templating`，第 12 個 `output-skill`（非設計技能，完整輸出紀律）併入既有的 `product-verification`，完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Nutlope 發布的第三方開源技能 `hallmark`（[github.com/Nutlope/hallmark](https://github.com/Nutlope/hallmark)，MIT 授權）於 2026-08-05 匯入，內含單一技能 `hallmark`（反 AI 樣板前端設計系統，含 audit/redesign/study 動詞），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -179,11 +181,12 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`git-guardrails-claude-code`** — 攔截危險 git 指令（`push --force`、`reset --hard` 等）的 hook
 
 ### 2. `product-verification` — 讓「完成」有憑有據
-證明修好的功能/bug 真的可行，而不是憑感覺宣稱完成。包含 **3 個子技能**：
+證明修好的功能/bug 真的可行，而不是憑感覺宣稱完成。包含 **4 個子技能**（其中 1 個來自第三方 `taste-skill`，MIT 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`test-driven-development`**（🔁必用）— 實作任何功能/修 bug 前，先寫測試（red-green-refactor）
 - **`verification-before-completion`**（🔁必用）— 宣稱完成前，必須實際跑驗證指令並讀懂輸出
 - **`webapp-testing`** — 用 Playwright 對本地網頁應用做互動測試，含截圖、console log、UI 除錯
+- **`output-skill`**（來自第三方 `taste-skill`）— 禁止 LLM 輸出截斷/佔位符（`// rest of code`、「為簡潔省略」等），逼你先數清楚要交付幾項再動筆，並定義 token 上限時的暫停/續寫格式；跟 `verification-before-completion` 是相鄰但不同的軸線——那個管「宣稱完成前有沒有驗證」，這個管「這次產出有沒有被悄悄截斷」
 
 ### 3. `code-quality-review` — 程式碼審查與安全性
 標準化「程式碼怎麼被審查與掃描」。包含 **14 個子技能**（其中 6 個來自第三方 `mattpocock-skills`，MIT 授權；1 個來自第三方 `awesome-llm-apps`，Apache-2.0 授權；1 個來自第三方 `claude-skill-ip-guard`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
@@ -289,7 +292,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🎨 內容、文件與設計
 
 ### 12. `scaffolding-templating` — 樣板、腳手架與完整設計系統
-把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **16 個子技能**：
+把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **28 個子技能**（其中 12 個來自第三方 `taste-skill`、1 個來自第三方 `hallmark`，皆為 MIT 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`programmatic-seo`** — 用資料驅動的方式大量產生 SEO 頁面樣板
 - **`design`** — 一般性設計指引
@@ -307,6 +310,27 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`web-design-guidelines`** — 依 Web Interface Guidelines 審查 UI 程式碼（無障礙、UX）
 - **`writing-guidelines`** — 依 Writing Guidelines 審查文件/文案語氣風格
 - **`slides`** — 用 Chart.js、design token、文案公式打造策略性 HTML 簡報
+- **`taste-skill`**（來自第三方 `taste-skill`）— 落地頁/portfolio/改版的反樣板前端技能：先推斷一句話「design read」，設定 3 個數值旋鈕（variance/motion/density），依 brief 判斷該接官方設計系統（Fluent/Material/Carbon 等）還是原生 CSS 美學，附排版/色彩/圖片/文案硬規則與 GSAP 程式碼骨架
+- **`taste-skill-v1`**（來自第三方 `taste-skill`）— 上面 `taste-skill` 改版前的舊版，僅為需要精確舊行為的專案保留
+- **`hallmark`**（來自第三方 `hallmark`）— 另一套反樣板前端設計系統，自帶 `audit`／`redesign`／`study`（可從 URL 或截圖萃取設計 DNA）動詞、20 種具名主題目錄+客製 OKLCH 分支、跨 session 持久化的多樣性紀錄（強制這次跟前幾次的巨觀結構/主題/nav/footer 不同）、58 條出貨前檢查關卡；跟 `taste-skill` 主題重疊但機制完全不同，兩者擇一使用、不要同一次建置混用（怎麼選見下方提示）
+- **`brandkit`**（來自第三方 `taste-skill`）— 品牌識別板/Logo 系統/識別手冊的**圖片生成**技能（不是文字型品牌語氣文件，那是上面的 `brand`）
+- **`brutalist-skill`**（來自第三方 `taste-skill`）— Swiss 印刷+軍事終端融合的工業感 UI，適合數據密集儀表板/portfolio/編輯類站點
+- **`gpt-tasteskill`**（來自第三方 `taste-skill`）— GSAP 動態工程+AIDA 頁面結構+模擬 Python 偽隨機排版變化，Awwwards 等級的動態網站
+- **`image-to-code-skill`**（來自第三方 `taste-skill`）— 先生成設計參考圖、深入分析後再依圖寫程式碼，寫給 Codex 類型的圖片優先工作流
+- **`imagegen-frontend-mobile`**（來自第三方 `taste-skill`）— 純圖片生成（不寫程式碼）的手機 App 畫面概念，含裝置外框 mockup
+- **`imagegen-frontend-web`**（來自第三方 `taste-skill`）— 純圖片生成（不寫程式碼）的網頁分區塊參考圖，一個區塊一張圖
+- **`minimalist-skill`**（來自第三方 `taste-skill`）— 暖色調極簡編輯風 UI：無漸層、無重陰影、扁平 bento grid
+- **`redesign-skill`**（來自第三方 `taste-skill`）— 既有網站/App 的稽核式升級改版，不換框架不破壞功能
+- **`soft-skill`**（來自第三方 `taste-skill`）—「$150k 代理商級」視覺規格：禁用字體/圖示/陰影/版型/動態清單、雙層卡片架構、出貨前檢查清單
+- **`stitch-skill`**（來自第三方 `taste-skill`）— 產生給 Google Stitch 用的語義化 `DESIGN.md`，把同一套反樣板規則翻譯成 Stitch 的自然語言設計描述格式
+
+> **`taste-skill` vs `hallmark` 怎麼選**（二者機制不同、規則會互相打架，不要同一次建置混用）：
+> - 需要接**官方設計系統**（Fluent UI/Material 3/Carbon/govuk-frontend 等），或只是**單次輕量**建置 → `taste-skill`
+> - 同一個專案要生成**多頁/多次建置**且要求每次不重複，或需要「**只稽核不改**」「**從 URL/截圖萃取設計風格**」→ `hallmark`
+> - 升級既有網站 → `hallmark redesign` 或獨立的 `redesign-skill`，不要用 `taste-skill` 的預設流程（它假設從零開始）
+> - 兩者都沒有特別需求的單次全新頁面 → 皆可，`taste-skill` 較輕量（強制詢問較少），`hallmark` 較嚴謹（58 條出貨前檢查），沒有其他線索就預設 `taste-skill`
+>
+> 完整比較表（含衝突實例）見 `scaffolding-templating/SKILL.md` 的「`taste-skill` vs `hallmark`」小節。`output-skill`（同樣來自第三方 `taste-skill`，但不是設計技能）併入了 `product-verification`，見上方第 2 節。挑選以上其他反樣板前端技能時的判斷指南見 `scaffolding-templating/SKILL.md` 的「How to use this skill」第 7、8 點。
 
 ### 13. `library-api-reference` — 第三方函式庫/檔案格式參考
 在動手寫程式呼叫這些函式庫前，先查這裡的參考片段、版本差異與常見錯誤。包含 **9 個子技能**：

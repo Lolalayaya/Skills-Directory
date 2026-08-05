@@ -34,6 +34,7 @@
 | 「開始寫這個功能前先寫測試」 | `test-driven-development` | Red-Green-Refactor：先寫定義成功的測試（已融合 mattpocock 原 `tdd` 的 Seams/反模式/Mocking 內容） |
 | 「我測試過了，應該修好了」 | `verification-before-completion` | 要求你先跑驗證指令、讀懂輸出，才能宣稱完成 |
 | 「用 Playwright 幫我測一下這個網頁」 | `webapp-testing` | 對本地網頁做互動測試、截圖、console log 除錯 |
+| 「不要幫我省略程式碼」「這個檔案要完整寫完，不要放 TODO」「回應被截斷了，繼續」 | `output-skill` | 禁止輸出截斷/佔位符，數清楚要交付幾項再動筆，token 上限時用固定格式暫停/續寫 |
 | 「開 PR 前先看一下這個改動有沒有超出範圍」「這個 diff 是不是改太多了」 | `scope-creep-detector` | 比對 git diff 跟宣稱的意圖，抓範圍蔓延/新依賴/API 改名，給 keep/split/justify 建議；純範圍分流，不做品質/安全審查 |
 | 「幫我審查一下這次改動」 | `code-review-expert` | 資深工程師視角審查 git 變更，抓 SOLID 違規與安全風險 |
 | 「幫我寫個 Semgrep 規則抓這種寫法」 | `semgrep` | 靜態分析工具，含自訂規則撰寫 |
@@ -106,6 +107,18 @@
 | 「幫我審查一下這個 UI 符不符合無障礙規範」 | `web-design-guidelines` | 依 Web Interface Guidelines 審查 UI 程式碼 |
 | 「幫我審查一下這份文件的語氣」 | `writing-guidelines` | 依 Writing Guidelines 審查文案語氣 |
 | 「幫我做一份簡報」 | `slides` | 用 Chart.js + design token 做策略性 HTML 簡報 |
+| 「幫我做一個落地頁/portfolio，不要看起來像 AI 生成的」 | `taste-skill`（或 `hallmark`，二選一、別混用） | 兩套機制不同、規則會互相打架（例如禁用字體清單互相矛盾）：要接官方設計系統(Fluent/Material/Carbon等)或單次輕量建置 → `taste-skill`；同專案要做多頁且不能重複、或要用 audit(只評分不改)/study(從URL/截圖萃取風格) → `hallmark` |
+| 「幫我把這個網站改版升級一下，不要動到原本的框架」 | `redesign-skill`（或 `hallmark redesign`） | 稽核既有專案的樣板感問題，原地修正不重寫 |
+| 「幫我從這個 URL/截圖抓設計風格套用到我的內容」 | `hallmark`（`study` 動詞） | 從 URL 或截圖萃取設計 DNA（巨觀結構、字體配對、色彩），不是像素級複製 |
+| 「幫我做一套品牌識別板/Logo 系統的圖」 | `brandkit` | 品牌識別板、Logo 系統的圖片生成（文字型品牌語氣文件用 `brand`） |
+| 「幫我做一個工業風/軍事終端風格的儀表板」 | `brutalist-skill` | Swiss 印刷+軍事終端融合的工業感 UI |
+| 「幫我做一個 Awwwards 等級、GSAP 動態很強的網站」 | `gpt-tasteskill` | GSAP 動態工程+AIDA 結構+偽隨機排版變化 |
+| 「先幫我生成設計圖，再照圖寫程式碼」（Codex 情境） | `image-to-code-skill` | 圖片優先工作流：先生成設計參考圖、深入分析後再寫程式碼 |
+| 「幫我生成幾張手機 App 畫面的概念圖，不用寫程式碼」 | `imagegen-frontend-mobile` | 純圖片生成的 App 畫面概念，含裝置外框 mockup |
+| 「幫我生成這個落地頁每個區塊的參考圖，不用寫程式碼」 | `imagegen-frontend-web` | 純圖片生成，一個區塊一張參考圖 |
+| 「幫我做一個極簡編輯風的介面，暖色調、無漸層」 | `minimalist-skill` | 暖色調極簡編輯風 UI |
+| 「幫我做一個看起來很貴、代理商級的視覺設計」 | `soft-skill` | 「$150k 代理商級」視覺規格+雙層卡片架構+出貨前檢查清單 |
+| 「幫我做一份 Google Stitch 用的 DESIGN.md」 | `stitch-skill` | 產生 Stitch 專用的語義化設計規格檔 |
 | 「幫我讀寫這份 Word/Excel/PPT/PDF」 | `docx`／`xlsx`／`pptx`／`pdf` | 對應檔案格式的建立、編輯、讀取 |
 | 「幫我做一個 MCP 伺服器」 | `mcp-builder` | 建置高品質 MCP 伺服器 |
 | 「這個 React/Next.js 專案效能怎麼優化」 | `vercel-react-best-practices` | 通用 React/Next.js 效能準則 |

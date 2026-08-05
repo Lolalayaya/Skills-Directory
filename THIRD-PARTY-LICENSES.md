@@ -329,6 +329,67 @@ The source repo's own `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, and `user-
    limitations under the License.
 ```
 
+## Leonxlnx — `taste-skill`
+
+The following 12 sub-skills, imported 2026-08-05, originate from Leonxlnx's open-source Claude Code plugin ([github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)). 11 were integrated into this repo's `scaffolding-templating` category; the 12th (`output-skill`, not a design skill) into `product-verification` — see [`SKILL-AUDIT.md`](SKILL-AUDIT.md) for the full placement reasoning:
+
+- `scaffolding-templating/references/design/`: `taste-skill`, `taste-skill-v1`, `brandkit`, `brutalist-skill`, `gpt-tasteskill`, `image-to-code-skill`, `imagegen-frontend-mobile`, `imagegen-frontend-web`, `minimalist-skill`, `redesign-skill`, `soft-skill`, `stitch-skill`
+- `product-verification/references/`: `output-skill`
+
+```
+MIT License
+
+Copyright (c) 2026 Leonxlnx
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Nutlope — `hallmark`
+
+The following sub-skill, imported 2026-08-05 and folded into this repo's existing `scaffolding-templating` category, originates from Nutlope's open-source design skill ([github.com/Nutlope/hallmark](https://github.com/Nutlope/hallmark)):
+
+- `scaffolding-templating/references/design/`: `hallmark` (full `SKILL.md` + its own `references/` tree; the source repo's CLI, demo site, and docs were not vendored — see [`SKILL-AUDIT.md`](SKILL-AUDIT.md))
+
+```
+MIT License
+
+Copyright (c) 2026 Hallmark contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## `context-engineering-collection`
 
 Kept whole as a single top-level folder rather than distributed, so its own [`LICENSE`](context-engineering-collection/LICENSE) (MIT, Context Engineering Agent Skills Contributors) still applies directly — no duplication needed here.

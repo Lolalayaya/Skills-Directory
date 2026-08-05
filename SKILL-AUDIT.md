@@ -319,3 +319,55 @@
 **本機安裝**：把更新後的 `code-quality-review` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\code-quality-review\`，讓全域安裝同步含有 `ip-guard` 這個新子技能。
 
 **最終結果**：18 個頂層技能維持不變，`code-quality-review` 13→14，全倉庫子技能總數 165→166。`ip-guard` **未**列入「全域必用」清單（使用者明確決策），觸發粒度限定在「每次新增外部相依套件」與「每完成一個檔案/artifact」。
+
+---
+
+## 2026-08-05：匯入第三方技能包 `taste-skill`（Leonxlnx，MIT）
+
+使用者提供來源：`https://github.com/Leonxlnx/taste-skill.git`，要求（1）新增這個 skill 到專案中、（2）評估合併、（3）重新安裝到本機——與 `hallmark`（見下一節）同一個請求一起處理。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後發現這不是單一技能，而是一個 Claude Code plugin（`.claude-plugin/marketplace.json` + `plugin.json`），底下 `skills/` 資料夾裝了 12 個獨立技能：`taste-skill`（現行版，frontmatter name `design-taste-frontend`）、`taste-skill-v1`（作者自己標註是「v2 重寫前的舊版，僅為需要精確舊行為的專案保留」）、`brandkit`（品牌識別板/Logo 系統的**圖片生成**技能）、`brutalist-skill`（Swiss 印刷+軍事終端融合的工業感 UI）、`gpt-tasteskill`（GSAP 動態工程+AIDA 頁面結構+Python 偽隨機排版變化）、`image-to-code-skill`（先生成設計圖再依圖寫程式碼的 Codex 工作流）、`imagegen-frontend-mobile`／`imagegen-frontend-web`（純圖片生成，不寫程式碼，分別對應手機 App 畫面與網頁分區塊參考圖）、`minimalist-skill`（暖色調極簡編輯風 UI）、`output-skill`（禁止 LLM 輸出截斷/佔位符的完整輸出紀律——注意這個**不是設計技能**）、`redesign-skill`（既有專案的稽核式升級改版）、`soft-skill`（「$150k 代理商級」視覺規格）、`stitch-skill`（產生給 Google Stitch 用的語義化 `DESIGN.md`，附帶一份 `DESIGN.md` 範例檔）。廠商根目錄的 `README.md`／`CHANGELOG.md`／`.github/copilot-instructions.md`／`research/`（一份跟任何單一技能無關的「LLM 為什麼會偷懶」研究文件）都是廠商自己的行銷/研究文件，非技能內容本身，未搬入。
+
+**階段 A（評估）**：12 個技能的 `SKILL.md` 全部讀完整篇（不是只看 frontmatter description），逐一跟現有 `scaffolding-templating` 底下的設計類技能（`frontend-design`、`brand`、`design`、`ui-styling`、`ui-ux-pro-max`）以及彼此互相比對：
+- 11 個是前端視覺設計「品味」規格，範圍各不相同（完整反樣板產線 vs. 具名美學風格 vs. 純圖片方向 vs. Codex 專用的圖片優先工作流 vs. Google Stitch 專用的 DESIGN.md 產生器），沒有任何一組是真重複——每個都有自己一套具體、且彼此大多互斥的規則（不同的禁用字體清單、不同的數值化「旋鈕」系統、不同的程式碼骨架、不同的輸出型態：程式碼 vs. 純圖片 vs. Markdown 規格檔）。全部保留為獨立檔案。
+- 第 12 個 `output-skill`（frontmatter name `full-output-enforcement`）讀完後確認**根本不是設計技能**——它管的是「LLM 輸出不要截斷/不要用佔位符」的紀律（禁止 `// rest of code`、`// TODO`、「為了簡潔省略」之類的文字，並定義一套遇到 token 上限時的暫停/恢復格式）。跟 `product-verification/verification-before-completion` 比對：兩者是相鄰但不同的軸線——`verification-before-completion` 管「宣稱完成前有沒有真的驗證過」，`output-skill` 管「這次產出本身有沒有被悄悄截斷/省略」。沒有重複，改放進 `product-verification`。
+
+**階段 B（分類與落點）**：11 個設計技能歸類為「偶爾需要」（情境明確：要出一個看起來不像 AI 樣板的前端頁面時），依主題併入既有的 `scaffolding-templating`（跟現有的 design/brand/frontend-design 同屬視覺設計範疇），未另立新分類；並在該技能自己的 `SKILL.md` 新增一個獨立的「Anti-AI-slop frontend taste systems」小節與挑選指南（見階段 D）。`output-skill` 歸類同樣是「偶爾需要」，依主題併入既有的 `product-verification`。
+
+**階段 C（執行）**：
+1. 命名衝突查核：12 個技能的資料夾名稱與 frontmatter `name:`（`design-taste-frontend`、`design-taste-frontend-v1`、`brandkit`、`industrial-brutalist-ui`、`gpt-taste`、`image-to-code`、`imagegen-frontend-mobile`、`imagegen-frontend-web`、`minimalist-ui`、`full-output-enforcement`、`redesign-existing-projects`、`high-end-visual-design`、`stitch-design-taste`）與本倉庫現有技能全文查重，無衝突。
+2. 內部交叉引用：12 個技能都是自我完備的單一 `SKILL.md`（`stitch-skill` 額外帶一份同資料夾內的 `DESIGN.md`），彼此之間、對外都沒有相對路徑引用，搬移後無需修正任何連結。
+3. 廠商自帶的 `README.md`／`CHANGELOG.md`／`.github/copilot-instructions.md`／`research/` 全數未搬入——比照本倉庫既有慣例，各技能自己的 `SKILL.md` 是唯一索引。
+4. 授權歸屬：12 個技能分散併入 2 個既有分類（非獨立頂層資料夾），在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 MIT 全文與出處。
+5. 全域必用資格查核：12 個技能的 description 都是明確場景觸發（「設計落地頁時」「要升級既有專案時」等），沒有一個帶「invoke before any response」語氣，均不列入「全域必用」清單。
+
+**階段 D（文件更新）**：`scaffolding-templating/SKILL.md`（新增「Anti-AI-slop frontend taste systems」表格 11 列＋description 補充＋「How to use」新增第 7、8 點挑選指南）、`product-verification/SKILL.md`（新增 `output-skill` 一列＋description 補充＋「How to use」新增第 4 點）、`README.md`（兩個技能小節新增條目與子技能數、頂部版權聲明段落新增一條）、根目錄 `SKILL.md`（Quick lookup 兩處微調、Full skill list 子技能數 `scaffolding-templating` 16→28、`product-verification` 3→4、稽核區塊新增 `THIRD-PARTY IMPORT` 段落、Total 166→178，待下一節 `hallmark` 匯入後再 178→179）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）、`TRIGGER-MAP.md`（同步新增觸發範例，併入既有的兩個小節）。
+
+**本機安裝**：把更新後的 `scaffolding-templating`、`product-verification` 兩個資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\` 對應同名資料夾，讓全域安裝同步含有這 12 個新子技能。
+
+**最終結果**：18 個頂層技能維持不變，`scaffolding-templating` 16→28，`product-verification` 3→4，全倉庫子技能總數 166→178。無一列入「全域必用」清單。
+
+---
+
+## 2026-08-05：匯入第三方技能 `hallmark`（Nutlope，MIT）
+
+使用者提供來源：`https://github.com/Nutlope/hallmark.git`，與上一節的 `taste-skill` 同一個請求一起處理（新增／合併／重新安裝）。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後發現這是一個完整的 npm 套件（CLI + `site/` 底下的 demo 站、`docs/`、`package.json`、`ROADMAP.md`），但真正的 agent 技能內容只有 `skills/hallmark/SKILL.md` 加上它自己的 `references/` 樹（105 個檔案：`anti-patterns.md`、`color.md`、`typography.md`、`layout-and-space.md`、`motion.md`、`copy.md`、`macrostructures.md`（21 種具名頁面結構的索引）+ `macrostructures/` 逐一檔案、`component-cookbook.md`（50 種 nav/hero/section/CTA/testimonial/footer 元件原型）+ `components/` 逐一檔案、`genres/`（editorial／modern-minimal／atmospheric／playful）、`verbs/audit.md`＋`verbs/redesign.md`、`study.md`（URL/截圖 DNA 萃取）、`custom-theme.md`、`slop-test.md`（58 條出貨前檢查關卡）等）。`site/`、`docs/`、`package.json`、`ROADMAP.md`、根目錄 README 都是廠商自己的產品/demo/建置工具，非技能內容，未搬入——只搬入 `skills/hallmark/` 整份（含 `references/`，因為跟 `taste-skill` 那 12 個單檔技能不同，hallmark 自己的 SKILL.md 明確要求「依需要才載入對應的 references 檔案」，是設計上就要保留的目錄結構，不能只搬 SKILL.md）。
+
+**階段 A（評估）**：完整讀完 `SKILL.md`（558 行）以及 `references/` 的代表性樣本（`macrostructures.md` 索引、`anti-patterns.md`、`genres/` 四份、`verbs/` 兩份）後再下判斷。跟同一天匯入的 `taste-skill` 以及既有的 `frontend-design` 比對：確實有主題重疊——`taste-skill` 跟 `hallmark` 都是「完整反樣板前端產線」，都有「先問清楚需求」的步驟、都有一套風格選擇機制、都有硬性排版規則、都有出貨前自我檢查——但機制上處處不同，不是真重複：`hallmark` 有強制的三問（受眾/用途/語氣）情境門，`taste-skill` 是一句話推斷的「design read」；`hallmark` 是具名的 20 主題目錄 + 客製 OKLCH 分支，`taste-skill` 是數值化的 3 旋鈕系統；`hallmark` 有自己的 `audit`／`redesign`／`study`（含 URL/截圖 DNA 萃取）動詞，`taste-skill` 沒有對應機制；`hallmark` 有跨 session 持久化的 `.hallmark/log.json` 多樣性紀錄，強制這次的巨觀結構/主題/nav/footer 都要跟前幾次不同，`taste-skill` 沒有對應機制。因此不合併進 `taste-skill` 或 `frontend-design`，保留為獨立檔案，改在 `scaffolding-templating/SKILL.md` 新增交叉引用/挑選指南（見階段 D）——依「主題重疊不等於該合併」的既有原則。
+
+**階段 B（分類與落點）**：歸類為「偶爾需要」，依主題併入既有的 `scaffolding-templating`（跟 `taste-skill`、`frontend-design` 同屬視覺設計範疇），未另立新分類。
+
+**階段 C（執行）**：
+1. 命名衝突查核：`hallmark` 資料夾名稱與 frontmatter `name: hallmark` 與本倉庫現有技能全文查重，無衝突。
+2. 內部交叉引用：搬入的 `references/` 樹內部全部是相對於自己資料夾的路徑（`references/<file>.md`、`references/components/<code>.md` 等），搬移後全部正常解析，無需修正。
+3. 廠商自己的 `site/`／`docs/`／`package.json`／`ROADMAP.md`／根目錄 README 全數未搬入——比照本倉庫既有慣例，`SKILL.md` 是唯一索引。SKILL.md 內文裡的「Powered by Together AI」歸屬說明保留原樣（那是 hallmark 自己圖片生成分層用到的服務歸屬，不是本倉庫背書該服務）。
+4. 授權歸屬：單一技能併入既有分類（非獨立頂層資料夾），在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 MIT 全文與出處。
+5. 全域必用資格查核：`hallmark` 自己的 description 是「設計/稽核/改版/風格萃取時使用」的場景觸發，沒有「invoke before any response」語氣，不列入「全域必用」清單。
+
+**階段 D（文件更新）**：`scaffolding-templating/SKILL.md`（「Anti-AI-slop frontend taste systems」表格新增 `hallmark` 一列）、`README.md`（`scaffolding-templating` 小節子技能數更新）、根目錄 `SKILL.md`（Full skill list `scaffolding-templating` 28（taste-skill 匯入後）已含 hallmark、稽核區塊新增 `THIRD-PARTY IMPORT` 段落、Total 178→179）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）、`TRIGGER-MAP.md`（同步新增觸發範例）。
+
+**本機安裝**：把更新後的 `scaffolding-templating` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\scaffolding-templating\`，讓全域安裝同步含有 `hallmark` 這個新子技能。
+
+**最終結果**：18 個頂層技能維持不變，`scaffolding-templating` 27→28（含本節與上一節 taste-skill 的合計 16→28），全倉庫子技能總數 178→179。未列入「全域必用」清單。
