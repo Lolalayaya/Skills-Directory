@@ -371,3 +371,31 @@
 **本機安裝**：把更新後的 `scaffolding-templating` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\scaffolding-templating\`，讓全域安裝同步含有 `hallmark` 這個新子技能。
 
 **最終結果**：18 個頂層技能維持不變，`scaffolding-templating` 27→28（含本節與上一節 taste-skill 的合計 16→28），全倉庫子技能總數 178→179。未列入「全域必用」清單。
+
+---
+
+## 2026-08-07：匯入第三方技能 `anysearch`（AnySearch Team，Apache-2.0）
+
+使用者提供來源：`https://github.com/anysearch-ai/anysearch-skill.git`，要求（1）新增這個 skill 到專案中、（2）評估合併（要求所有文件都更新）、（3）重新安裝到本機。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後確認這是單一技能的獨立倉庫，只有一個技能 `SKILL.md`，附一套跨平台的多執行環境 CLI（`scripts/anysearch_cli.py`／`.js`／`.ps1`／`.sh`，外加 `scripts/generate.py` 與 `scripts/shared/constants.json`＋`doc_spec.md` 作為四份 CLI 的共用真實來源）、`runtime.conf.example`、`.env.example`。倉庫根目錄另有 `README.md`／`README_zh.md`／`SECURITY.md`／`LICENSE`（Apache-2.0）／`NOTICE`，皆為廠商自己的行銷/安裝/漏洞回報文件，非技能內容本身，比照 `claude-skill-ip-guard` 的先例未搬入（授權全文集中記錄在 `THIRD-PARTY-LICENSES.md`，不額外複製 `LICENSE` 檔案到資料夹內）。
+
+**技能做什麼**：統一即時搜尋服務——(1) 一般網路搜尋；(2) 垂直領域搜尋（finance/academic/travel/health/code/legal/gaming/film/business/security/ip/energy/environment/agriculture/resource/social_media 共 16 個具名領域，透過 `get_sub_domains` 查出正確 `sub_domain` 與必填參數）；(3) `batch_search` 平行批次查詢；(4) `extract` 全頁內容擷取（輸出已是 Markdown）。單一 JSON-RPC 2.0 endpoint（`https://api.anysearch.com/mcp`），免安裝 MCP server，四種執行環境自動偵測（Python > Node.js > PowerShell/Bash），偵測結果寫入 `runtime.conf` 供之後快速呼叫。API Key 可選（匿名存取但限額較低），技能本身要求 agent 能在使用者提供真實 email 後自動呼叫註冊 API 取得金鑰，且**必須先取得使用者明確同意才能把金鑰寫入 `.env`**。
+
+**階段 A（評估）**：完整讀完 `SKILL.md`，並逐行檢查全部 4 支 CLI 腳本（551＋486＋460＋622 行）：確認四者都只呼叫同一個 hardcode 的 endpoint `https://api.anysearch.com/mcp`，全文搜尋 `eval(`／`exec(`／`subprocess`／`os.system`／`child_process`／`Invoke-Expression`／`base64` 等可疑模式，無一命中（唯一一處字串命中是註解文字，非實際呼叫），確認沒有偷偷對外送資料或執行任意指令。跟主題最相近的既有子技能 `browser-automation/search`（Browserbase 的輕量 curl 搜尋 API）全文比對：`search` 只有單一 endpoint、不需 CLI、無垂直領域、無批次模式；`anysearch` 是完全不同的第三方服務，有自己的四執行環境 CLI、16 個具名垂直領域結構化搜尋、平行批次查詢、獨立的 `extract` 命令——機制上處處不同，非真重複。
+
+**階段 B（分類與落點）**：歸類為「偶爾需要」（情境明確：需要即時資料查證、跨領域結構化搜尋、或批次/平行查詢時才用）。依主題併入既有的 `browser-automation`（跟既有的 `search` 同屬「不開瀏覽器的搜尋」範疇），未另立新分類，兩邊互相加交叉引用/選用指南（見 `browser-automation/SKILL.md` 新增的「Note on `search` vs `anysearch`」）。
+
+**階段 C（執行）**：
+1. 命名衝突查核：`anysearch` 資料夾名稱與 frontmatter `name: anysearch` 與本倉庫現有技能全文查重，無衝突。
+2. 內部交叉引用：`SKILL.md` 只引用自己資料夾內的 `<skill_dir>/scripts/*`、`<skill_dir>/runtime.conf`、`<skill_dir>/.env`，搬移後路徑仍相對於自身資料夾，全部正常解析，無需修正。
+3. 廠商自帶的 `README.md`／`README_zh.md`／`SECURITY.md`／`LICENSE`／`NOTICE` 全數未搬入——比照本倉庫既有慣例，`SKILL.md` 是唯一索引。
+4. 授權歸屬：單一技能併入既有分類（非獨立頂層資料夾），比照 `claude-skill-ip-guard` 的做法，在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 Apache-2.0 全文與出處。
+5. 全域必用資格查核：`anysearch` 自己的 description 是「需要資訊檢索/事實查證/網頁瀏覽/垂直領域查詢/多意圖平行查詢時」的場景觸發語氣，沒有「invoke before any response」語氣，不列入「全域必用」清單。
+6. 憑證/對外連線風險備註（非落點阻礙，但記錄供未來 session 參考）：這個技能會把搜尋關鍵字、擷取的 URL、以及（若設定）API Key 送到第三方 `https://api.anysearch.com`；技能本身要求 agent 在取得使用者真實 email 後可自動呼叫註冊 API，並在收到新金鑰後**必須先徵得使用者明確同意才能寫入 `.env`**——這跟本倉庫其他對外連線技能（如 `search`）既有的「visible before persist」原則一致，未修改技能本身邏輯。
+
+**階段 D（文件更新）**：`browser-automation/SKILL.md`（description 補充＋新增 domain 列＋「How to pick a domain」新增一點＋新增「Note on `search` vs `anysearch`」小節）、`README.md`（`browser-automation` 小節子技能數 15→16、新增條目、頂部版權聲明段落新增一條、簡介段落更新匯入鏈）、根目錄 `SKILL.md`（Quick lookup、Full skill list 子技能數 15→16、Total 179→180、稽核區塊 browser-automation 列表新增 `anysearch`、新增 `THIRD-PARTY IMPORT` 段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）、`TRIGGER-MAP.md`（同步新增觸發範例，併入既有的「瀏覽器自動化與研究」小節）、`skills-search.html`（`DATA` 陣列同步新增一列）。
+
+**本機安裝**：把更新後的 `browser-automation` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\browser-automation\`，讓全域安裝同步含有 `anysearch` 這個新子技能。
+
+**最終結果**：18 個頂層技能維持不變，`browser-automation` 15→16，全倉庫子技能總數 179→180。`anysearch` 未列入「全域必用」清單。使用者若要實際使用這個技能，仍需自行決定是否註冊 API Key（技能本身支援匿名存取，較低限額）。

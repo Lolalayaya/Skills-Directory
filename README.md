@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **179 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **180 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。2026-08-07 匯入 AnySearch Team 的 `anysearch-skill`（1 個技能 `anysearch`，統一即時搜尋 API，併入既有的 `browser-automation`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -20,6 +20,7 @@ Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布�
 - Mugdha Vairagade 發布的第三方開源技能 `claude-skill-ip-guard`（[github.com/mugdhav/claude-skill-ip-guard](https://github.com/mugdhav/claude-skill-ip-guard)，Apache-2.0 授權）於 2026-08-02 匯入，內含單一技能 `ip-guard`（程式碼/內容產出的 IP 與授權合規防護、相依套件安全掃描），依主題併入既有的 `code-quality-review`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Leonxlnx 發布的第三方開源技能包 `taste-skill`（[github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)，MIT 授權）於 2026-08-05 匯入，內含 12 個前端設計/反 AI 樣板技能，其中 11 個依主題併入既有的 `scaffolding-templating`，第 12 個 `output-skill`（非設計技能，完整輸出紀律）併入既有的 `product-verification`，完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Nutlope 發布的第三方開源技能 `hallmark`（[github.com/Nutlope/hallmark](https://github.com/Nutlope/hallmark)，MIT 授權）於 2026-08-05 匯入，內含單一技能 `hallmark`（反 AI 樣板前端設計系統，含 audit/redesign/study 動詞），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- AnySearch Team 發布的第三方開源技能 `anysearch-skill`（[github.com/anysearch-ai/anysearch-skill](https://github.com/anysearch-ai/anysearch-skill)，Apache-2.0 授權）於 2026-08-07 匯入，內含單一技能 `anysearch`（統一即時搜尋服務：一般網路搜尋、16 個垂直領域結構化搜尋、平行批次查詢、URL 內容擷取，附跨平台多執行環境 CLI），依主題併入既有的 `browser-automation`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -259,7 +260,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🌐 瀏覽器自動化與研究
 
 ### 10. `browser-automation` — Browserbase 全套瀏覽器工具箱
-只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」或「研究公司/競品/活動」都算。包含 **15 個子技能**：
+只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」「研究公司/競品/活動」或「即時搜尋/查證資料」都算。包含 **16 個子技能**（其中 1 個 `anysearch` 來自第三方 `anysearch-skill`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`browser`** — 用自然語言 CLI 指令自動化瀏覽器操作（瀏覽、擷取資料、截圖、填表單、點按鈕）
 - **`autobrowse`** — 自我改進的瀏覽器自動化：反覆執行任務、讀 trace、優化導覽策略直到穩定
@@ -270,7 +271,8 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`webmcp-gen`** — 針對目標網站產生、編譯、驗證 WebMCP 初始化腳本
 - **`functions`** — 把瀏覽器自動化部署成 Browserbase 的無伺服器雲端函式（排程、webhook）
 - **`fetch`** — 不開瀏覽器、直接抓取 URL 的 HTML/JSON、檢查狀態碼與 header，適合簡單爬蟲
-- **`search`** — 不開瀏覽器、直接做網路搜尋，回傳結構化的標題/URL/作者/日期
+- **`search`** — 不開瀏覽器、直接做網路搜尋，回傳結構化的標題/URL/作者/日期（Browserbase 專用）
+- **`anysearch`** — 統一即時搜尋 API（第三方 AnySearch 服務）：一般網路搜尋、16 個垂直領域結構化搜尋（finance/academic/travel/health/code/legal 等）、平行批次查詢、URL 全頁內容擷取，附跨平台 CLI（Python/Node/PowerShell/Bash 自動偵測），API Key 可選（匿名存取限額較低）
 - **`agent-experience`** — 讓網站對「AI agent 存取」更友善的相關指引
 - **`company-research`** — 針對特定公司的研究
 - **`competitor-analysis`** — 競品分析

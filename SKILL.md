@@ -1,6 +1,6 @@
 ---
 name: skills-directory
-description: "Master index of every custom skill in this workspace (18 top-level skills, holding 179 sub-domains, consolidated/curated from 137 originally-installed skills plus several later third-party imports). Consult this FIRST whenever unsure which skill covers a need, when a task might span more than one skill, or to sanity-check what capabilities exist here at all. Several entries are marked UNIVERSAL — standing triggers (start-of-conversation skill discovery, brainstorming before creative work, verification before claiming completion, TDD, code-security review) that should fire on essentially every relevant turn, not only when explicitly asked for."
+description: "Master index of every custom skill in this workspace (18 top-level skills, holding 180 sub-domains, consolidated/curated from 137 originally-installed skills plus several later third-party imports). Consult this FIRST whenever unsure which skill covers a need, when a task might span more than one skill, or to sanity-check what capabilities exist here at all. Several entries are marked UNIVERSAL — standing triggers (start-of-conversation skill discovery, brainstorming before creative work, verification before claiming completion, TDD, code-security review) that should fire on essentially every relevant turn, not only when explicitly asked for."
 ---
 
 # Skills Directory
@@ -23,7 +23,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 
 | ...do this | Go to |
 |---|---|
-| Browse/test/automate a website, sync login cookies, capture a debug trace, research a company/competitor/event | `browser-automation` |
+| Browse/test/automate a website, sync login cookies, capture a debug trace, research a company/competitor/event, or run a real-time/vertical-domain search query | `browser-automation` |
 | Prove a fix/feature actually works (Playwright), apply the verification/TDD discipline, or ban truncated/placeholder output | `product-verification` |
 | Figure out why a deployed (Vercel) app is slow/expensive from real metrics | `data-analysis` |
 | Keep a long task's plan/progress on disk across sessions and `/clear`, or turn a recurring pattern into a workflow spec | `business-automation` |
@@ -46,7 +46,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 
 | # | Skill | One-line summary | Sub-domains inside |
 |---|---|---|---|
-| 1 | `browser-automation` | Browserbase toolkit: drive/test/automate a browser, plus B2B research/prospecting | 15 — see comment block below |
+| 1 | `browser-automation` | Browserbase toolkit: drive/test/automate a browser, plus B2B research/prospecting and a third-party unified search API | 16 — see comment block below |
 | 2 | `product-verification` | Prove work actually works before claiming done, plus full-output enforcement | 4 |
 | 3 | `data-analysis` | Metrics-driven optimization (Vercel only, for now) | 1 |
 | 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 5 (1 core +2 language variants +2 from third-party imports) |
@@ -65,7 +65,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires | 5 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 179 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 195 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 180 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 196 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -118,11 +118,12 @@ includes the REMOVALS/MERGES listed below: they were deleted/folded on
 purpose, not lost.
 =======================================================================
 
-browser-automation (15, was 17 — see REMOVALS below):
+browser-automation (16, was 17 — see REMOVALS below, +1 from the
+  anysearch-skill import):
   agent-experience, autobrowse, browser, browser-to-api, browser-trace,
   company-research, competitor-analysis, competitor-profiling,
   cookie-sync, event-prospecting, fetch, functions, search, ui-test,
-  webmcp-gen
+  webmcp-gen, anysearch
 
 product-verification (4, was 3, +1 from the taste-skill import):
   webapp-testing, verification-before-completion, test-driven-development
@@ -223,15 +224,15 @@ personal-learning (4, was 3, +1 from the third-party import):
   book-study, wiki-ingest, sigma, teach
 
 -----------------------------------------------------------------------
-Total accounted for: 15+4+1+5+9+28+14+2+4+1+24+5+6+5+47+5+4 = 179
+Total accounted for: 16+4+1+5+9+28+14+2+4+1+24+5+6+5+47+5+4 = 180
 Plus context-engineering-collection: kept independent, never split
   (originally installed as one skill covering 17 internal sub-skills,
   now 16 after the REMOVALS below; re-wrapping it would have added no
   value).
-179 sub-domains across 17 skills + context-engineering-collection's own
-16 = 195 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 + 1 +
-12 + 1 = 186 originally-installed-or-imported skill units after 7
-removals from the first batch (see REMOVALS below) — the 195 vs 186
+180 sub-domains across 17 skills + context-engineering-collection's own
+16 = 196 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 + 1 +
+12 + 1 + 1 = 187 originally-installed-or-imported skill units after 7
+removals from the first batch (see REMOVALS below) — the 196 vs 187
 discrepancy is because "sub-domains" here counts each merge target once
 even where 2+ original skills fed into it (test-driven-development,
 systematic-debugging, writing-shape each absorbed one or two others'
@@ -618,6 +619,70 @@ as a design skill invoked for build/audit/redesign/study requests, not an
 Folded into scaffolding-templating (not a new top-level category) as
 `references/design/hallmark/SKILL.md` (+ its references/ tree), listed in
 that skill's own "Anti-AI-slop frontend taste systems" table.
+=======================================================================
+
+THIRD-PARTY IMPORT — anysearch-skill (AnySearch Team, Apache-2.0
+license), 2026-08-07. Full license text and attribution:
+THIRD-PARTY-LICENSES.md.
+
+Source repo (github.com/anysearch-ai/anysearch-skill) ships one skill:
+SKILL.md plus a bundled multi-runtime CLI under scripts/
+(anysearch_cli.py, anysearch_cli.js, anysearch_cli.ps1, anysearch_cli.sh,
+generate.py, shared/constants.json, shared/doc_spec.md),
+runtime.conf.example, and .env.example. Vendor root docs (README.md,
+README_zh.md, SECURITY.md, LICENSE, NOTICE) are the vendor's own
+marketing/install/vulnerability-reporting scaffolding, not agent-facing
+skill content — none of those were copied in, per this repo's standing
+convention that SKILL.md is the only index going forward (license text
+centralized in THIRD-PARTY-LICENSES.md instead of a vendored LICENSE
+file, matching the claude-skill-ip-guard precedent).
+
+All 4 CLI scripts were read in full before copying: each hits exactly one
+hardcoded endpoint (https://api.anysearch.com/mcp, consistent across all
+4 runtimes), contains no eval/exec/subprocess-shell-out/base64-obfuscation
+patterns, and performs no filesystem or network operation outside that
+one documented endpoint plus reading its own local .env/runtime.conf.
+
+Read in full against the one existing skill it resembles by theme
+(browser-automation/search, a Browserbase-only curl-based lightweight
+search wrapper) before deciding: no true duplicate — `search` is a
+single-endpoint, no-CLI, Browserbase-credentialed lookup with no vertical
+domains and no batch mode; `anysearch` is a separate third-party service
+with its own bundled 4-runtime CLI, structured vertical-domain search
+across 16 named domains (finance, academic, travel, health, code, legal,
+gaming, film, business, security, ip, energy, environment, agriculture,
+resource, social_media) via `get_sub_domains`, parallel `batch_search`,
+and a distinct `extract` command for full-page Markdown content. Kept as
+its own file, not merged into `search`, with cross-reference/disambiguation
+notes added to both sides in browser-automation/SKILL.md ("Note on
+`search` vs `anysearch`") per the standing "don't merge on thematic
+overlap alone" rule.
+
+Folded into browser-automation (not a new top-level category) as
+`references/anysearch/SKILL.md` (+ its scripts/ tree), listed in that
+skill's own Domains table under Research & prospecting. No name collision
+with any existing skill's folder or frontmatter `name:` (checked
+`anysearch` against the full repo). No internal cross-references needed
+fixing — the skill's own SKILL.md only references paths relative to its
+own `<skill_dir>` (scripts/, runtime.conf, .env), which still resolve
+correctly after the move.
+
+Credential/network note (not a placement blocker, but worth flagging for
+future sessions): this skill sends search queries, extracted URLs, and
+(if configured) an API key to the third-party endpoint
+https://api.anysearch.com, and its own SKILL.md instructs the agent to be
+able to auto-register a user account (via a `/v1/auth/email/register`
+call using a real email address, with a password emailed to that
+address) and to persist any resulting API key to a local `.env` file —
+but only after showing the user what was received and getting explicit
+confirmation before writing it to disk. This mirrors the same
+network-boundary and credential-handling caution already applied to
+`search` (Browserbase) and other networked skills in this repo; no
+change to the skill's own logic was made.
+
+Not added to the Universal table: anysearch's own description is scoped
+to explicit information-retrieval/fact-checking/search triggers, not an
+"invoke before any response" claim.
 =======================================================================
 -->
 

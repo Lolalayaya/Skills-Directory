@@ -75,7 +75,8 @@
 |---|---|---|
 | 「幫我去這個網站幫我點一下、填個表單」 | `browser` | 自然語言 CLI 操控真實瀏覽器 |
 | 「只要抓這個網址的 HTML/JSON 就好，不用開瀏覽器」 | `fetch` | 純 HTTP 取內容，無 JS 渲染 |
-| 「幫我搜尋一下網路上有沒有相關資料」 | `search` | 不開瀏覽器的輕量網路搜尋，回結構化標題/URL |
+| 「幫我搜尋一下網路上有沒有相關資料」 | `search` | 不開瀏覽器的輕量網路搜尋，回結構化標題/URL（Browserbase 專用） |
+| 「幫我查一下 AAPL 股價/這個 CVE/這篇論文的 DOI」（垂直領域查詢）、「幫我平行搜尋這幾個關鍵字」、「幫我把這個網址的內容擷取成 Markdown」 | `anysearch` | 第三方統一搜尋 API：一般搜尋＋16 個垂直領域結構化搜尋＋batch_search 平行查詢＋URL 全頁擷取，附四執行環境 CLI，API Key 可選 |
 | 「這個網站要先登入才能看，幫我同步 cookie」 | `cookie-sync` | 把本機 Chrome cookie 同步進 Browserbase |
 | 「幫我測一下這次 UI 改動有沒有壞掉」 | `ui-test` | 對 git diff 有變更的部分做對抗式 UI 測試 |
 | 「這次自動化跑失敗了，幫我看看哪裡卡住」 | `browser-trace` | 擷取 DevTools trace 除錯 |
