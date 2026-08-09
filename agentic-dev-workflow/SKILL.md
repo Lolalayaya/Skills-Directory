@@ -34,6 +34,7 @@ Router skill for the end-to-end shape of doing software work with an agent — f
 | Fog-of-war planning | A greenfield/huge effort too big for one session — chart a decision-ticket map, resolve one at a time | [references/wayfinder/SKILL.md](references/wayfinder/SKILL.md) |
 | Refactor request → plan | Interview a refactor request into small, ordered, committable steps, filed as an issue | [references/request-refactor-plan/SKILL.md](references/request-refactor-plan/SKILL.md) |
 | Throwaway prototype | Answer one hard design question (state/logic or UI) with disposable code, then delete it | [references/prototype/SKILL.md](references/prototype/SKILL.md) |
+| ↳ vs `prototype-variants` | For "build N genuinely different versions of this UI piece and let me flip through them," use `scaffolding-templating`'s `prototype-variants` instead — a multi-variant visual-picker workflow, not a single disposable artifact | (see `scaffolding-templating/SKILL.md`) |
 | One-time repo setup | Configure issue tracker, triage labels, doc layout for the tools above — run once per repo | [references/setup-matt-pocock-skills/SKILL.md](references/setup-matt-pocock-skills/SKILL.md) |
 
 ## Domains (session & git mechanics)

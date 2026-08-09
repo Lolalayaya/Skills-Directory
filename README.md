@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **180 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。2026-08-07 匯入 AnySearch Team 的 `anysearch-skill`（1 個技能 `anysearch`，統一即時搜尋 API，併入既有的 `browser-automation`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **189 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。2026-08-07 匯入 AnySearch Team 的 `anysearch-skill`（1 個技能 `anysearch`，統一即時搜尋 API，併入既有的 `browser-automation`）。2026-08-09 匯入 Emil Kowalski 的 `emilkowalski/skills` 技能包（9 個技能：動畫/動作工程 7 個＋UI 決策工具 2 個，全部併入既有的 `scaffolding-templating`，其中 `prototype` 因撞名改名為 `prototype-variants`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -21,6 +21,7 @@ Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布�
 - Leonxlnx 發布的第三方開源技能包 `taste-skill`（[github.com/Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)，MIT 授權）於 2026-08-05 匯入，內含 12 個前端設計/反 AI 樣板技能，其中 11 個依主題併入既有的 `scaffolding-templating`，第 12 個 `output-skill`（非設計技能，完整輸出紀律）併入既有的 `product-verification`，完整清單與授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Nutlope 發布的第三方開源技能 `hallmark`（[github.com/Nutlope/hallmark](https://github.com/Nutlope/hallmark)，MIT 授權）於 2026-08-05 匯入，內含單一技能 `hallmark`（反 AI 樣板前端設計系統，含 audit/redesign/study 動詞），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - AnySearch Team 發布的第三方開源技能 `anysearch-skill`（[github.com/anysearch-ai/anysearch-skill](https://github.com/anysearch-ai/anysearch-skill)，Apache-2.0 授權）於 2026-08-07 匯入，內含單一技能 `anysearch`（統一即時搜尋服務：一般網路搜尋、16 個垂直領域結構化搜尋、平行批次查詢、URL 內容擷取，附跨平台多執行環境 CLI），依主題併入既有的 `browser-automation`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Emil Kowalski 發布的第三方開源技能包 `emilkowalski/skills`（[github.com/emilkowalski/skills](https://github.com/emilkowalski/skills)，MIT 授權）於 2026-08-09 匯入，內含 9 個技能（介面動作工程：`emil-design-eng`／`animate`／`review-animations`／`improve-animations`／`find-animation-opportunities`／`animation-vocabulary`／`apple-design`，外加 UI 決策工具 `pick-ui-library` 與 `prototype`），依主題全部併入既有的 `scaffolding-templating`；其中 `prototype` 因與本倉庫既有的 `agentic-dev-workflow/prototype` 撞名，改名為 `prototype-variants`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -173,7 +174,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`to-tickets`** — 把計畫/spec 拆成宣告依賴關係的 tracer-bullet 票
 - **`wayfinder`** — 處理超出單一 session 能扛的超大型灰地專案，用決策票地圖逐步解開
 - **`request-refactor-plan`** — 把重構請求拆成最小可逐步提交的步驟
-- **`prototype`** — 拋棄式原型驗證單一設計問題，驗完即刪
+- **`prototype`** — 拋棄式原型驗證單一設計問題，驗完即刪（若要「同一個 UI 元件的多個版本並排比較」，是 `scaffolding-templating` 底下的 `prototype-variants`，不是這個）
 - **`setup-matt-pocock-skills`** — 上面這批工具的一次性專案設定（issue tracker、triage 標籤等）
 
 **Session／git 機制（4）**：
@@ -294,7 +295,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🎨 內容、文件與設計
 
 ### 12. `scaffolding-templating` — 樣板、腳手架與完整設計系統
-把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **28 個子技能**（其中 12 個來自第三方 `taste-skill`、1 個來自第三方 `hallmark`，皆為 MIT 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **37 個子技能**（其中 12 個來自第三方 `taste-skill`、1 個來自第三方 `hallmark`（皆 MIT）、9 個來自第三方 `emilkowalski/skills`（MIT）；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`programmatic-seo`** — 用資料驅動的方式大量產生 SEO 頁面樣板
 - **`design`** — 一般性設計指引
@@ -333,6 +334,20 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 > - 兩者都沒有特別需求的單次全新頁面 → 皆可，`taste-skill` 較輕量（強制詢問較少），`hallmark` 較嚴謹（58 條出貨前檢查），沒有其他線索就預設 `taste-skill`
 >
 > 完整比較表（含衝突實例）見 `scaffolding-templating/SKILL.md` 的「`taste-skill` vs `hallmark`」小節。`output-skill`（同樣來自第三方 `taste-skill`，但不是設計技能）併入了 `product-verification`，見上方第 2 節。挑選以上其他反樣板前端技能時的判斷指南見 `scaffolding-templating/SKILL.md` 的「How to use this skill」第 7、8 點。
+
+**動畫、動作工程與 UI 決策工具**（來自第三方 `emilkowalski/skills`，MIT 授權，Emil Kowalski——Sonner/Vaul 作者）——跟上面的反樣板技能不同軸線：上面談視覺語言（顏色/排版/具名美學），這裡談動作本身的機制（曲線、彈簧物理、手勢速度、可中斷性、效能）：
+
+- **`emil-design-eng`** — 主要入口技能，Emil Kowalski 整體審美/打磨哲學，涵蓋元件設計與動畫決策
+- **`animate`** — 從零建構動畫：該不該動、用什麼工具、什麼曲線/時長/彈簧設定
+- **`review-animations`** — 依 10 條硬性標準嚴格審查 diff 裡的動畫/動作程式碼，預設打回、核准需憑證據
+- **`improve-animations`** — 唯讀，稽核整個 codebase 的動作程式碼，產出優先順序清單與可執行的修復計畫
+- **`find-animation-opportunities`** — 唯讀，掃描 UI 找出值得加動畫的地方，並明確列出刻意不建議的
+- **`animation-vocabulary`** — 動畫效果反查詞彙表（把「開合時那個彈一下的效果」轉成正確術語）
+- **`apple-design`** — Apple WWDC 系列設計/流體動作原則：彈簧物理、手勢可中斷性、慣性投射、材質/景深、字體排印
+- **`pick-ui-library`** — 依任務從一份精選清單推薦前端函式庫（toast/dropdown/圖表/拖曳/狀態管理等），只在明確呼叫時執行
+- **`prototype-variants`** — 建構同一個 UI 元件的多個真正不同版本，放在視覺選擇器背後即時比較後再整合；因與既有的 `agentic-dev-workflow` 底下的 `prototype`（單次驗證用）撞名而改名，只在明確呼叫時執行
+
+> 這 9 個技能跟 `hallmark` 自己的 `references/motion.md` 主題相近但深度不同（`hallmark` 那份只是它自己 pipeline 裡的一個小分支，約 109 行；這裡是完整獨立的動作工程系統），並非重複，兩邊已互相加交叉引用。挑選指南與 pipeline 用法見 `scaffolding-templating/SKILL.md` 的「Animation, motion & UI-decision tools」小節與「How to use this skill」第 9 點。
 
 ### 13. `library-api-reference` — 第三方函式庫/檔案格式參考
 在動手寫程式呼叫這些函式庫前，先查這裡的參考片段、版本差異與常見錯誤。包含 **9 個子技能**：

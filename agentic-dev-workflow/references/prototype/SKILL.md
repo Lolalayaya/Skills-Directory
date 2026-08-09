@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
+description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like. For comparing several genuinely different UI variants side-by-side behind a visual picker, see scaffolding-templating's `prototype-variants` instead — this skill produces one throwaway artifact per question, not a multi-variant comparison harness.
 ---
 
 # Prototype

@@ -399,3 +399,35 @@
 **本機安裝**：把更新後的 `browser-automation` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\browser-automation\`，讓全域安裝同步含有 `anysearch` 這個新子技能。
 
 **最終結果**：18 個頂層技能維持不變，`browser-automation` 15→16，全倉庫子技能總數 179→180。`anysearch` 未列入「全域必用」清單。使用者若要實際使用這個技能，仍需自行決定是否註冊 API Key（技能本身支援匿名存取，較低限額）。
+
+---
+
+## 2026-08-09：匯入第三方技能包 `emilkowalski/skills`（Emil Kowalski，MIT）
+
+使用者提供來源：`https://github.com/emilkowalski/skills.git`，要求（1）新增這個 skill 到專案中、（2）評估合併（要求所有文件都更新）、（3）重新安裝到本機。依標準流程（階段 A-D）執行。
+
+**內容**：clone 後確認這是一個技能包，`skills/` 底下有 9 個技能：`emil-design-eng`（674 行，主要技能，Emil Kowalski 整體審美/打磨哲學）、`animate`（+`RECIPES.md`，從零建構動畫）、`animation-vocabulary`（動畫效果反查詞彙表）、`apple-design`（Apple WWDC 設計/流體動作原則）、`find-animation-opportunities`（唯讀，掃描 UI 找出值得加動畫的地方，並明確列出不該加的）、`improve-animations`（+`AUDIT.md`+`PLAN-TEMPLATE.md`，唯讀，對整個 codebase 做動畫稽核並產生執行計畫）、`pick-ui-library`（依任務挑選推薦的前端函式庫）、`prototype`（+`PICKER.md`，建構同一個 UI 元件的多個版本，用視覺選擇器即時比較）、`review-animations`（+`STANDARDS.md`，嚴格審查動畫/動作程式碼）。倉庫根目錄的 `README.md`／`LICENSE`（MIT）為廠商自己的行銷/安裝/授權文件，非技能內容，未搬入（授權全文集中記錄在 `THIRD-PARTY-LICENSES.md`）。全部 9 個技能都是純 Markdown（`SKILL.md` + 附帶的參考文件），沒有任何 `scripts/`，因此不需要程式碼執行風險審查。
+
+**技能做什麼**：一套完整的「介面動作工程」技能群——不是視覺語言（顏色/排版/字體/具名美學），而是動作機制本身：正確的 easing curve/duration/spring 設定值、手勢速度交接與慣性投射公式（源自 Apple WWDC *Designing Fluid Interfaces*）、可中斷性、GPU-only 屬性、無障礙（reduced-motion）。四個技能構成一條唸法互補的 pipeline：`find-animation-opportunities`（找機會）→ `improve-animations plan`（規劃修法）→ 任意 executor 執行 → `review-animations`（嚴格審查，預設打回，核准需靠證據）。另外兩個是同一個包裡的相鄰 UI 決策工具：`pick-ui-library`（不是函式庫 API 參考，是「該用哪個函式庫」的品味化推薦清單）與 `prototype`（多版本 UI 並排比較，非本倉庫既有 `prototype` 的「單一次性驗證」邏輯）。
+
+**階段 A（評估）**：完整讀完全部 9 份 `SKILL.md`（合計約 1840 行）以及代表性參考檔案（`PICKER.md` 全文，確認只是自包含的 HTML/CSS/JS harness，沒有對外連線或可疑程式碼）。比對主題相近的既有技能全文：
+- vs `scaffolding-templating` 的「Anti-AI-slop frontend taste systems」整組（`taste-skill`、`hallmark` 等）與 `frontend-design`：那組談的是視覺語言，這個包談的是動作機制——`hallmark` 自己的 `references/motion.md`（109 行）雖然也有 easing/duration 的概念，但只是它龐大 pipeline 裡的一個小分支，且具體數值不同（`cubic-bezier(0.16,1,0.3,1)` vs 本包的 `cubic-bezier(0.23,1,0.32,1)`）——各自獨立撰寫，非真重複，不合併，兩邊互相加交叉引用。
+- vs `code-quality-review`（`code-review-expert`、`code-review`、`receiving-code-review`、`scope-creep-detector`）：軸線完全不同——一般程式碼正確性/SOLID/安全/範疇控管，不是動畫手感，無重疊。
+- vs `library-api-reference`（`docx`／`xlsx`／`pptx`／`pdf`／`mcp-builder`／`vercel-*`）：那些是特定函式庫/檔案格式的**用法**參考；`pick-ui-library` 是「該選哪個函式庫」的**決策**工具，沒有任何 API 用法文件，軸線不同，且來自同一個包，改併入 `scaffolding-templating`（跟其他設計決策型技能同類）而非 `library-api-reference`。
+
+**命名衝突查核與處理**：來源倉庫的 `prototype`（資料夾名稱與 frontmatter `name: prototype`）跟本倉庫既有的 `agentic-dev-workflow/references/prototype`（2026-07-31 從 mattpocock-skills 匯入）撞名。兩邊全文讀完比對：既有的 `prototype` 是通用的「一次性驗證程式碼」紀律——單一產物、單一設計問題（state/logic 或 UI 二選一），驗證完就存進分支後丟棄；新匯入的 `prototype` 範圍更窄但機制更完整——永遠是 UI，永遠是**多個**（3–5 個）方向真正不同的版本，放在同一個具體規格（`PICKER.md`：鍵盤導覽、URL 參數持久化、重播鍵）的視覺選擇器背後即時比較，選定後才整合進正式程式碼。兩邊都有獨立深度，非真重複，保留為兩個獨立檔案，不合併。把新匯入的一份改名為 `prototype-variants`（資料夾名稱與 frontmatter `name:` 都改），解決撞名——依標準流程階段 C 第 5 點處理。並在三處加上交叉引用：`agentic-dev-workflow/references/prototype/SKILL.md` 自己的 description、`agentic-dev-workflow/SKILL.md` 的 domain 表格、`scaffolding-templating/SKILL.md` 新增的 domain 表格條目。
+
+**階段 B（分類與落點）**：歸類為「偶爾需要」（情境明確：出現動畫/動作/UI 函式庫選擇/多版本比較需求時才用）。全部 9 個依主題併入既有的 `scaffolding-templating`（設計/視覺樣板叢集），新增一個獨立的「Animation, motion & UI-decision tools」表格區塊，未另立新分類。
+
+**階段 C（執行）**：
+1. 命名衝突查核：`emil-design-eng`、`animate`、`animation-vocabulary`、`apple-design`、`find-animation-opportunities`、`improve-animations`、`pick-ui-library`、`review-animations` 八個對資料夾名稱與 frontmatter `name:` 全文查重，均無衝突；第 9 個 `prototype` 撞名，處理見上。
+2. 內部交叉引用：`SKILL.md` → `RECIPES.md`／`AUDIT.md`／`PLAN-TEMPLATE.md`／`STANDARDS.md`／`PICKER.md` 全部是相對於自己資料夾的路徑，搬移後全部正常解析，無需修正。
+3. 廠商自帶的 `README.md`／`LICENSE` 全數未搬入——比照本倉庫既有慣例，`SKILL.md` 是唯一索引，授權全文改記錄在 `THIRD-PARTY-LICENSES.md`。
+4. 授權歸屬：技能包併入既有分類（非獨立頂層資料夾），在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節記錄 MIT 全文與出處。
+5. 全域必用資格查核：9 個技能的 description 都是「明確的動畫/函式庫選擇/多版本比較請求」場景觸發語氣，沒有「invoke before any response」語氣，不列入「全域必用」清單。其中 `review-animations`／`pick-ui-library` 兩個自帶 `disable-model-invocation: true`（廠商自己的設計：只在明確呼叫時執行），原樣保留，未覆寫。
+
+**階段 D（文件更新）**：`scaffolding-templating/SKILL.md`（description 補充＋新增「Animation, motion & UI-decision tools」表格區塊與挑選指南＋「How to use this skill」新增第 9 點）、`agentic-dev-workflow/references/prototype/SKILL.md`（description 補充交叉引用）、`agentic-dev-workflow/SKILL.md`（domain 表格新增一行交叉引用）、根目錄 `SKILL.md`（Quick lookup、Full skill list `scaffolding-templating` 28→37、Total 180→189、稽核區塊 scaffolding-templating 列表新增 9 個技能、新增 `THIRD-PARTY IMPORT` 段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節）、`README.md`（簡介段落、版權聲明、`scaffolding-templating` 小節）、`TRIGGER-MAP.md`（同步新增觸發範例，併入既有的內容/設計小節）、`skills-search.html`（`DATA` 陣列同步新增）。
+
+**本機安裝**：把更新後的 `scaffolding-templating` 與 `agentic-dev-workflow` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\scaffolding-templating\` 與 `C:\Users\user\.claude\skills\agentic-dev-workflow\`，讓全域安裝同步含有這 9 個新子技能與 `prototype` 的交叉引用更新。
+
+**最終結果**：18 個頂層技能維持不變，`scaffolding-templating` 28→37，全倉庫子技能總數 180→189。全部 9 個技能未列入「全域必用」清單。`prototype`（原名衝突）已改名為 `prototype-variants`，與既有的 `agentic-dev-workflow/prototype` 並存，兩邊互相加了交叉引用。

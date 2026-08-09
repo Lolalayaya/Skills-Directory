@@ -120,6 +120,14 @@
 | 「幫我做一個極簡編輯風的介面，暖色調、無漸層」 | `minimalist-skill` | 暖色調極簡編輯風 UI |
 | 「幫我做一個看起來很貴、代理商級的視覺設計」 | `soft-skill` | 「$150k 代理商級」視覺規格+雙層卡片架構+出貨前檢查清單 |
 | 「幫我做一份 Google Stitch 用的 DESIGN.md」 | `stitch-skill` | 產生 Stitch 專用的語義化設計規格檔 |
+| 「幫我做一個下拉選單/toast 的進場動畫」「幫這個按鈕加個按下去的回饋」 | `animate` | 從零建構動畫：判斷該不該動、選曲線/時長/彈簧設定，寫出實作 |
+| 「幫我review一下這段動畫程式碼」「這個 transition 感覺不對」 | `review-animations` | 依 10 條硬性標準嚴格審查動畫/動作程式碼，預設打回 |
+| 「幫我稽核一下整個專案的動畫，列出優先修復清單」 | `improve-animations` | 唯讀，稽核整個 codebase 動作程式碼並產出可執行修復計畫 |
+| 「這個介面哪裡加動畫會比較好」「這裡感覺缺點什麼動態效果」 | `find-animation-opportunities` | 唯讀，掃描 UI 找出值得加動畫的地方，並列出刻意不建議的 |
+| 「開合彈一下的那個效果叫什麼」「iOS 那種拉過頭會彈回來的滾動叫什麼」 | `animation-vocabulary` | 動畫效果反查詞彙表，把感覺描述轉成正確術語 |
+| 「幫我做一個像 iOS 那種可以中途抓住、跟手指走的拖曳/手勢動畫」 | `apple-design` | Apple WWDC 流體介面原則：彈簧物理、手勢可中斷性、慣性投射 |
+| 「這個功能該用哪個函式庫，不要自己刻」 | `pick-ui-library` | 依任務從精選清單推薦函式庫（toast/dropdown/圖表/拖曳/狀態管理等） |
+| 「幫我做這個元件的 3 個不同版本，讓我切著比較」 | `prototype-variants` | 建構同一 UI 元件的多個真正不同版本，放視覺選擇器背後即時比較 |
 | 「幫我讀寫這份 Word/Excel/PPT/PDF」 | `docx`／`xlsx`／`pptx`／`pdf` | 對應檔案格式的建立、編輯、讀取 |
 | 「幫我做一個 MCP 伺服器」 | `mcp-builder` | 建置高品質 MCP 伺服器 |
 | 「這個 React/Next.js 專案效能怎麼優化」 | `vercel-react-best-practices` | 通用 React/Next.js 效能準則 |

@@ -1,6 +1,6 @@
 ---
 name: skills-directory
-description: "Master index of every custom skill in this workspace (18 top-level skills, holding 180 sub-domains, consolidated/curated from 137 originally-installed skills plus several later third-party imports). Consult this FIRST whenever unsure which skill covers a need, when a task might span more than one skill, or to sanity-check what capabilities exist here at all. Several entries are marked UNIVERSAL — standing triggers (start-of-conversation skill discovery, brainstorming before creative work, verification before claiming completion, TDD, code-security review) that should fire on essentially every relevant turn, not only when explicitly asked for."
+description: "Master index of every custom skill in this workspace (18 top-level skills, holding 189 sub-domains, consolidated/curated from 137 originally-installed skills plus several later third-party imports). Consult this FIRST whenever unsure which skill covers a need, when a task might span more than one skill, or to sanity-check what capabilities exist here at all. Several entries are marked UNIVERSAL — standing triggers (start-of-conversation skill discovery, brainstorming before creative work, verification before claiming completion, TDD, code-security review) that should fire on essentially every relevant turn, not only when explicitly asked for."
 ---
 
 # Skills Directory
@@ -28,7 +28,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | Figure out why a deployed (Vercel) app is slow/expensive from real metrics | `data-analysis` |
 | Keep a long task's plan/progress on disk across sessions and `/clear`, or turn a recurring pattern into a workflow spec | `business-automation` |
 | Create/edit .docx/.xlsx/.pptx/.pdf, build an MCP server, write React/Next.js/React Native code | `library-api-reference` |
-| Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates, or make a frontend build stop looking like generic AI output | `scaffolding-templating` |
+| Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates, make a frontend build stop looking like generic AI output, build/review/audit an interface animation, name a motion effect, pick a UI library, or compare UI variants live | `scaffolding-templating` |
 | Review code for quality/SOLID/security (two frameworks available), run Semgrep, request/receive a code review, scan for deep-module opportunities, set up quality-gate hooks, check IP/license compliance and dependency security before shipping generated code/content | `code-quality-review` |
 | Deploy to Vercel (interactive or CI/token-based) | `cicd-deployment` |
 | Diagnose a bug/test failure systematically before proposing a fix, or triage incoming bug reports into agent-ready issues | `incident-runbooks` |
@@ -51,7 +51,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 3 | `data-analysis` | Metrics-driven optimization (Vercel only, for now) | 1 |
 | 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 5 (1 core +2 language variants +2 from third-party imports) |
 | 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs | 9 |
-| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system + anti-AI-slop frontend taste systems | 28 |
+| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system + anti-AI-slop frontend taste systems + animation/motion engineering | 37 |
 | 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, IP/license + dependency-security guardrails, architecture scanning | 14 — see comment block below |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
 | 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + issue triage | 4 |
@@ -65,7 +65,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires | 5 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 180 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 196 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 189 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 205 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180 → +9 from importing Emil Kowalski's third-party `emilkowalski/skills` pack on 2026-08-09 (MIT license, 9 sub-skills — animation/motion engineering + 2 UI-decision tools — folded into `scaffolding-templating`, one renamed to avoid a name collision — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 189. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -143,8 +143,9 @@ library-api-reference (9):
   vercel-react-native-skills, vercel-react-view-transitions,
   vercel-composition-patterns
 
-scaffolding-templating (28, was 16 after the REMOVALS below, +12 from the
-  taste-skill import, +1 from the hallmark import):
+scaffolding-templating (37, was 16 after the REMOVALS below, +12 from the
+  taste-skill import, +1 from the hallmark import, +9 from the
+  emilkowalski/skills import):
   programmatic-seo, design, design-system, ui-styling, ui-ux-pro-max,
   banner-design, brand, anthropic-brand-guidelines (renamed from
   brand-guidelines), canvas-design, algorithmic-art, theme-factory,
@@ -152,7 +153,11 @@ scaffolding-templating (28, was 16 after the REMOVALS below, +12 from the
   writing-guidelines, slides, taste-skill, taste-skill-v1, brandkit,
   brutalist-skill, gpt-tasteskill, image-to-code-skill,
   imagegen-frontend-mobile, imagegen-frontend-web, minimalist-skill,
-  redesign-skill, soft-skill, stitch-skill, hallmark
+  redesign-skill, soft-skill, stitch-skill, hallmark, emil-design-eng,
+  animate, review-animations, improve-animations,
+  find-animation-opportunities, animation-vocabulary, apple-design,
+  pick-ui-library, prototype-variants (renamed from the source repo's
+  `prototype` — see THIRD-PARTY IMPORT below)
 
 code-quality-review (14, was 6, +6 from the mattpocock-skills import,
   +1 from the awesome-llm-apps import, +1 from the claude-skill-ip-guard
@@ -224,15 +229,15 @@ personal-learning (4, was 3, +1 from the third-party import):
   book-study, wiki-ingest, sigma, teach
 
 -----------------------------------------------------------------------
-Total accounted for: 16+4+1+5+9+28+14+2+4+1+24+5+6+5+47+5+4 = 180
+Total accounted for: 16+4+1+5+9+37+14+2+4+1+24+5+6+5+47+5+4 = 189
 Plus context-engineering-collection: kept independent, never split
   (originally installed as one skill covering 17 internal sub-skills,
   now 16 after the REMOVALS below; re-wrapping it would have added no
   value).
-180 sub-domains across 17 skills + context-engineering-collection's own
-16 = 196 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 + 1 +
-12 + 1 + 1 = 187 originally-installed-or-imported skill units after 7
-removals from the first batch (see REMOVALS below) — the 196 vs 187
+189 sub-domains across 17 skills + context-engineering-collection's own
+16 = 205 sub-skill-level SKILL.md files, down from 137 + 30 + 1 + 4 + 1 +
+12 + 1 + 1 + 9 = 196 originally-installed-or-imported skill units after 7
+removals from the first batch (see REMOVALS below) — the 205 vs 196
 discrepancy is because "sub-domains" here counts each merge target once
 even where 2+ original skills fed into it (test-driven-development,
 systematic-debugging, writing-shape each absorbed one or two others'
@@ -683,6 +688,102 @@ change to the skill's own logic was made.
 Not added to the Universal table: anysearch's own description is scoped
 to explicit information-retrieval/fact-checking/search triggers, not an
 "invoke before any response" claim.
+=======================================================================
+
+THIRD-PARTY IMPORT — emilkowalski/skills (Emil Kowalski, MIT license),
+2026-08-09. Full license text and attribution: THIRD-PARTY-LICENSES.md.
+
+Source repo (github.com/emilkowalski/skills) ships 9 skills under
+skills/: emil-design-eng, animate (+RECIPES.md), animation-vocabulary,
+apple-design, find-animation-opportunities, improve-animations
+(+AUDIT.md, +PLAN-TEMPLATE.md), pick-ui-library, prototype (+PICKER.md),
+review-animations (+STANDARDS.md). Vendor root docs (README.md, LICENSE)
+are the vendor's own marketing/install/license scaffolding — README.md
+was not copied in per this repo's standing convention that SKILL.md is
+the only index going forward; LICENSE text was centralized in
+THIRD-PARTY-LICENSES.md instead of vendoring a LICENSE file, matching
+the claude-skill-ip-guard / anysearch-skill precedent. No scripts/ tree —
+every file across all 9 skills is Markdown (SKILL.md + bundled reference
+docs), so no code-execution review was needed.
+
+All 9 read in full (not just frontmatter description) before any
+placement decision, then compared against every existing design/review/
+prototyping skill it could thematically resemble:
+- vs the "Anti-AI-slop frontend taste systems" table (`taste-skill`,
+  `hallmark`, etc.) and `frontend-design`: those are about visual
+  language (color, layout, typography, named aesthetics/macrostructures);
+  this pack is specifically about interface *motion mechanics* (easing
+  curves, spring physics, gesture velocity/interruptibility, GPU
+  properties). `hallmark`'s own `references/motion.md` covers adjacent
+  ground (same three-bucket duration idea, similar cubic-bezier shape)
+  but at ~109 lines as one facet of a much broader pipeline, using its
+  own distinct concrete values (e.g. `cubic-bezier(0.16,1,0.3,1)` vs this
+  pack's `cubic-bezier(0.23,1,0.32,1)`) — independently authored, not a
+  duplicate, no merge; both sides now cross-reference each other's
+  section instead.
+- vs `code-quality-review` (code-review-expert, code-review,
+  receiving-code-review, scope-creep-detector): different axis entirely
+  — general code correctness/SOLID/security/scope, not animation feel.
+  No overlap.
+- vs `library-api-reference` (docx/xlsx/pptx/pdf/mcp-builder/vercel-*):
+  those are API-usage references for specific libraries/formats;
+  `pick-ui-library` is a *decision* tool (which library to reach for,
+  from a curated opinionated list) with no API documentation of its own.
+  No overlap — placed in scaffolding-templating instead, alongside the
+  other design-decision skills, since it's from the same source pack and
+  the same "which UI building-block to reach for" question class.
+
+**Name collision found and resolved**: the source repo's `prototype`
+(folder + frontmatter `name: prototype`) collides with this repo's own
+pre-existing `agentic-dev-workflow/references/prototype` (imported from
+mattpocock-skills on 2026-07-31). Read both in full: the existing skill
+is a general throwaway-code discipline — one artifact, one hard design
+question (state/logic OR UI), captured to a branch when done. The
+incoming skill is narrower and more elaborate — always UI, always
+*multiple* (3–5) genuinely divergent variants rendered together behind a
+specific, verbatim visual-picker component (keyboard nav, URL-param
+persistence, replay button — spec'd in its own PICKER.md) that the user
+flips through live before promoting a winner. Real depth on both sides,
+not a true duplicate — kept as two separate files rather than merged.
+Renamed the incoming one to `prototype-variants` (both the folder name
+and the frontmatter `name:` field) to resolve the collision, per Phase C
+step 5 of the standard procedure. Cross-reference notes added on both
+sides: `agentic-dev-workflow/references/prototype/SKILL.md`'s own
+description, `agentic-dev-workflow/SKILL.md`'s domain table, and
+`scaffolding-templating/SKILL.md`'s new domain table entry all now point
+at each other.
+
+**Phase B (placement)**: classified as 偶爾需要 (occasional, context-
+specific — invoked when a motion/animation/UI-library/prototyping request
+comes up, not a standing trigger). Folded into the existing
+`scaffolding-templating` top-level skill (design & visual templating
+cluster) as a new "Animation, motion & UI-decision tools" table, not a
+new top-level category — consistent with this repo's default "fold into
+one of the existing 18" rule.
+
+No other name collisions (checked all 9 candidate frontmatter names —
+`emil-design-eng`, `animate`, `animation-vocabulary`, `apple-design`,
+`find-animation-opportunities`, `improve-animations`, `pick-ui-library`,
+`review-animations`, plus the renamed `prototype-variants` — and all 9
+folder names against the full repo). Internal cross-references (SKILL.md
+→ RECIPES.md/AUDIT.md/PLAN-TEMPLATE.md/STANDARDS.md/PICKER.md) are all
+relative paths within each skill's own folder and needed no fixing after
+the move.
+
+`review-animations` and `pick-ui-library` both ship
+`disable-model-invocation: true` in their own frontmatter (only run when
+explicitly invoked, per the vendor's own design) — left as-is, not
+overridden.
+
+Not added to the Universal table: none of the 9 carry "invoke before any
+response" language — each is scoped to an explicit animation/motion/
+library-choice/prototyping request.
+
+Folded into scaffolding-templating (not a new top-level category) as
+`references/design/{emil-design-eng,animate,animation-vocabulary,
+apple-design,find-animation-opportunities,improve-animations,
+pick-ui-library,review-animations,prototype-variants}/SKILL.md`, listed
+in that skill's own new "Animation, motion & UI-decision tools" table.
 =======================================================================
 -->
 
