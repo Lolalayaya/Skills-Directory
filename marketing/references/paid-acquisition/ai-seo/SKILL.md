@@ -221,6 +221,15 @@ AI systems prefer sources they can trust. Build citation-worthiness.
 
 **Best combination:** Fluency + Statistics = maximum boost. Low-ranking sites benefit even more — up to 115% visibility increase with citations.
 
+**Authority level determines strategy** — the same optimization intensity is not correct for every site. A Princeton finding on this: Rank-5 sites gained 115% visibility with aggressive optimization; Rank-1 sites that over-optimized *lost* 30%. This is additive to the citations/statistics/freshness guidance above and below, not a replacement for it — it says how hard to push, not what to do.
+
+| Authority Level | Optimization Approach |
+|-----------------|----------------------|
+| **Challenger** (new sites, low authority) | Aggressive: 5-7 extraction points per page, heavy citations, weekly micro-updates |
+| **Established** (top-ranked, well-known) | Light touch: 1-2 strategic points, trust existing credibility, avoid over-optimization |
+
+*(Source: the "Authority Level Determines Strategy" table from bencium.io's `bencium-aeo` skill — MIT, Bencium Limited, see `THIRD-PARTY-LICENSES.md`.)*
+
 **Statistics and data** (+37-40% citation boost)
 - Include specific numbers with sources
 - Cite original research, not summaries of research

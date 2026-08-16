@@ -21,11 +21,23 @@ A lookup skill. When invoked with a task ("I need toasts", "what should I use fo
 
 | Task | Library |
 | --- | --- |
-| Unstyled, accessible UI components (dialogs, popovers, menus, selects…) | [base-ui](https://base-ui.com) |
+| Unstyled, accessible UI components (dialogs, popovers, menus, selects…) | [base-ui](https://base-ui.com) — default pick, lighter API surface, pairs naturally with shadcn/ui |
+| Same, but the project needs deeper WAI-ARIA coverage or heavy internationalization (RTL, 30+ locales, international date/number/calendar formatting) | React Aria (`react-aria-components`) — see `library-api-reference`'s `react-aria` sub-skill. Bigger API surface and steeper learning curve than base-ui; reach for it specifically for that accessibility/i18n depth, not as a default swap |
 | Command menus (⌘K palettes) | [cmdk](https://cmdk.paco.me) |
 | Toasts / notifications | [Sonner](https://sonner.emilkowal.ski) |
 | One-time password / verification code inputs | [input-otp](https://input-otp.rodz.dev) |
 | Customizable GUIs / control panels | [Leva](https://github.com/pmndrs/leva) — [dialkit](https://joshpuckett.me/dialkit) is an alternative |
+
+An existing project already on shadcn/ui + Radix that wants to move to base-ui specifically (not a fresh choice, a migration) has its own dedicated skill: `migrate-radix-to-base` (in this same `scaffolding-templating/references/design/` tree) — vendored verbatim from shadcn/ui's own official migration tooling. Use that instead of hand-rolling the swap.
+
+### Animated component galleries
+
+| Task | Library |
+| --- | --- |
+| Ready-made animated component, native to the shadcn/ui + Tailwind + Framer Motion stack | `magicui` (in this same tree) — real embedded source for 20 representative components |
+| Ready-made animated component/effect, not tied to shadcn (framework-agnostic, also has Vue/Svelte ports) | `react-bits` (in this same tree) — catalog only, no embedded source (license restriction), install via CLI at time of use |
+
+These are component *galleries* — pick one ready-made effect and install it. For building bespoke motion from first principles (should it animate, which curve/duration/spring), that's `animate`, not this row. For naming an effect you can't name yet, that's `animation-vocabulary`. The `react-bits` skill's own SKILL.md has the full comparison table between it and `magicui` if the choice isn't obvious from the one-liners above.
 
 ### Motion & visuals
 

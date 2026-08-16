@@ -23,3 +23,30 @@ Audit *also* checks structural fingerprint: if the page uses the AI template (ce
 - **No stamp at all on a system-managed project** → flag as `major: missing system reference`. Every page on a `design.md` project must stamp its allegiance to the system.
 
 Inversely, on a project *without* `design.md`, the standard diversification rule applies — flag pages that share macrostructure / theme with a previous Hallmark output as `minor: variety drift`.
+
+## Alternate mode: doc-grounded, phased audit
+
+Trigger this mode only when the project actually has the named docs present (check for `DESIGN_SYSTEM.md`, `FRONTEND_GUIDELINES.md`, `APP_FLOW.md`, `PRD.md`, `TECH_STACK.md`, `LESSONS.md`, or their lowercase/`.txt` variants, at the project root or in a `docs/` folder). If none of these exist, stay on the default flat-severity-list flow above — this mode does not replace it.
+
+**Before forming any opinion**, read whatever subset of these exists:
+
+1. `DESIGN_SYSTEM` — tokens, colors, typography, spacing, shadows, radii.
+2. `FRONTEND_GUIDELINES` — component engineering, state management, file structure.
+3. `APP_FLOW` — every screen, route, user journey.
+4. `PRD` — features and requirements.
+5. `TECH_STACK` — what the stack actually supports.
+6. `LESSONS` — past design mistakes and corrections already learned on this project.
+
+Understand the current system completely before proposing a single change — an audit that contradicts the project's own documented design system isn't a review, it's noise.
+
+**Then run the same dimension sweep as the default flow above**, but compile findings into three approval-gated phases instead of one flat list:
+
+- **Phase 1 — Critical**: hierarchy, usability, responsiveness, consistency issues that actively hurt UX.
+- **Phase 2 — Refinement**: spacing, typography, color, alignment, iconography that elevate the experience.
+- **Phase 3 — Polish**: micro-interactions, transitions, empty/loading/error states, dark mode, subtle details.
+
+**Present the plan. Do not implement anything.** The user may reorder, cut, or modify any recommendation. Execute only what's approved, surgically, one phase at a time — present results for review before moving to the next phase. If a result doesn't feel right after implementing, say so and propose refinement before proceeding to the next phase.
+
+This is a **stricter, alternate mode of the same `audit` verb**, not a replacement for the default flat-severity-list behavior above — use it only when the project's own docs make a doc-grounded read possible; otherwise the default flow (read the file(s) the user pointed at, return grouped findings, stop) still applies.
+
+*(Source: the doc-reading + phased/approval-gated workflow from bencium.io's `design-audit` skill — MIT, Bencium Limited, see `THIRD-PARTY-LICENSES.md`. Only this process pattern was folded in; that skill's own 14-dimension checklist was left uninstalled since it duplicates the dimension table already above in this same file.)*

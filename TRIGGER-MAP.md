@@ -77,6 +77,17 @@
 | 「只要抓這個網址的 HTML/JSON 就好，不用開瀏覽器」 | `fetch` | 純 HTTP 取內容，無 JS 渲染 |
 | 「幫我搜尋一下網路上有沒有相關資料」 | `search` | 不開瀏覽器的輕量網路搜尋，回結構化標題/URL（Browserbase 專用） |
 | 「幫我查一下 AAPL 股價/這個 CVE/這篇論文的 DOI」（垂直領域查詢）、「幫我平行搜尋這幾個關鍵字」、「幫我把這個網址的內容擷取成 Markdown」 | `anysearch` | 第三方統一搜尋 API：一般搜尋＋16 個垂直領域結構化搜尋＋batch_search 平行查詢＋URL 全頁擷取，附四執行環境 CLI，API Key 可選 |
+| 「幫我用 Firecrawl 搜尋/爬這個網站」（沒指定要哪個動作，先看整體流程） | `firecrawl-cli` | Firecrawl 官方 CLI 總覽：search→scrape→map→crawl→monitor→interact 升級路徑 |
+| 「幫我把這個網址的內容爬下來變成 Markdown」（用 Firecrawl） | `firecrawl-scrape` | 從已知 URL 擷取乾淨 Markdown，支援 JS 渲染 SPA |
+| 「幫我把這整個網站/文件區段的頁面都抓下來」 | `firecrawl-crawl` | 批次擷取整個網站或區段（如全部 `/docs/`） |
+| 「這個網站很大，幫我找出某個特定頁面在哪」 | `firecrawl-map` | 探索/列出網站所有 URL，可關鍵字過濾 |
+| 「幫我盯著這個頁面，價格/內容一有變化就通知我」 | `firecrawl-monitor` | 排程式變更偵測，AI 雜訊過濾判斷，webhook/email 通知 |
+| 「爬完之後幫我點一下登入/翻頁/填表單」 | `firecrawl-interact` | 擷取後的即時瀏覽器互動 |
+| 「幫我把整個網站下載成本機檔案，離線看」 | `firecrawl-download` | 批次下載整個網站成本機檔案 |
+| 「幫我從這個複雜網站抓出結構化的資料（照這個 schema）」 | `firecrawl-agent` | AI 驅動的自動化多頁結構化資料擷取 |
+| 「幫我把這份本機 PDF/DOCX/XLSX 轉成 Markdown」（用 Firecrawl） | `firecrawl-parse` | 本機檔案轉 Markdown，可選 AI 摘要/問答 |
+| 「這個錯誤訊息/API 該怎麼用，幫我從 issue/PR/文件裡找答案」 | `firecrawl-developer-index` | 從 GitHub issue/PR/README/文件回答開發問題，回傳實際命中段落 |
+| 「幫我找一下這個主題的生醫/學術論文」（用 Firecrawl 搜） | `firecrawl-research-index` | Firecrawl 自己的論文摘要語料庫語意搜尋+引用圖擴展+全文驗證 |
 | 「這個網站要先登入才能看，幫我同步 cookie」 | `cookie-sync` | 把本機 Chrome cookie 同步進 Browserbase |
 | 「幫我測一下這次 UI 改動有沒有壞掉」 | `ui-test` | 對 git diff 有變更的部分做對抗式 UI 測試 |
 | 「這次自動化跑失敗了，幫我看看哪裡卡住」 | `browser-trace` | 擷取 DevTools trace 除錯 |
@@ -90,6 +101,8 @@
 | 「幫我研究一下 XX 這個主題，給我結構化報告」（中文、非銷售場景） | `deep-research`（research→research-deep→research-report） | 通用主題研究 pipeline，⚠️ 跟上面的 `company-research` 命名容易撞車，「研究一家公司」這句話兩邊都可能觸發 |
 | 「幫我查一下這個問題，寫成一份筆記」（單一問題，不需要比較表） | `background-research`（`deep-research` 底下） | 背景 agent 單次查證，產出一份帶引用的筆記——不是 pipeline 的一部分，沒有 outline/多 agent 結構 |
 
+> `search`／`anysearch`／`firecrawl-*` 三個不同廠商都能做搜尋，機制不同、不是互相取代：`search`（Browserbase）最輕量、`anysearch` 有 16 個垂直領域結構化搜尋、Firecrawl 這叢集範圍最廣（多了 crawl/map/monitor/interact/parse/agent 結構化擷取）。已有某廠商的憑證時，沒有理由為了單純搜尋改裝別家。完整比較見 `browser-automation/SKILL.md`。`firecrawl-build*`（在「內容、文件與設計」分類的 `library-api-reference` 底下）是把 Firecrawl 寫進應用程式原始碼，跟這裡列的 `firecrawl-*` CLI 技能（這次 session 的一次性終端機操作）是不同工作。
+
 ## 🎨 內容、文件與設計
 
 | 使用者可能說的話 | 觸發技能 | 它負責什麼 |
@@ -99,10 +112,15 @@
 | 「只要幫我定義品牌語氣」／「只要一張 Banner」／「只要簡報」／「只要 token 規格」 | `brand`／`banner-design`／`slides`／`design-system` | 同一供應商的精簡單功能版，只做一件事、載入更少 context |
 | 「幫我建一套 design token 系統」 | `design-system` | 三層 token（primitive→semantic→component）+ 元件規格 |
 | 「幫我用 shadcn/Tailwind 刻這個 UI」 | `ui-styling` | UI 樣式實作規範 |
+| 「shadcn 最新的 CLI/registry/MCP 怎麼用」「shadcn 有 MCP server 嗎」 | `shadcn-official` | shadcn/ui 官方逐位元組原樣搬入的 Claude skill：registry 發布、MCP、styling/forms/composition 規則 |
+| 「把這個 shadcn 專案的 Radix 元件換成 Base UI」 | `migrate-radix-to-base` | shadcn 官方的 Radix→Base UI 遷移引擎，逐元件或整專案 |
+| 「幫我加個 Magic UI 的動畫元件」「shiny button/marquee/globe 這種效果」 | `magicui` | shadcn+Tailwind+Framer Motion 原生動畫元件庫，內嵌 20 個真實元件原始碼 |
+| 「幫我用 react-bits 弄個背景特效」「不要綁 shadcn 的動畫元件庫」 | `react-bits` | 框架無關動畫特效元件庫（165+，含 Vue/Svelte 版），純目錄+比較文件，官方 CLI 現場安裝 |
 | 「有沒有現成的配色/字體/風格可以參考」 | `ui-ux-pro-max` | 可搜尋的 UI/UX 資料庫（67 風格/161 配色等） |
 | 「這個 UI 看起來很有 AI 感，幫我改得有個性一點」 | `frontend-design` | 反樣板感的視覺方向判斷 |
 | 「幫我做一張海報」 | `canvas-design` | 靜態視覺藝術（PNG/PDF） |
-| 「幫我用 p5.js 生成一些演算法藝術」 | `algorithmic-art` | 種子隨機數生成藝術 |
+| 「幫我用 p5.js 生成一些演算法藝術」 | `algorithmic-art` | 種子隨機數生成藝術（快速、哲學優先） |
+| 「幫我用 p5.js 做 flow field/curl noise/reaction-diffusion/shader，還要匯出成影片」 | `p5js` | 完整 p5.js 技巧庫+真正的匯出管線（Puppeteer/ffmpeg/SVG/CCapture.js） |
 | 「幫這份文件/簡報套個主題」 | `theme-factory` | 套用內建 10 組預設主題 |
 | 「幫我做一個有狀態管理的複雜 claude.ai 頁面」 | `web-artifacts-builder` | React/Tailwind/shadcn 打造複雜 artifact |
 | 「幫我審查一下這個 UI 符不符合無障礙規範」 | `web-design-guidelines` | 依 Web Interface Guidelines 審查 UI 程式碼 |
@@ -128,17 +146,38 @@
 | 「幫我做一個像 iOS 那種可以中途抓住、跟手指走的拖曳/手勢動畫」 | `apple-design` | Apple WWDC 流體介面原則：彈簧物理、手勢可中斷性、慣性投射 |
 | 「這個功能該用哪個函式庫，不要自己刻」 | `pick-ui-library` | 依任務從精選清單推薦函式庫（toast/dropdown/圖表/拖曳/狀態管理等） |
 | 「幫我做這個元件的 3 個不同版本，讓我切著比較」 | `prototype-variants` | 建構同一 UI 元件的多個真正不同版本，放視覺選擇器背後即時比較 |
+| 「幫我先做 2-3 個版面草稿，各自分開放，讓我看完再決定」 | `sketch` | 每個變體各自獨立資料夾+README，最後用比較表呈現（跟 `prototype-variants` 的即時切換不同） |
 | 「幫我讀寫這份 Word/Excel/PPT/PDF」 | `docx`／`xlsx`／`pptx`／`pdf` | 對應檔案格式的建立、編輯、讀取 |
 | 「幫我做一個 MCP 伺服器」 | `mcp-builder` | 建置高品質 MCP 伺服器 |
 | 「這個 React/Next.js 專案效能怎麼優化」 | `vercel-react-best-practices` | 通用 React/Next.js 效能準則 |
 | 「這是 React Native/Expo 專案，效能怎麼優化」 | `vercel-react-native-skills` | 僅限行動端的效能規則 |
 | 「幫我加個 View Transition 動畫」 | `vercel-react-view-transitions` | View Transitions API 應用 |
+| 「幫我用 React Aria 做一套自己的無樣式元件庫」「useButton/useTextField 怎麼用」 | `react-aria` | headless、無障礙優先、深度國際化的 React 元件庫（`react-aria-components`）與底層 hooks；該不該選它取代 base-ui 是 `pick-ui-library` 的判斷 |
 | 「這個元件架構怎麼設計比較好」 | `vercel-composition-patterns` | React 組合模式 |
+| 「幫我把 Firecrawl 接進我這個應用程式」（寫進原始碼，不是這次終端機用一下） | `firecrawl-build` | 選新專案/既有專案流程、挑對的 endpoint、裝 SDK、設定 API key |
+| 「這個功能要先有 URL 才能抓內容」（在應用程式裡整合） | `firecrawl-build-scrape` | `/scrape` 整合：已知 URL 的單頁擷取 |
+| 「這個功能要先搜尋才能找到 URL」（在應用程式裡整合） | `firecrawl-build-search` | `/search` 整合：查詢字串優先的探索流程 |
+| 「擷取後這個功能還要點擊/填表單」（在應用程式裡整合） | `firecrawl-build-interact` | `/interact` 整合：應用程式碼裡的瀏覽器動作 |
+| 「幫我把 Firecrawl 的 API key 弄進這個專案」 | `firecrawl-build-onboarding` | 首次接入：授權流程、SDK 安裝、`.env` 設定 |
+| 「這篇 arXiv 論文的期刊 DOI 是多少」／「幫我找這篇論文的 arXiv 編號」 | `arxiv-lookup` | 用 arXiv ID 查期刊 DOI，或用標題/關鍵字查 arXiv ID |
+| 「幫我把這篇 arXiv 論文轉成 Markdown，方便我照著實作」 | `arxiv-doc-builder` | 抓取論文（優先 LaTeX、PDF 為後備）轉成結構化 Markdown |
 | 「幫我一起寫一份提案/技術規格」 | `doc-coauthoring` | 結構化共寫文件流程 |
 | 「幫我照公司格式寫一份狀態報告/電子報」 | `internal-comms` | 套用公司慣用的內部溝通格式 |
 | 「幫我把這些寫作靈感先記下來，還沒想好怎麼組織」 | `writing-fragments` | 純探索，挖掘素材片段，不急著定結構 |
 | 「幫我把這堆素材寫成一篇文章」／「幫我改一下這篇文章草稿」 | `writing-shape` | 塑形成文章（含敘事 beat 模式）或編輯既有草稿 |
 | 「這幾個問題我答不出來，幫我整理成問卷發給知情人」 | `to-questionnaire` | 把答不出來的問題整理成問卷，非同步填寫或會議上討論 |
+| 「幫我改一下這篇論文的 Abstract/Introduction/Method，讓它更像審稿人會喜歡的寫法」 | `research-paper-writing` | ML/CV/NLP 論文各章節寫作指引、主張—證據對齊檢查、投稿前自我審查 |
+| 「這段文字很像 AI 寫的，幫我改自然一點」 | `humanizer-zh-tw` | 依維基百科「Signs of AI writing」去除 AI 寫作痕跡、加入真實聲音——是寫作品質工具，不是規避偵測工具 |
+| 「幫我稽核整個網站的無障礙/WCAG 符合度」 | `accessibility-audit` | 整站 WCAG-EM 稽核：定範圍、抽樣、彙整符合性報告 |
+| 「這個網頁無障礙嗎」「幫我掃描這個 URL 的 a11y 問題」 | `accessibility-scan` | 單頁自動化規則引擎掃描，回傳含 selector/file:line 的違規清單 |
+| 「幫我做鍵盤測試/螢幕報讀器檢查」「這個東西不只要過 lint，還要能真的操作」 | `accessibility-inspect` | 單頁手動層：鍵盤/焦點/螢幕報讀器/reflow 檢查，依證據基礎分級 |
+| 「我這次改動有沒有讓無障礙變差」 | `accessibility-diff` | 比對未提交變更或分支跟基準的無障礙違規差異，可當 CI gate |
+| 「幫我補上缺的 alt text/標籤，修一下無障礙問題」 | `accessibility-fix` | 基準→編輯→再驗證迴圈，只做修復不做稽核 |
+| 「幫我檢查一下這段文案/UI 文字的排版對不對」「引號/破折號用錯了」 | `ui-typography` | 依 Practical Typography 整理的排版正確性規則，產出 UI 文字時自動套用 |
+| 「幫我設計一個會記住使用者偏好、隨時間累積信任的 AI 產品介面」 | `relationship-design` | agentic/關係中心 UX：圍繞記憶、信任演化、協作規劃設計介面 |
+| 「幫我做一個像 Stripe/Linear/Vercel 風格的頁面」 | `popular-web-designs` | 54 個真實網站設計系統的現成 HTML/CSS 參考 |
+| 「幫我寫一份 DESIGN.md 規格檔，要能被其他工具讀」 | `design-md` | Google 開放 `DESIGN.md` 規格的撰寫/lint/diff/匯出（跟 Stitch 專用的 `stitch-skill` 不同） |
+| 「幫我做一張資訊圖/信息图」 | `baoyu-infographic` | 21 版面 × 21 風格自由組合的資訊圖產生器 |
 
 ## 📈 行銷
 
@@ -160,6 +199,7 @@
 | 「幫我做一份行銷計畫/找點子/多角度顧問建議」 | `marketing-plan`／`marketing-ideas`／`marketing-council` | 策略發想（三者觸發詞部分重疊） |
 | 「幫我設計 A/B 測試/歸因模型/看數據」 | `ab-testing`／`attribution`／`analytics` | 數據相關（已用明確邊界說明區分） |
 | 「幫我做競品比較頁/alternative 頁」 | `competitors` | 只做「成品頁面」，不做背後的競品研究（研究見 `browser-automation`） |
+| 「我們資源比對手少很多，該怎麼打這場行銷戰」「NGO/新創/草根運動被財力壓著打，怎麼辦」 | `insurgent-campaign` | 分階段草根優先戰役策略：ideation→財力落差稽核→MMF 關卡→通路分層配置→戰役形狀→lift-test 量測 |
 | 其餘（`schema`／`social`／`video`／`image`／`popups`／`co-marketing`／`free-tools`／`lead-magnets`／`marketing-loops`／`marketing-psychology`／`product-marketing`／`public-relations`／`revops`／`sales-enablement`／`directory-submissions`） | 對應同名子技能 | 各自對應該行銷細分領域，觸發詞清楚，未發現重疊或模糊問題 |
 
 ## 📖 學習與任務管理

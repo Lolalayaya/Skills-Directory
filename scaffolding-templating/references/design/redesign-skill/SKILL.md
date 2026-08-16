@@ -151,7 +151,7 @@ When upgrading a project, pull from these high-impact techniques to replace gene
 - **Scroll-driven reveals.** Content entering through expanding masks, wipes, or draw-on SVG paths tied to scroll progress.
 
 ### Surface Upgrades
-- **True glassmorphism.** Go beyond `backdrop-filter: blur`. Add a 1px inner border and a subtle inner shadow to simulate edge refraction.
+- **No glassmorphism.** This bullet previously recommended "true glassmorphism" (`backdrop-filter: blur` plus a 1px inner border and inner shadow) as an upgrade technique. Flipped to a ban after the user found it conflicted with bencium.io's `bencium-innovative-ux-designer` skill (MIT — see `THIRD-PARTY-LICENSES.md`), which lists glass morphism under its banned AI-generated aesthetics and states explicitly: "NO glass morphism effects (this is the one banned technique)." Do not reach for it as a default "make it feel premium" move — pick dramatic shadows, colored/tinted shadows, or grain/noise overlays instead (see below). If a brand genuinely calls for it (e.g. a deliberately Apple-adjacent identity), that is a specific brand decision the brief must state, not a generic surface upgrade to default to.
 - **Spotlight borders.** Card borders that illuminate dynamically under the cursor.
 - **Grain and noise overlays.** A fixed, pointer-events-none overlay with subtle noise to break digital flatness.
 - **Colored, tinted shadows.** Shadows that carry the hue of the background rather than using generic black.

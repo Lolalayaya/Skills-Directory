@@ -1,6 +1,6 @@
 # Skills Directory 技能總覽
 
-本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **189 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。2026-08-07 匯入 AnySearch Team 的 `anysearch-skill`（1 個技能 `anysearch`，統一即時搜尋 API，併入既有的 `browser-automation`）。2026-08-09 匯入 Emil Kowalski 的 `emilkowalski/skills` 技能包（9 個技能：動畫/動作工程 7 個＋UI 決策工具 2 個，全部併入既有的 `scaffolding-templating`，其中 `prototype` 因撞名改名為 `prototype-variants`）。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
+本資料夾是一套給 Claude Code 使用的自訂技能（Skills）集合，目前共 **18 個頂層技能**，內部再細分為 **225 個子技能**（另加 `context-engineering-collection` 自帶、未拆分的 16 個子技能）。原始 137 個技能經 2026-07-31 的健檢移除 7 個確認不會用到的子技能；同一天又匯入了 Matt Pocock 的第三方技能包（原 41 個資料夾，健檢後留 30 個），並依主題**直接融入既有的 18 個分類**，而不是另立門戶——例如逼問式訪談/spec/tickets 併入 `agentic-dev-workflow`，兩軸審查/架構掃描併入 `code-quality-review`，其中 `tdd`／`diagnosing-bugs` 兩個技能的獨特內容則直接合併進本倉庫既有的 `test-driven-development`／`systematic-debugging`。2026-08-01 再匯入 forrestchang 的第三方技能包 `andrej-karpathy-skills`（僅 1 個技能 `karpathy-guidelines`），同樣依主題併入既有的 `agentic-dev-workflow`。同日再從 Shubham Saboo 的 `awesome-llm-apps` 倉庫的 `agent_skills/` 資料夾匯入 4 個技能（`commit-archaeologist`、`project-graveyard`、`scope-creep-detector`、`thinking-out-loud`），分散融入 `incident-runbooks`／`business-automation`／`code-quality-review`／`agentic-dev-workflow`；同資料夾內的第 5 個技能 `advisor-orchestrator-worker` 因與此環境內建的多代理 `Workflow` 工具功能重疊而未匯入。2026-08-02 匯入 Mugdha Vairagade 的 `claude-skill-ip-guard`（1 個技能 `ip-guard`），併入既有的 `code-quality-review`。2026-08-05 同時匯入 Leonxlnx 的 `taste-skill` 技能包（12 個技能，11 個依主題併入 `scaffolding-templating`、1 個 `output-skill` 併入 `product-verification`）與 Nutlope 的 `hallmark`（1 個技能，併入 `scaffolding-templating`）。2026-08-07 匯入 AnySearch Team 的 `anysearch-skill`（1 個技能 `anysearch`，統一即時搜尋 API，併入既有的 `browser-automation`）。2026-08-09 匯入 Emil Kowalski 的 `emilkowalski/skills` 技能包（9 個技能：動畫/動作工程 7 個＋UI 決策工具 2 個，全部併入既有的 `scaffolding-templating`，其中 `prototype` 因撞名改名為 `prototype-variants`）。2026-08-16 一次評估 5 個來源，收錄 4 個：Firecrawl 官方的 `firecrawl/cli`＋`firecrawl/skills`（17 個技能，5 個併入 `library-api-reference`、12 個併入 `browser-automation`）、`arxiv-skills`（2 個技能，併入 `library-api-reference`）、`Research-Paper-Writing-Skills`（1 個技能，併入 `internal-writing-comms`）、`Humanizer-zh-TW`（1 個技能，併入 `internal-writing-comms`）；第 5 個來源 `watermarks-remover` 因其核心功能是剝除 AI 內容來源標記（規避偵測），予以拒絕收錄，未匯入任何內容。同一天稍晚，再依使用者指定的「比對既有技能、只裝新內容＋補落差」流程，評估 4 個 UI/UX 相關來源，收錄 3 個共 10 個子技能，全數併入 `scaffolding-templating`：AccessLint 的 5 個無障礙（WCAG 2.2）稽核/掃描/檢測/差異比對/修復技能、bencium.io 的 `ui-typography`（排版規則）與 `relationship-design`（agentic UX）、NousResearch/hermes-agent 的 `popular-web-designs`（54 站設計系統目錄）／`design-md`（Google `DESIGN.md` 規格工具）／`baoyu-infographic`（資訊圖產生器）；第 4 個來源 `vercel-labs/agent-skills` 確認只是已安裝 `vercel-react-view-transitions` 的同源更新，用來同步 3 個過時檔案，不算新匯入。同一天第三次處理，使用者親自指定 9 項精準動作（4 項整包安裝：`p5js`／`sketch`（hermes-agent）併入 `scaffolding-templating`、`insurgent-campaign`（bencium.io）併入 `marketing`、`loyalty-mindset`（抽自 bencium.io 的 `human-architect-mindset`）新建進 `agentic-dev-workflow`；5 項只抽單一機制折進既有檔案，不新增子技能檔案），全倉庫子技能總數 220→224；驗證過程中另外發現 `scaffolding-templating` 前一輪陳述的 47 其實少算一個（實際檔案數是 48），順手修正為 224→225。同一天稍晚，使用者提出將四個外部 UI 參考（react-bits、React Aria、shadcn/ui、Magic UI）整合進本倉庫的請求，經討論確認整合深度、範圍與授權限制後執行：shadcn/ui 官方的兩個技能（`shadcn-official`／`migrate-radix-to-base`）與 Magic UI 官方技能逐位元組原樣搬入（皆 MIT），Magic UI 另外新增本倉庫自撰、內嵌 20 個真實元件原始碼的目錄；React Aria（Apache-2.0）官方文件網站在本環境連線失敗，改由 `adobe/react-spectrum` 原始碼（套件 README、`AGENTS.md` 分層說明、官方 Tailwind starter kit）建置；react-bits 因授權為「MIT + Commons Clause」明文禁止重新散布元件本身，改為只做分類目錄與跟 `magicui` 的比較文件，刻意不內嵌任何原始碼。`scaffolding-templating` 50→54（+4：`shadcn-official`／`migrate-radix-to-base`／`magicui`／`react-bits`），`library-api-reference` 16→17（+1：`react-aria`），全倉庫子技能總數 225→230。完整過程與每個子技能的最終落點詳見 [`SKILL-AUDIT.md`](SKILL-AUDIT.md)。
 
 > 完整的索引與觸發規則請見根目錄的 [`SKILL.md`](SKILL.md)（給 Claude 讀取的機器可讀版本）；本 README 是給「人」看的導覽版本，說明每個分類的用途與內含的所有子技能。
 
@@ -22,6 +22,17 @@ Matt Pocock（[aihero.dev](https://www.aihero.dev/s/skills-newsletter)）發布�
 - Nutlope 發布的第三方開源技能 `hallmark`（[github.com/Nutlope/hallmark](https://github.com/Nutlope/hallmark)，MIT 授權）於 2026-08-05 匯入，內含單一技能 `hallmark`（反 AI 樣板前端設計系統，含 audit/redesign/study 動詞），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - AnySearch Team 發布的第三方開源技能 `anysearch-skill`（[github.com/anysearch-ai/anysearch-skill](https://github.com/anysearch-ai/anysearch-skill)，Apache-2.0 授權）於 2026-08-07 匯入，內含單一技能 `anysearch`（統一即時搜尋服務：一般網路搜尋、16 個垂直領域結構化搜尋、平行批次查詢、URL 內容擷取，附跨平台多執行環境 CLI），依主題併入既有的 `browser-automation`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 - Emil Kowalski 發布的第三方開源技能包 `emilkowalski/skills`（[github.com/emilkowalski/skills](https://github.com/emilkowalski/skills)，MIT 授權）於 2026-08-09 匯入，內含 9 個技能（介面動作工程：`emil-design-eng`／`animate`／`review-animations`／`improve-animations`／`find-animation-opportunities`／`animation-vocabulary`／`apple-design`，外加 UI 決策工具 `pick-ui-library` 與 `prototype`），依主題全部併入既有的 `scaffolding-templating`；其中 `prototype` 因與本倉庫既有的 `agentic-dev-workflow/prototype` 撞名，改名為 `prototype-variants`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Firecrawl 發布的官方開源技能倉庫 `firecrawl/cli` 與 `firecrawl/skills`（[github.com/firecrawl/cli](https://github.com/firecrawl/cli)、[github.com/firecrawl/skills](https://github.com/firecrawl/skills)，ISC 授權）於 2026-08-16 匯入，共 17 個技能——`firecrawl/skills` 的 5 個應用整合技能併入 `library-api-reference`，`firecrawl/cli` 的 10 個即時網頁工具技能加上 `firecrawl/skills` 的 2 個索引技能併入 `browser-automation`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- ultimatile 發布的第三方開源技能包 `arxiv-skills`（[github.com/ultimatile/arxiv-skills](https://github.com/ultimatile/arxiv-skills)，MIT 授權）於 2026-08-16 匯入，內含 2 個技能（`arxiv-lookup`、`arxiv-doc-builder`），依主題併入既有的 `library-api-reference`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Master-cai 發布的第三方開源技能 `Research-Paper-Writing-Skills`（[github.com/Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills)，MIT 授權）於 2026-08-16 匯入，內含單一技能 `research-paper-writing`，依主題併入既有的 `internal-writing-comms`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- kevintsai1202 發布的第三方開源技能 `Humanizer-zh-TW`（[github.com/kevintsai1202/Humanizer-zh-TW](https://github.com/kevintsai1202/Humanizer-zh-TW)，MIT 授權）於 2026-08-16 匯入，內含單一技能 `humanizer-zh-tw`，依主題併入既有的 `internal-writing-comms`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- AccessLint 發布的第三方開源技能包 `skills`（[github.com/AccessLint/skills](https://github.com/AccessLint/skills)，MIT 授權）於 2026-08-16 匯入，內含 5 個技能（`accessibility-audit`／`accessibility-scan`／`accessibility-inspect`／`accessibility-diff`／`accessibility-fix`，WCAG 2.2 稽核/掃描/檢測/差異比對/修復管線），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- bencium.io 發布的第三方開源技能包（MIT 授權）於 2026-08-16 匯入 2 個技能：`typography`（frontmatter 命名為 `ui-typography`，UI 排版正確性強制規則）與 `relationship-design`（agentic/關係中心 UX 設計），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)。同一天稍晚，同一個 marketplace 又整包安裝了 `insurgent-campaign`（併入 `marketing`），並從另外 5 個未整包安裝的技能（`bencium-innovative-ux-designer`／`bencium-impact-designer`／`design-audit`／`human-architect-mindset`／`bencium-aeo`）各抽出一個機制折進既有檔案——完整清單見 `THIRD-PARTY-LICENSES.md` 的 bencium.io 段落
+- Nous Research 發布的第三方開源專案 `hermes-agent`（[github.com/NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)，MIT 授權）的 `skills/creative/` 資料夾於 2026-08-16 匯入 3 個技能：`popular-web-designs`（54 個真實網站設計系統目錄，另credit Teknium/VoltAgent 為資料來源）、`design-md`（Google 開放 `DESIGN.md` 規格的作者/驗證/匯出工具）、`baoyu-infographic`（21 版面×21 風格資訊圖產生器，原作者為 宝玉/JimLiu，經 hermes-agent 改編），依主題併入既有的 `scaffolding-templating`，完整授權全文與逐項作者歸屬見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)。同一天稍晚，同一個來源又整包安裝了 `p5js`與`sketch`（`sketch` 另具名 credit GSD 專案原作者 Lex Christopherson），並從 `claude-design` 抽出「Surface-First」機制折進既有的 `frontend-design`
+- shadcn/ui 發布的官方開源技能倉庫（[github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui)，MIT 授權）於 2026-08-16 匯入 2 個技能：`shadcn`（frontmatter 命名，資料夾為 `shadcn-official`，最新 CLI/registry/MCP server 工作流程與 styling/forms/composition/icons/chat 規則）與 `migrate-radix-to-base`（shadcn 官方的 Radix→Base UI 遷移引擎），皆整包逐位元組原樣搬入，依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Magic UI Design 發布的官方開源技能倉庫 `magicui`（[github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui)，MIT 授權）於 2026-08-16 匯入，內含官方 skill（`SKILL.md`／`references/components.md`／`references/recipes.md`，逐位元組原樣搬入）外加本倉庫自行撰寫、內嵌 20 個真實元件原始碼的 `references/source-catalog.md`（授權允許嵌入原始碼，這點與下面的 react-bits 不同），依主題併入既有的 `scaffolding-templating`，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- David Haz 發布的第三方開源專案 `react-bits`（[github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits)，**MIT + Commons Clause 授權，非標準 MIT**）於 2026-08-16 匯入，內含單一技能 `react-bits`，依主題併入既有的 `scaffolding-templating`；因授權明文禁止「重新散布元件本身」，本技能**刻意不內嵌任何原始碼**，只有分類目錄、比較文件與官方 CLI 安裝指令，完整授權全文與限制說明見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
+- Adobe 發布的官方開源專案 `react-spectrum`（[github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum)，Apache-2.0 授權）於 2026-08-16 匯入，內含單一技能 `react-aria`（無樣式、高無障礙覆蓋率、深度國際化的 headless React 元件庫），依主題併入既有的 `library-api-reference`；官方文件網站在本環境連線失敗，內容改由倉庫本身的套件 README、`AGENTS.md` 分層說明與官方 Tailwind starter kit 的真實原始碼建置而成，完整授權全文見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)
 
 **本倉庫真正屬於維護者自己的部分，只有：**
 - 這份 [`README.md`](README.md) 與 [`SKILL.md`](SKILL.md) 這兩份「索引/分類文件」本身的撰寫、分類方式、安裝說明與常見錯誤排解
@@ -114,7 +125,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 
 ## 🔁 全域必用技能（Universal — 不用等使用者開口）
 
-以下 5 個子技能帶有「always / MUST / before any」等強制語氣，理論上**每次符合情境就該主動套用**，不需要使用者明確要求。（2026-08-02 匯入 `ip-guard` 時也套用了同一套判斷標準：它自己的說明文字寫得像「任何程式碼/內容產出前都要自動觸發」，範圍比下表這 5 個更廣，但經與使用者確認後，決定不列入此表——維持一般子技能、觸發粒度限定在「每個完成的檔案/artifact」與「每次新增外部相依套件」，理由與完整討論見 `SKILL-AUDIT.md`。）
+以下 5 個子技能帶有「always / MUST / before any」等強制語氣，理論上**每次符合情境就該主動套用**，不需要使用者明確要求。（2026-08-02 匯入 `ip-guard` 時也套用了同一套判斷標準：它自己的說明文字寫得像「任何程式碼/內容產出前都要自動觸發」，範圍比下表這 5 個更廣，但經與使用者確認後，決定不列入此表——維持一般子技能、觸發粒度限定在「每個完成的檔案/artifact」與「每次新增外部相依套件」，理由與完整討論見 `SKILL-AUDIT.md`。2026-08-16 匯入 `ui-typography`（`scaffolding-templating`）時同樣遇到這個情況：它的說明文字寫「任何 UI 產出都要靜默自動套用」，比照 `ip-guard` 的先例，預設同樣不列入此表，理由見 `SKILL-AUDIT.md`。）
 
 | 觸發時機 | 子技能 | 所屬技能 | 為什麼是必用 |
 |---|---|---|---|
@@ -147,7 +158,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🛠️ 開發流程與品質保證
 
 ### 1. `agentic-dev-workflow` — 軟體開發生命週期總成
-從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **24 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，MIT 授權；1 個來自 2026-08-01 匯入的第三方 `andrej-karpathy-skills`，MIT 授權；1 個來自同日匯入的第三方 `awesome-llm-apps`，Apache-2.0 授權；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+從探索意圖到收尾分支，涵蓋完整的 agentic 開發流程。包含 **25 個子技能**（其中 14 個來自 2026-07-31 匯入的第三方 `mattpocock-skills`，MIT 授權；1 個來自 2026-08-01 匯入的第三方 `andrej-karpathy-skills`，MIT 授權；1 個來自同日匯入的第三方 `awesome-llm-apps`，Apache-2.0 授權；1 個是 2026-08-16 從 bencium.io 的 `human-architect-mindset` 抽出的片段（MIT 授權）；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 **核心生命週期（8）**：
 - **`using-superpowers`**（🔁必用）— 對話一開始就先判斷該用哪個技能
@@ -159,8 +170,9 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`dispatching-parallel-agents`** — 遇到 2 個以上互不依賴、可平行處理的任務時派發並行 agent
 - **`finishing-a-development-branch`** — 實作完成、測試都過了之後，決定怎麼把分支合併/送出
 
-**輕量行為守則（1，來自第三方 `andrej-karpathy-skills`）**：
+**輕量行為守則（2，1 個來自第三方 `andrej-karpathy-skills`、1 個是 2026-08-16 從 bencium.io 抽出的片段）**：
 - **`karpathy-guidelines`** — 撰寫/審查/重構程式碼時的 4 條行為準則濃縮版（動手前先想清楚、精簡優先、只動手術刀式的必要修改、目標導向可驗證的成功條件），是隨時可查的守則而非流程步驟，與 `brainstorming`／`product-verification` 的 TDD/驗證／`code-quality-review` 精神相通但不重複其細節流程
+- **`loyalty-mindset`**（抽自第三方 bencium.io 的 `human-architect-mindset`）— 「忠誠度」哲學框架：為什麼堅持既有架構承諾、不追逐每個新框架，是 AI 結構性做不到的人類能力；附 Loyalty Decision Matrix 與 5 個具名反樣式（Endless Pivot、Greenfield Fallacy 等）。評估是否該遷移/重寫/放棄既有架構承諾時查閱
 
 **雜亂輸入前處理（1，來自第三方 `awesome-llm-apps`）**：
 - **`thinking-out-loud`** — 收到一長串雜亂、語音口述式的碎念輸入時，先產出「echo 摘要」（含推論/猜測的標註區）讓使用者確認，才動手做任何事；確認後若內容是要做功能設計，銜接到 `brainstorming` 繼續
@@ -261,7 +273,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🌐 瀏覽器自動化與研究
 
 ### 10. `browser-automation` — Browserbase 全套瀏覽器工具箱
-只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」「研究公司/競品/活動」或「即時搜尋/查證資料」都算。包含 **16 個子技能**（其中 1 個 `anysearch` 來自第三方 `anysearch-skill`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+只要任務牽涉「瀏覽網站」「自動化瀏覽器操作」「用真實瀏覽器測試網頁」「除錯失敗的自動化流程」「同步登入狀態」「研究公司/競品/活動」「即時搜尋/查證資料」或「用 Firecrawl CLI 做一次性的網頁搜尋/爬取/監控」都算。包含 **28 個子技能**（其中 1 個 `anysearch` 來自第三方 `anysearch-skill`、12 個來自 Firecrawl 官方的 `firecrawl/cli`＋`firecrawl/skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`browser`** — 用自然語言 CLI 指令自動化瀏覽器操作（瀏覽、擷取資料、截圖、填表單、點按鈕）
 - **`autobrowse`** — 自我改進的瀏覽器自動化：反覆執行任務、讀 trace、優化導覽策略直到穩定
@@ -280,6 +292,23 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`competitor-profiling`** — 競品側寫（更完整的競品畫像）
 - **`event-prospecting`** — 活動/研討會開發潛在客戶
 
+**Firecrawl CLI 叢集**（來自第三方 Firecrawl 官方倉庫，ISC 授權；這次 session 內的即時網頁工作，跟 `library-api-reference` 底下的 `firecrawl-build*` 應用整合技能是不同工作）：
+
+- **`firecrawl-cli`** — 總覽/入口技能，search→scrape→map→crawl→monitor→interact 的升級路徑指引
+- **`firecrawl-search`** — 網頁搜尋，可選完整頁面內容，`--categories developer` 走開發者索引
+- **`firecrawl-scrape`** — 從已知 URL 擷取乾淨 Markdown，支援 JS 渲染的 SPA、多 URL 平行處理
+- **`firecrawl-map`** — 探索/列出網站所有 URL，可用關鍵字過濾
+- **`firecrawl-crawl`** — 批次擷取整個網站或區段（例如所有 `/docs/`）
+- **`firecrawl-monitor`** — 排程式的變更偵測（頁面或整個網路），內建 AI 雜訊過濾判斷、webhook/email 通知
+- **`firecrawl-interact`** — 擷取後的即時瀏覽器互動：點擊、填表單、翻頁、登入、持久化 profile
+- **`firecrawl-download`** — 把整個網站批次下載成本機檔案
+- **`firecrawl-agent`** — AI 驅動的自動化多頁結構化資料擷取（附 JSON schema）
+- **`firecrawl-parse`** — 把本機檔案（PDF/DOCX/DOC/ODT/RTF/XLSX/XLS/HTML）轉成 Markdown，可選 AI 摘要/問答
+- **`firecrawl-developer-index`** — 從 GitHub issue/PR/README/文件回答開發問題，回傳實際命中段落
+- **`firecrawl-research-index`** — Firecrawl 自己的論文摘要語料庫語意搜尋（PubMed/bioRxiv/medRxiv 為主+arXiv），含引用圖擴展與全文驗證
+
+> `search`／`anysearch`／`firecrawl-*` 三者都能做搜尋但機制不同，完整比較見 `browser-automation/SKILL.md` 的「Note on the Firecrawl CLI cluster vs. `search`/`anysearch`/`fetch`」小節。
+
 ### 11. `deep-research` — 通用主題研究流程（中文）
 先產生研究大綱，再擴充欄位/研究對象，接著為每個項目派出獨立的深度研究 agent，最後彙整成一份 Markdown 報告。適合學術研究、技術/產品比較、或任何「幫我研究這個主題並給結構化報告」的需求。包含 **6 個子技能**（其中 1 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
@@ -295,27 +324,31 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 ## 🎨 內容、文件與設計
 
 ### 12. `scaffolding-templating` — 樣板、腳手架與完整設計系統
-把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **37 個子技能**（其中 12 個來自第三方 `taste-skill`、1 個來自第三方 `hallmark`（皆 MIT）、9 個來自第三方 `emilkowalski/skills`（MIT）；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+把最佳實踐轉換成可直接套用的樣板、腳手架、色彩/字體系統與參考資料庫。包含 **54 個子技能**（其中 12 個來自第三方 `taste-skill`、1 個來自第三方 `hallmark`（皆 MIT）、9 個來自第三方 `emilkowalski/skills`（MIT）、5 個來自第三方 `AccessLint/skills`（MIT）、2 個來自第三方 bencium.io（MIT）、5 個來自第三方 `NousResearch/hermes-agent`（MIT，含 2026-08-16 稍晚整包安裝的 `p5js`／`sketch`）、2 個逐位元組原樣搬入的 shadcn/ui 官方技能（`shadcn-official`／`migrate-radix-to-base`，MIT）、1 個 Magic UI 官方技能＋本倉庫自撰的原始碼目錄（`magicui`，MIT）、1 個純比較文件無內嵌原始碼的第三方技能（`react-bits`，MIT+Commons Clause，2026-08-16）；另有 5 處小片段（Surface-First 步驟、玻璃擬態禁令、Creative Reframing Prompts、分階段稽核模式、Authority 表格）折進既有檔案，不算新增檔案；此數字也修正了前一輪陳述的 47（實際檔案數應為 48）這個一次性的算術誤差，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`programmatic-seo`** — 用資料驅動的方式大量產生 SEO 頁面樣板
 - **`design`** — 一般性設計指引
 - **`design-system`** — 三層設計 token（primitive→semantic→component）、元件規格、投影片產生
-- **`ui-styling`** — shadcn/Tailwind 為主的 UI 樣式規範
+- **`ui-styling`** — shadcn/Tailwind 為主的 UI 樣式規範；另見下方 `shadcn-official` 取得最新 CLI/registry/MCP 資訊
+- **`shadcn-official`**（frontmatter 命名為 `shadcn`，來自 shadcn/ui 官方，MIT）— shadcn/ui 官方自帶的 Claude skill，逐位元組原樣搬入：最新 CLI 指令、registry 發布/命名空間、MCP server 整合、styling/forms/composition/icons/chat 規則
+- **`migrate-radix-to-base`**（來自 shadcn/ui 官方，MIT）— shadcn 官方的 Radix→Base UI 遷移引擎，逐元件或整專案遷移，附三方合併保留客製化；跟 `pick-ui-library` 預設推薦 base-ui 的立場互補而非衝突：新專案看 `pick-ui-library`，既有 shadcn+Radix 專案要遷移看這裡
+- **`magicui`**（來自 Magic UI 官方，MIT）— 官方 skill（CLI 安裝流程、元件分類）+ 本倉庫自撰、內嵌 20 個真實元件原始碼的目錄；shadcn+Tailwind+Framer Motion 原生的動畫元件庫
+- **`react-bits`**（來自第三方 `react-bits`，**MIT+Commons Clause**）— 框架無關的動畫特效元件庫（165+ 元件，另有 Vue/Svelte 版本）；授權禁止重新散布元件本身，本技能刻意**不內嵌任何原始碼**，只有分類目錄、跟 `magicui` 的完整比較表、官方 CLI 安裝指令
 - **`ui-ux-pro-max`** — 可搜尋的本地 UI/UX 資料庫（67 種風格、161 組配色、57 組字體搭配、25 種圖表、21 種技術棧）
 - **`banner-design`** — 橫幅/Banner 設計
 - **`brand`** — 品牌語氣、視覺識別、訊息框架、資產管理與一致性
 - **`anthropic-brand-guidelines`** — 套用 Anthropic 官方品牌色彩與字體規範
 - **`canvas-design`** — 產出海報等靜態視覺藝術（PNG/PDF）
-- **`algorithmic-art`** — 用 p5.js 搭配種子隨機數產生演算法藝術（flow field、粒子系統等）
+- **`algorithmic-art`** — 用 p5.js 搭配種子隨機數產生演算法藝術（flow field、粒子系統等）；比 `p5js`（見下方 hermes-agent 小節）窄、哲學優先，`p5js` 是更廣的技巧庫+真正的匯出管線
 - **`theme-factory`** — 為 artifact（投影片、文件、報表、HTML 頁面等）套用/產生主題（內建 10 組預設主題）
-- **`frontend-design`** — 打造有個性、非樣板感的 UI 視覺方向、字體排印
+- **`frontend-design`** — 打造有個性、非樣板感的 UI 視覺方向、字體排印；2026-08-16 新增「Surface-First」前置步驟（抽自第三方 hermes-agent 的 `claude-design`，MIT）：動手設計前先講清楚這是 7 種介面 archetype 中的哪一種
 - **`web-artifacts-builder`** — 用 React、Tailwind、shadcn/ui 打造複雜、需要狀態管理/路由的 claude.ai HTML artifact
 - **`web-design-guidelines`** — 依 Web Interface Guidelines 審查 UI 程式碼（無障礙、UX）
 - **`writing-guidelines`** — 依 Writing Guidelines 審查文件/文案語氣風格
 - **`slides`** — 用 Chart.js、design token、文案公式打造策略性 HTML 簡報
-- **`taste-skill`**（來自第三方 `taste-skill`）— 落地頁/portfolio/改版的反樣板前端技能：先推斷一句話「design read」，設定 3 個數值旋鈕（variance/motion/density），依 brief 判斷該接官方設計系統（Fluent/Material/Carbon 等）還是原生 CSS 美學，附排版/色彩/圖片/文案硬規則與 GSAP 程式碼骨架
+- **`taste-skill`**（來自第三方 `taste-skill`）— 落地頁/portfolio/改版的反樣板前端技能：先推斷一句話「design read」，設定 3 個數值旋鈕（variance/motion/density），依 brief 判斷該接官方設計系統（Fluent/Material/Carbon 等）還是原生 CSS 美學，附排版/色彩/圖片/文案硬規則與 GSAP 程式碼骨架；2026-08-16 新增選用的 §0.E「Creative Reframing Prompts」（抽自第三方 bencium.io 的 `bencium-impact-designer`，MIT）——設計師/情境/年代三組聯想提示，非強制
 - **`taste-skill-v1`**（來自第三方 `taste-skill`）— 上面 `taste-skill` 改版前的舊版，僅為需要精確舊行為的專案保留
-- **`hallmark`**（來自第三方 `hallmark`）— 另一套反樣板前端設計系統，自帶 `audit`／`redesign`／`study`（可從 URL 或截圖萃取設計 DNA）動詞、20 種具名主題目錄+客製 OKLCH 分支、跨 session 持久化的多樣性紀錄（強制這次跟前幾次的巨觀結構/主題/nav/footer 不同）、58 條出貨前檢查關卡；跟 `taste-skill` 主題重疊但機制完全不同，兩者擇一使用、不要同一次建置混用（怎麼選見下方提示）
+- **`hallmark`**（來自第三方 `hallmark`）— 另一套反樣板前端設計系統，自帶 `audit`／`redesign`／`study`（可從 URL 或截圖萃取設計 DNA）動詞、20 種具名主題目錄+客製 OKLCH 分支、跨 session 持久化的多樣性紀錄（強制這次跟前幾次的巨觀結構/主題/nav/footer 不同）、58 條出貨前檢查關卡；跟 `taste-skill` 主題重疊但機制完全不同，兩者擇一使用、不要同一次建置混用（怎麼選見下方提示）。2026-08-16 `audit` 動詞新增「doc-grounded, phased」替代模式（抽自第三方 bencium.io 的 `design-audit`）：專案有 `DESIGN_SYSTEM.md` 等既有文件時，先讀文件、再分階段取得核准才動手，不取代預設的扁平清單行為。注意：`hallmark` 自己的素材仍把玻璃擬態視為 Apple 系品牌時情境合理，跟上面 `redesign-skill` 的禁令不一致——這個張力刻意保留未處理，見 `SKILL-AUDIT.md`
 - **`brandkit`**（來自第三方 `taste-skill`）— 品牌識別板/Logo 系統/識別手冊的**圖片生成**技能（不是文字型品牌語氣文件，那是上面的 `brand`）
 - **`brutalist-skill`**（來自第三方 `taste-skill`）— Swiss 印刷+軍事終端融合的工業感 UI，適合數據密集儀表板/portfolio/編輯類站點
 - **`gpt-tasteskill`**（來自第三方 `taste-skill`）— GSAP 動態工程+AIDA 頁面結構+模擬 Python 偽隨機排版變化，Awwwards 等級的動態網站
@@ -323,7 +356,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`imagegen-frontend-mobile`**（來自第三方 `taste-skill`）— 純圖片生成（不寫程式碼）的手機 App 畫面概念，含裝置外框 mockup
 - **`imagegen-frontend-web`**（來自第三方 `taste-skill`）— 純圖片生成（不寫程式碼）的網頁分區塊參考圖，一個區塊一張圖
 - **`minimalist-skill`**（來自第三方 `taste-skill`）— 暖色調極簡編輯風 UI：無漸層、無重陰影、扁平 bento grid
-- **`redesign-skill`**（來自第三方 `taste-skill`）— 既有網站/App 的稽核式升級改版，不換框架不破壞功能
+- **`redesign-skill`**（來自第三方 `taste-skill`）— 既有網站/App 的稽核式升級改版，不換框架不破壞功能；2026-08-16 玻璃擬態建議已翻轉成禁令（原因是跟第三方 bencium.io 的 `bencium-innovative-ux-designer` 衝突，見 `SKILL-AUDIT.md`）
 - **`soft-skill`**（來自第三方 `taste-skill`）—「$150k 代理商級」視覺規格：禁用字體/圖示/陰影/版型/動態清單、雙層卡片架構、出貨前檢查清單
 - **`stitch-skill`**（來自第三方 `taste-skill`）— 產生給 Google Stitch 用的語義化 `DESIGN.md`，把同一套反樣板規則翻譯成 Stitch 的自然語言設計描述格式
 
@@ -349,8 +382,34 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 
 > 這 9 個技能跟 `hallmark` 自己的 `references/motion.md` 主題相近但深度不同（`hallmark` 那份只是它自己 pipeline 裡的一個小分支，約 109 行；這裡是完整獨立的動作工程系統），並非重複，兩邊已互相加交叉引用。挑選指南與 pipeline 用法見 `scaffolding-templating/SKILL.md` 的「Animation, motion & UI-decision tools」小節與「How to use this skill」第 9 點。
 
+**無障礙（WCAG）稽核、掃描、檢測、差異比對與修復**（來自第三方 `AccessLint/skills`，MIT 授權，2026-08-16 匯入）——本倉庫先前沒有的全新軸線：
+
+- **`accessibility-audit`** — 整站 WCAG 2.2 稽核（WCAG-EM）：定範圍、抽樣頁面/流程、對每個樣本跑下面兩層、彙整一份符合性報告
+- **`accessibility-scan`** — 單頁自動化層：透過 CDP 對即時頁面跑規則引擎，回傳含 DOM selector 與 `file:line` 的違規清單；只定位不修
+- **`accessibility-inspect`** — 單頁手動層：鍵盤/焦點順序/螢幕報讀器名稱/reflow/減少動態等規則引擎判斷不了的檢查，依證據基礎分級（●已驗證／◐待人工確認／○需人工）
+- **`accessibility-diff`** — 迴歸檢查：比對頁面違規與未提交變更（預設）或某個分支，可當 CI gate 用
+- **`accessibility-fix`** — 只做修復：對目標或既有的問題清單跑基準→編輯→再驗證迴圈，判斷性修法留 TODO
+
+> **操作性需求（非單純廠商行銷文件，務必留意）**：這組技能的 `.mcp.json`（讀取但未搬入）宣告需要一個 MCP server `accesslint`（`npx -y @accesslint/mcp@latest`），`accessibility-audit`／`accessibility-fix` 直接呼叫它提供的 `list_rules`／`explain_rule`／`audit_html`／`audit_live` 工具；`accessibility-inspect` 另外需要連接一個瀏覽器驅動 MCP（建議 `chrome-devtools`，或 `playwright`／`puppeteer`）才能做鍵盤/焦點/狀態檢查，沒接的話會退回只做靜態檢查、其餘回報為 `○` 人工待辦。`accessibility-scan`／`accessibility-diff` 不需要這兩個 MCP，自帶 `npx @accesslint/chrome`／`@accesslint/cli` 管理自己的 headless Chrome。詳見 `scaffolding-templating/SKILL.md` 的「Accessibility auditing」小節。
+
+**排版正確性與 agentic UX 設計哲學**（來自第三方 bencium.io，MIT 授權，2026-08-16 匯入）：
+
+- **`ui-typography`**（資料夾名稱因與 frontmatter `name:` 保持一致而統一為 `ui-typography`，來源本身是 `typography`）— 依 Matthew Butterick《Practical Typography》整理的排版正確性規則（引號、破折號、間距、階層、字距）；自己的 description 讀起來像「任何 UI 產出都要自動靜默套用」，比照 `ip-guard` 先例**未**列入全域必用清單，判斷理由見 `SKILL-AUDIT.md`
+- **`relationship-design`** — agentic/關係中心 UX 設計：圍繞記憶、信任演化、跨 session 協作規劃來設計 AI-first 介面；自己的 frontmatter 明講只在使用者明確要求時使用
+
+**設計參考目錄與規格產生器**（來自第三方 `NousResearch/hermes-agent`，MIT 授權，2026-08-16 匯入，`baoyu-infographic` 另外具名 credit 原作者 宝玉/JimLiu）：
+
+- **`popular-web-designs`** — 54 個真實網站（Stripe、Linear、Vercel 等）的設計系統，現成 HTML/CSS 可套用，適合「做成像某網站」的需求；另 credit Teknium/VoltAgent 的 `awesome-design-md` 為設計系統資料來源
+- **`design-md`** — 撰寫/驗證/匯出 Google 開放的 `DESIGN.md` 規格檔（YAML token + 說明文字），透過 `npx @google/design.md` CLI 做 lint（含 WCAG 對比檢查）/diff/匯出 Tailwind 或 DTCG——跟已安裝的 `stitch-skill` 容易被誤認重複，其實不同：`stitch-skill` 是給 Google Stitch 用的自然語言描述、無正式規格無 CLI；`design-md` 是真正可攜、可 lint 的開放規格檔
+- **`baoyu-infographic`** — 21 種版面 × 21 種風格自由組合的資訊圖產生器，原作者 宝玉 (JimLiu)，由 hermes-agent 改編
+
+**生成藝術與拋棄式 UI 草稿比較**（同樣來自第三方 `NousResearch/hermes-agent`，MIT 授權，2026-08-16 稍晚整包安裝，屬使用者指定的 9 項精準抽取/整包安裝之一，見 `SKILL-AUDIT.md`）：
+
+- **`p5js`** — 完整 p5.js 生成藝術技巧庫（flow field、curl noise、boid flocking、L-system、圓形堆疊、Voronoi、reaction-diffusion、pixel sorting、WebGL/GLSL shader、audio-reactive）+ 真正的匯出管線（Puppeteer headless 擷取、ffmpeg 轉 MP4、SVG、CCapture.js）；跟上面的 `algorithmic-art` 比較見該條目
+- **`sketch`** — 拋棄式 2-3 個 HTML mockup 變體比較：每個變體各自獨立資料夾+各自 README，最後用比較表呈現；跟 `prototype-variants`（同一產物裡即時切換）的差異見該條目。自己的 Attribution 另外具名 credit GSD 專案原作者 Lex Christopherson（MIT © 2025，上游已封存）
+
 ### 13. `library-api-reference` — 第三方函式庫/檔案格式參考
-在動手寫程式呼叫這些函式庫前，先查這裡的參考片段、版本差異與常見錯誤。包含 **9 個子技能**：
+在動手寫程式呼叫這些函式庫前，先查這裡的參考片段、版本差異與常見錯誤。包含 **17 個子技能**（其中 5 個來自 Firecrawl 官方的 `firecrawl/skills`（ISC）、2 個來自第三方 `arxiv-skills`（MIT）、1 個來自 Adobe 官方 `react-spectrum`（Apache-2.0），見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`docx`** — 讀寫、建立、編輯 Word（.docx）文件
 - **`xlsx`** — 讀寫、建立、編輯 Excel（.xlsx）試算表
@@ -359,30 +418,42 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - **`mcp-builder`** — 打造高品質 MCP（Model Context Protocol）伺服器（Python FastMCP 或 Node/TS MCP SDK）
 - **`vercel-react-best-practices`** — Vercel 工程團隊的 React/Next.js 效能優化準則
 - **`vercel-react-native-skills`** — React Native 相關技巧
-- **`vercel-react-view-transitions`** — React View Transitions API 應用
+- **`vercel-react-view-transitions`** — React View Transitions API 應用（含 `router.push(href, { transitionTypes })`、Next.js 共享元素的預先擷取/快取時機；2026-08-16 已同步上游最新版，見 `SKILL-AUDIT.md` 的「同日重新同步」小節）
 - **`vercel-composition-patterns`** — Vercel/React 組合模式（composition patterns）
+- **`react-aria`**（來自 Adobe 官方 `react-spectrum`，Apache-2.0）— 無樣式、高無障礙覆蓋率、深度國際化（RTL、30+ 語系）的 headless React 元件庫（`react-aria-components`）與底層 `@react-aria/*` hooks；官方文件網站本環境連線失敗，內容改由套件 README＋`AGENTS.md` 分層說明＋官方 Tailwind starter kit 真實原始碼建置；該不該選 React Aria（vs. base-ui/Radix）是 `pick-ui-library` 的判斷，這裡只管怎麼用
+- **`firecrawl-build`**（來自第三方 `firecrawl/skills`）— 把 Firecrawl 接進應用程式：選新專案/既有專案流程、挑對的 endpoint、裝 SDK、設定 `FIRECRAWL_API_KEY`
+- **`firecrawl-build-scrape`**（來自第三方 `firecrawl/skills`）— `/scrape` 整合：已知 URL 的單頁擷取
+- **`firecrawl-build-search`**（來自第三方 `firecrawl/skills`）— `/search` 整合：先有查詢字串、還沒有 URL 的探索流程
+- **`firecrawl-build-interact`**（來自第三方 `firecrawl/skills`）— `/interact` 整合：擷取後在應用程式碼裡做的瀏覽器動作
+- **`firecrawl-build-onboarding`**（來自第三方 `firecrawl/skills`）— 首次把 `FIRECRAWL_API_KEY`／SDK 接進專案、瀏覽器授權流程
+- **`arxiv-lookup`**（來自第三方 `arxiv-skills`）— 用 arXiv ID 查期刊 DOI，或用標題/關鍵字查 arXiv ID
+- **`arxiv-doc-builder`**（來自第三方 `arxiv-skills`）— 抓取 arXiv 論文（優先 LaTeX 原始碼、PDF 為後備）並轉成結構化 Markdown，供實作參考
+
+> `firecrawl-build*` 跟 `browser-automation` 底下的 `firecrawl-*` CLI 技能是不同工作：這裡是「寫進應用程式原始碼」，那邊是「這次 session 的一次性終端機操作」。
 
 ### 14. `internal-writing-comms` — 文件協作與內部溝通
-包含 **5 個子技能**（其中 3 個來自第三方 `mattpocock-skills`，見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
+包含 **7 個子技能**（其中 3 個來自第三方 `mattpocock-skills`、1 個來自第三方 `research-paper-writing`、1 個來自第三方 `Humanizer-zh-TW`（皆 MIT），見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 - **`doc-coauthoring`** — 結構化流程協助共同撰寫文件（提案、技術規格、決策文件），透過反覆迭代確認內容對讀者有效
 - **`internal-comms`** — 依公司慣用格式撰寫內部溝通（狀態報告、主管更新、公司電子報、FAQ、事故報告、專案更新等）
 - **`writing-fragments`** — 純探索階段，挖掘寫作素材片段、不急著定結構
 - **`writing-shape`** — 把素材塑形成文章（含敘事節奏的 beat 模式），或編輯既有草稿
 - **`to-questionnaire`** — 把答不出來的問題整理成問卷，發給知情人非同步填寫或會議上討論
+- **`research-paper-writing`**（來自第三方 `Research-Paper-Writing-Skills`）— 改善 ML/CV/NLP 類學術論文寫作品質：Abstract/Introduction/Method/Experiments/Conclusion 各章節指引、主張—證據對齊檢查、投稿前五維度自我審查
+- **`humanizer-zh-tw`**（來自第三方 `Humanizer-zh-TW`）— 依維基百科「Signs of AI writing」去除文字中常見的 AI 寫作痕跡（誇大意義措辭、破折號過度使用、三段式法則等），加入真實聲音；是寫作品質工具，不是規避偵測工具，不觸碰浮水印/來源中繼資料
 
 ---
 
 ## 📈 行銷
 
 ### 15. `marketing` — 全漏斗行銷手冊
-只要問題牽涉廣告、SEO、文案、轉換率、定價、Onboarding、流失、Email/SMS、推薦計畫、影響者/社群行銷、產品發布、行銷策略、歸因分析、A/B 測試、業務銷售素材或競品定位——即使使用者沒講出具體的行銷術語也算。內部再分 **5 大子群，共 47 個子技能**：
+只要問題牽涉廣告、SEO、文案、轉換率、定價、Onboarding、流失、Email/SMS、推薦計畫、影響者/社群行銷、產品發布、行銷策略、歸因分析、A/B 測試、業務銷售素材或競品定位——即使使用者沒講出具體的行銷術語也算。內部再分 **5 大子群，共 48 個子技能**（其中 1 個來自第三方 bencium.io 的整包安裝 `insurgent-campaign`，MIT；另有 1 處小片段 Authority 表格折進既有 `ai-seo`，不算新增檔案；見 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)）：
 
 **🎯 付費取得與 ASO（`paid-acquisition`，5 個）**
 - `ads` — 付費廣告投放策略
 - `ad-creative` — 廣告素材設計
 - `aso` — App Store / Google Play 上架優化稽核
-- `ai-seo` — 針對 AI 搜尋引擎的 SEO
+- `ai-seo` — 針對 AI 搜尋引擎的 SEO；2026-08-16 新增「Authority Level Determines Strategy」補充表格（抽自第三方 bencium.io 的 `bencium-aeo`）——挑戰者站台激進優化、既有權威站台輕觸優化
 - `directory-submissions` — 目錄型網站提交/收錄
 
 **📝 內容與 SEO（`content-seo`，9 個）**
@@ -419,13 +490,13 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - `free-tools` — 免費工具型獲客
 - `lead-magnets` — 名單磁鐵設計
 
-**🔍 研究與策略（`research-strategy`，14 個）**
+**🔍 研究與策略（`research-strategy`，15 個）**
 - `customer-research` — 顧客研究
 - `marketing-plan` — 行銷計畫制定
 - `marketing-psychology` — 行銷心理學
 - `marketing-ideas` — 行銷點子發想
 - `marketing-council` — 多角度行銷顧問視角
-- `attribution` — 行銷歸因分析
+- `attribution` — 行銷歸因分析；跟下面的 `insurgent-campaign` 共用同一套增量/lift-test 研究基礎，但 `attribution` 是量測方法論，`insurgent-campaign` 是完整策略流程，兩者互補見 `marketing/SKILL.md`
 - `analytics` — 數據分析
 - `ab-testing` — A/B 測試
 - `product-marketing` — 產品行銷
@@ -434,6 +505,7 @@ cp -r agentic-dev-workflow ~/.agents/skills/
 - `revops` — 營收維運（RevOps）
 - `sales-enablement` — 業務賦能素材
 - `competitors` — 競品分析
+- **`insurgent-campaign`**（來自第三方 bencium.io，MIT，2026-08-16 整包安裝）— 弱勢方（新創/NGO/草根運動）對抗財力懸殊對手的分階段草根優先戰役策略：ideation → 財力落差稽核 → message-market-fit 關卡 → 通路分層 70/30 配置 → 3 種戰役形狀擇一 → 30 天行動清單 + lift-test 量測計畫
 
 ---
 

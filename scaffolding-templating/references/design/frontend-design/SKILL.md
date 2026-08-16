@@ -26,6 +26,22 @@ Match complexity to the vision. Maximalist directions need elaborate execution; 
 
 Consider written content carefully. Often a design brief may not contain real content, and it's up to you to come up with copy. Copy can make a design feel as templated as the design itself. See the below section on writing for more guidance.
 
+## Name the surface before designing
+
+Before choosing colors, type, or components, state in one line what kind of interface this actually is. Most templated-looking output is compositional, not cosmetic — the same centered-hero-plus-three-cards shape gets reached for regardless of what the page actually needs to do, and no amount of recoloring fixes a wrong composition. Naming one of the seven surfaces first conditions everything downstream:
+
+1. **Monitor** — the user is watching state change (dashboards, status pages). Density and glanceable hierarchy beat a hero.
+2. **Operate** — the user is taking action on things (consoles, admin panels, queues, inboxes). Action affordances and selection state dominate.
+3. **Compare** — the user is weighing options side by side (pricing, plans, spec tables, search results). Aligned columns, one differentiator emphasized.
+4. **Configure** — the user is setting things up (settings, forms, wizards, onboarding). Progressive disclosure, low decoration.
+5. **Decide/Learn** — the user is being convinced or taught (landing pages, docs, marketing). The only surface where a hero is usually the right call.
+6. **Explore** — the user is browsing an open space (galleries, maps, search-and-filter, catalogs). Filters and result grids are the composition.
+7. **Command/Inspect** — the user is driving by keyboard or drilling into one object (command bars, inspectors, property editors). Speed and focus over breadth.
+
+A dashboard is a Monitor surface, not a Decide surface — it should not default to a centered hero and three feature cards just because that's the template answer. If a screen genuinely spans two surfaces, name the primary one and treat the other as secondary rather than averaging them into mush.
+
+*(Source: the "Surface-First" naming step from hermes-agent's `claude-design` skill — MIT, NousResearch/hermes-agent. Only this one mechanism was folded in here; the rest of that skill, its diagnostic slop-scoring, hosted-tool plumbing, deck/prototype rules, was left uninstalled as redundant with this skill and `web-artifacts-builder` — see `SKILL-AUDIT.md`.)*
+
 ## Process: brainstorm, explore, plan, critique, build, critique again
 
 For calibration: AI-generated design right now clusters around three looks: (1) a warm cream background (near #F4F1EA) with a high-contrast serif display and a terracotta accent; (2) a near-black background with a single bright acid-green or vermilion accent; (3) a broadsheet-style layout with hairline rules, zero border-radius, and dense newspaper-like columns. All three are legitimate for some briefs, but they are defaults rather than choices, and they appear regardless of subject. Where the brief pins down a visual direction, follow it exactly — the brief's own words always win, including when it asks for one of these looks. Where it leaves an axis free, don't spend that freedom on one of these defaults. Just like a human designer who's hired, there's often a careful balance between doing what you're good at and taking each project as a chance to experiment and learn.

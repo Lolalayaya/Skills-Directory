@@ -38,6 +38,17 @@ If you can confidently infer from context, **do not ask**. Just declare the desi
 ### 0.D Anti-Default Discipline
 Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the design read.
 
+### 0.E Optional: Creative reframing prompts (lateral-thinking nudge, not a rule)
+If the design read still feels safe/generic after 0.A-0.D, or a brief is genuinely open-ended, try reframing the brief through one of these lenses before generating anything. This is an optional nudge for lateral thinking — never mandatory, never a substitute for the design read in 0.B.
+
+**Designer lens:** "What would Sagmeister do?" (provocation, hand-drawn, conceptual depth) · "What would Neville Brody do?" (typography as art, rule-breaking hierarchy) · "What would Studio Dumbar do?" (bold color, geometric play, Dutch directness) · "What would Dieter Rams do?" (radical reduction, functional beauty) · "What would David Carson do?" (destroy the grid, prioritize feeling over reading)
+
+**Context shift:** "What if this was a magazine spread?" (editorial hierarchy, pull quotes) · "What if this was a museum exhibit?" (generous space, quiet typography) · "What if this was street signage?" (maximum legibility, bold simplicity) · "What if this was a vinyl record cover?" (square constraint, tactile, collectible) · "What if this was a protest poster?" (urgency, stark contrast, immediate impact)
+
+**Era lens:** "1960s Swiss International?" (grid perfection, Helvetica, rational clarity) · "1990s Emigre/Ray Gun?" (chaos, layering, deliberately challenging) · "1920s Bauhaus?" (primary colors, geometric forms, functional art) · "2000s Flash era?" (motion-first, experimental navigation) · "Cyberpunk 2077?" (neon, glitch, dense information, dark UI)
+
+*(Source: the "Creative Reframing Prompts" section of bencium.io's `bencium-impact-designer` skill — MIT, Bencium Limited, see `THIRD-PARTY-LICENSES.md`. Only this prompt list was folded in; that skill's 40-name aesthetic-studio catalog and its dice-roll "Force Variety" mechanism were left uninstalled as overlapping with this skill's own dial system — see `SKILL-AUDIT.md`.)*
+
 ---
 
 ## 1. THE THREE DIALS (Core Configuration)

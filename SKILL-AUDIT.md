@@ -431,3 +431,242 @@
 **本機安裝**：把更新後的 `scaffolding-templating` 與 `agentic-dev-workflow` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\scaffolding-templating\` 與 `C:\Users\user\.claude\skills\agentic-dev-workflow\`，讓全域安裝同步含有這 9 個新子技能與 `prototype` 的交叉引用更新。
 
 **最終結果**：18 個頂層技能維持不變，`scaffolding-templating` 28→37，全倉庫子技能總數 180→189。全部 9 個技能未列入「全域必用」清單。`prototype`（原名衝突）已改名為 `prototype-variants`，與既有的 `agentic-dev-workflow/prototype` 並存，兩邊互相加了交叉引用。
+
+---
+
+## 2026-08-16：一次匯入 5 個來源（4 個接受、1 個拒絕）
+
+使用者一次提供 5 個來源，要求（1）新增到專案中、（2）評估合併（要求所有文件都更新）、（3）重新安裝到本機：
+`kevintsai1202/Humanizer-zh-TW`、`firecrawl/firecrawl`、`Master-cai/Research-Paper-Writing-Skills`、`ultimatile/arxiv-skills`、`guillaumemeyer/watermarks-remover`。依標準流程（階段 A-D）逐一評估，其中一個拒絕收錄。
+
+### `firecrawl/firecrawl` → 實際匯入 `firecrawl/cli` + `firecrawl/skills`（Firecrawl 官方，ISC）
+
+Clone 使用者給的 `firecrawl.git` 後發現這是 Firecrawl 公司自己的完整產品原始碼（Node/Rust monorepo：`apps/api/`、`native/` 等），全倉庫沒有任何 `SKILL.md`。倉庫內有兩份指標性 README（`firecrawl-cli-skills/README.md`、`firecrawl-skills/README.md`）指向真正的技能來源：`github.com/firecrawl/skills`（應用程式整合技能）與 `github.com/firecrawl/cli`（內建於 CLI 自己倉庫裡的即時網頁工具技能）。判斷不應該從使用者連結的「非技能」monorepo 硬生出技能內容，改為直接 clone 這兩個官方倉庫並完整評估。
+
+**內容**：`firecrawl/skills` 有 7 個技能——`firecrawl-build`（總覽）、`firecrawl-build-scrape`、`firecrawl-build-search`、`firecrawl-build-interact`、`firecrawl-build-onboarding`（皆為「把 Firecrawl 接進應用程式原始碼」的整合指引，附語言別 SDK 用法連結）、`firecrawl-developer-index`（從 GitHub issue/PR/README/文件回答開發問題，回傳實際命中段落）、`firecrawl-research-index`（Firecrawl 自己的論文摘要語料庫語意搜尋，約 4300 萬筆，以 PubMed/bioRxiv/medRxiv 為主+arXiv）。`firecrawl/cli` 有 10 個技能——`firecrawl-cli`（總覽，frontmatter `name: firecrawl`，維持原樣、與現有技能全文查無衝突）、`firecrawl-scrape`、`firecrawl-search`、`firecrawl-map`、`firecrawl-crawl`、`firecrawl-monitor`、`firecrawl-interact`、`firecrawl-download`、`firecrawl-agent`、`firecrawl-parse`（後兩者的 `rules/install.md`＋`rules/security.md` 各自帶 frontmatter，作為附屬參考檔保留，不升級為獨立頂層條目）。全部 17 份 `SKILL.md` 完整讀完。兩個倉庫根目錄的 `README.md`／`CLAUDE.md`／`AGENTS.md`／`CONTRIBUTING.md`／marketplace/plugin 清單／`.mcp.json` 皆為安裝/行銷/外掛腳手架，非技能內容，未搬入。
+
+**落點依「工作性質」而非「來源倉庫」拆分**：`firecrawl-build*` 5 個技能是「把 Firecrawl 寫進應用程式自己的原始碼」——併入 `library-api-reference`，跟既有的「如何正確呼叫這個 API/函式庫」系列同類。`firecrawl/cli` 的 10 個技能加上 2 個索引技能，是「這次 session 裡的即時、一次性網頁工作」——併入 `browser-automation`，跟既有的 `browser`／`fetch`／`search`／`anysearch` 同類。這正好對應原始專案自己的說法（`firecrawl-build` 自己的 SKILL.md：「這是給『把網頁資料能力建進應用程式』用的，不是『現在把 Firecrawl 當終端機工具用』」）。
+
+**全文比對既有技能**：
+- vs `browser-automation` 的 `search`＋`anysearch`：三個不同廠商都做搜尋。非真重複——Firecrawl 範圍最廣（多了 crawl/map/monitor/interact/parse/agent 結構化擷取/開發者索引/論文索引，另外兩個都沒有）。在 `browser-automation/SKILL.md` 新增交叉引用小節，而非合併或選一個贏家——專案既有的某廠商憑證，就是繼續用該廠商做簡單搜尋的正當理由。
+- vs `browser-automation/fetch`：`fetch` 是純 HTTP、不需第三方憑證；`firecrawl-scrape` 能處理 JS 渲染的 SPA，且需要 `FIRECRAWL_API_KEY`（或無金鑰的免費限額層）——非重複，`fetch` 仍是不需要 JS 渲染時的更便宜預設選項。
+- vs `library-api-reference` 既有的 docx/xlsx/pptx/pdf：`firecrawl-parse` 是透過 Firecrawl 雲端 API 把本機檔案轉成 Markdown，跟本倉庫自己的「建立/編輯」這些格式的技能機制完全不同——非重複、不合併，`firecrawl-parse` 留在 `browser-automation`（它是 CLI 動詞技能，非應用整合技能）而非搬到 `library-api-reference`。
+- vs `deep-research` 與（同一天稍後匯入的）`arxiv-skills`：`firecrawl-research-index` 是搜尋 Firecrawl 自己的論文摘要語料庫（語意搜尋+引用圖擴展+全文驗證），跟 `deep-research` 的大綱驅動報告 pipeline、跟 `arxiv-doc-builder` 的「已知論文抓取轉檔」是不同工作——在 `browser-automation/SKILL.md` 的「How to pick a domain」加交叉引用，不合併。
+
+**安全性審查**：兩個倉庫全部 17 個技能都是純 Markdown（`SKILL.md`＋`rules/*.md`＋`references/*.md`），沒有任何可執行腳本。`rules/security.md`（frontmatter `name: firecrawl-security`）本身就是一份「抓回來的網頁內容視為不可信、可能含提示注入」的處理守則，讀完內容與本倉庫既有網路類技能的做法一致（檔案輸出隔離、漸進式讀取）。
+
+**命名衝突查核**：全部 17 個候選 frontmatter 名稱（`firecrawl-build` 到 `firecrawl-research-index`，加上 CLI 總覽的裸名 `firecrawl`）都與本倉庫全文查重，無衝突。全域必用資格查核：全部 17 個都是明確場景觸發語氣，不列入「全域必用」。
+
+落點：`library-api-reference`（5 個）、`browser-automation`（12 個），皆非新分類。
+
+### `ultimatile/arxiv-skills`（MIT）
+
+**內容**：一個 Claude Code 外掛（`.claude-plugin/marketplace.json`），內含 2 個技能：`arxiv-lookup`（`get_doi.py`／`search_id.py` 兩支輕量腳本，直接查詢 arXiv API）與 `arxiv-doc-builder`（真正可安裝的 Python 套件：`arxiv_doc_builder/` 抓取/轉檔模組、`tests/`、`pyproject.toml`、`uv.lock`，加上 `references/` 文件），能依 ID 抓取 arXiv 論文（優先 LaTeX 原始碼、PDF 為後備），透過 pandoc 把 LaTeX 轉成保留數學式/結構的 Markdown，沒有 LaTeX 原始碼時退回樸素 PDF 文字擷取。兩份 SKILL.md 與 `arxiv_doc_builder/` 全部原始碼讀完，包含大量 pandoc 卡死/glossaries/多 `\documentclass` 疑難排解筆記。廠商自己的 `README.md`／`ruff.toml`／`.pre-commit-config.yaml` 為 lint/安裝腳手架，未搬入。
+
+**安全性審查**：`convert_latex.py`／`fetch_paper.py` 呼叫 `subprocess.run`／`Popen`，其中 `fetch_paper.py` 有一處 `shell=True`（判斷 gzip 內層類型），會把一個由 arXiv ID 組成的路徑內插進 shell 字串。查核 `arxiv_id.py`：每個 ID 在用來組路徑之前，都先過一道嚴格 regex 驗證（新式 ID `^\d{2}\d{2}\.\d{4,5}(v\d+)?$`，舊式 ID 也是類似窄格式），代表不可能有任何 shell 特殊字元存活進內插字串——無指令注入風險。所有網路請求都只打 `arxiv.org`／`export.arxiv.org`。沒有其他可疑模式（`eval`、未驗證輸入的 `os.system`）。
+
+**比對既有技能**：跟 `deep-research` 與（同一天匯入的）Firecrawl 的 `firecrawl-research-index` 比對：現有技能都不做「把一篇已知特定論文抓取並轉成實作參考用 Markdown」這件事——`deep-research` 是大綱驅動的多來源報告產出，`firecrawl-research-index` 是搜尋語料庫「找」論文。把工作性質（搜尋 vs. 抓取轉檔）講清楚後就沒有重疊，互相加交叉引用而非合併。
+
+**落點**：併入既有的 `library-api-reference`（非新分類），歸類在既有的 docx/xlsx/pptx/pdf「把這個格式轉成能用的東西」同一群組，並對非 arXiv 的 PDF 加了指回 `pdf` 技能的交叉引用。命名無衝突（`arxiv-lookup`、`arxiv-doc-builder` 皆已全文查重）。全域必用查核：兩者皆為明確場景觸發，不列入。
+
+### `Master-cai/Research-Paper-Writing-Skills`（MIT）
+
+**內容**：單一技能 `research-paper-writing/SKILL.md`，附龐大的 `references/` 樹（Abstract/Introduction/Related Work/Method/Experiments/Conclusion/Paper Review 各章節指引、段落流暢度自我檢查、以及大量帶標註的範例論文段落 before/after）。另附 `agents/openai.yaml`——讀完內容，這是 OpenAI 平台 Agent Builder 的顯示中繼資料（display name、簡短描述、預設 prompt），不是給 Claude Code 用的 agent-facing 技能內容，比照本倉庫每次匯入對廠商平台腳手架的處理慣例，未搬入。根目錄 `README.md`／`README_zh.md` 同樣未搬入。
+
+**比對既有技能**：跟 `internal-writing-comms/doc-coauthoring` 比對——`doc-coauthoring` 是通用的結構化文件共寫**流程**（脈絡轉移→草稿→修訂→對讀者驗證），適用任何提案/規格/決策文件；`research-paper-writing` 是學術論文專用，有固定的章節分類法（Abstract/Introduction/Method 等）、強制的「主張—證據」對齊檢查（對照實驗結果）、以及投稿前的五維度對抗式自我審查——非真重複，併入為同層級的姊妹技能，兩邊互相加交叉引用而非合併。
+
+**落點**：併入既有的 `internal-writing-comms`（非新分類），路徑為 `references/research-paper-writing/SKILL.md`（含其 `references/` 樹，不含 `agents/`）。命名無衝突（`research-paper-writing` 已全文查重）。內部交叉引用皆為相對於自己資料夾的路徑，無需修正。全域必用查核：明確場景觸發（起草/修訂論文），不列入。
+
+### `kevintsai1202/Humanizer-zh-TW`（MIT）
+
+**內容**：單一技能，只有一份 `SKILL.md`（無附帶 references/scripts）。技能自己的中繼資料記錄了傳承脈絡：翻譯自 op7418/humanizer-zh 的正體中文分支，op7418 又翻譯自 blader/humanizer，並參考 hardikpandya/stop-slop。讀完全文：這是一份基於維基百科「Signs of AI writing」頁面（由 WikiProject AI Cleanup 維護）的文字編輯模式目錄——誇大意義的宣傳性措辭、模糊歸因、破折號過度使用、三段式法則、填充短語、諂媚語氣、通用積極結論等——附 before/after 改寫範例與 5 維度 50 分品質評分表，全文為正體中文。
+
+**明確與「規避偵測」劃清界線**：這個技能自己聲明的任務是「寫作品質改善」（去除罐頭式/機械感的 LLM 文字模式、加入作者聲音）——它完全沒有聲稱能騙過 AI 內容偵測工具，也完全不觸碰浮水印、C2PA/來源中繼資料、或任何統計/加密標記。這個區別正是同一天另一個來源（`guillaumemeyer/watermarks-remover`，其自身宣稱的用途包含「anti-detect clean AI output」與剝除廠商來源標記）被拒絕收錄、而這個被接受的原因——詳見下方的拒絕收錄記錄。
+
+**比對既有技能**：跟 `internal-writing-comms/writing-shape` 比對——`writing-shape` 是把素材塑形成文章結構、或對既有草稿逐段重整；這個技能是在完稿草稿上做句子/措辭層級的 LLM 痕跡去除——相鄰但不同層次的處理，非重複，兩邊互相加交叉引用。
+
+**落點**：併入既有的 `internal-writing-comms`（非新分類），路徑為 `references/humanizer-zh-tw/SKILL.md`。命名無衝突（`humanizer-zh-tw` 資料夾名稱與 frontmatter `name:` 皆已全文查重）。全域必用查核：明確場景觸發（編輯/審閱文字），不列入。
+
+### 拒絕收錄：`guillaumemeyer/watermarks-remover`
+
+**內容**：單一技能 `skills/remove-ai-marks/SKILL.md`，背後由一個獨立 HTTP 服務（`service/`）支撐，掛載了 CtrlRegen、MarkDiffusion、MarkLLM、SynthID 評分器等重型後端，用途是剝除 AI 來源標記：不可見 Unicode 標記、統計式 token 取樣浮水印（透過 LLM 改寫/回譯/人性化重寫通過）、以及跨 PNG/JPEG/WebP/SVG/PDF/DOCX/ODT/HTML/MD 的 C2PA/EXIF/XMP/容器中繼資料。技能本身的 `SKILL.md` 與 `references/ethics.md` 全文讀完後才下判斷。
+
+技能自己的觸發語氣就很明確：frontmatter description 裡把「anti-detect clean AI output」列為第一線用途之一，且它的工作流程**永遠會主動提議**一段改寫，目的就是要打敗統計式/浮水印式的 AI 內容偵測。`ethics.md` 確實把「學術造假」「規避法定透明度或平台揭露規則」列為「不適當」用途，並指示 agent 在這些情境下要「警告」（但不是拒絕），同時「仍然只執行使用者擁有內容的技術清理」——換句話說，這個免責聲明只是轉移責任，並沒有真的限制技術能力本身。C2PA Content Credentials 與 Google 的 SynthID 存在的目的就是內容來源/透明度機制；一個核心功能就是「從任意內容剝除這些標記」、且被設計成隨時可用的通用技能，本質上就是一個規避偵測的工具，不因為附加了一段倫理聲明就改變這個事實。
+
+**決定**：依本環境「拒絕為惡意目的規避偵測」的既有原則不予收錄，因為免責聲明並不會改變這個工具實際做的事——它仍然被設計成可以對使用者交付的任何內容剝除 AI 來源標記，包括使用者有動機想把內容偽裝成人類撰寫的情況。這跟同一天收錄的 `Humanizer-zh-TW`（見上）不同——後者的工作是文字品質編輯，完全不涉及浮水印/中繼資料/來源標記。未合併進任何既有技能，未另立新分類，來源倉庫的任何內容都沒有搬入。使用者在同一輪對話中被直接告知拒絕的理由。
+
+### 本機安裝
+
+把更新後的 `library-api-reference`、`browser-automation`、`internal-writing-comms` 三個資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\` 對應目錄下，讓全域安裝同步含有這 21 個新子技能。
+
+### 最終結果
+
+18 個頂層技能維持不變。`library-api-reference` 9→16、`browser-automation` 16→28、`internal-writing-comms` 5→7，全倉庫子技能總數 189→210。5 個來源中 4 個收錄（21 個子技能）、1 個拒絕（`watermarks-remover`，理由見上）。全部新增技能未列入「全域必用」清單。
+
+---
+
+## 2026-08-16（續）：比對四個 UI/UX 相關來源並選擇性匯入
+
+同一天稍晚，使用者一次提供 4 個第三方來源的本機 clone：`AccessLint/skills`、bencium.io 的 marketplace（`bencium-marketplace`）、`NousResearch/hermes-agent`、`vercel-labs/agent-skills`（後者已在 2026-08-09 匯入 `emilkowalski/skills` 時一併 clone 過，這次是拿來對照既有的 `vercel-react-view-transitions` 是否過時，而非新技能來源）。
+
+**本次流程與前面每一節「整批匯入」不同**：這次不是「clone 一個來源、通篇評估、決定收不收」，而是使用者以三選一（AskUserQuestion 形式）框架詢問後，明確選擇「只安裝新內容＋補齊未重疊的落差，不要整批照搬」——也就是說，Stage A 的評估工作（哪些跟既有技能重複、哪些是真正的新內容）已經在前一輪對話完成，本節記錄的是依照該決策執行的 Stage B–D，而非重新評估要不要裝。
+
+### Stage A（評估結論摘要，非本節重新做的評估）
+
+四個來源逐一比對本倉庫既有技能全文後，分成「新內容，匯入」與「重疊/多餘，不匯入」兩組：
+
+**判定為新內容，匯入（見下方各小節）**：
+- `AccessLint/skills` 全部 5 個技能（WCAG 2.2 稽核/掃描/檢測/差異比對/修復管線）——本倉庫先前沒有任何無障礙（a11y）相關技能，非重疊。
+- bencium.io 的 `typography`（排版正確性強制規則）與 `relationship-design`（agentic UX 關係設計）——兩者的具體機制（LLM 常犯的排版錯誤清單、記憶/信任演化為核心的 UX 策略）在既有的 `ui-ux-pro-max`／`brand`／`frontend-design` 裡都找不到對應內容。
+- `NousResearch/hermes-agent` 的 `popular-web-designs`（54 個真實網站設計系統目錄）、`design-md`（Google 開放 `DESIGN.md` 規格的作者/驗證/匯出工具）、`baoyu-infographic`（21 版面×21 風格資訊圖產生器）——分別是具體真實站點目錄、正式規格檔案格式、資訊圖生成，本倉庫既有技能都沒有對應機制。
+
+**判定為與既有技能重疊/多餘，不匯入**（逐一比對後的一行理由）：
+- `bencium-controlled-ux-designer`／`bencium-innovative-ux-designer`／`bencium-impact-designer`（bencium 的 3 個「UI/UX 設計師」技能）：都是「避免通用 AI 美學、產出獨特前端介面」的同款包裝，跟既有的 `frontend-design`／`taste-skill`／`hallmark` 反樣板管線在同一個問題空間，未帶來既有管線沒有的機制，不匯入。
+- `human-architect-mindset`：系統性架構思維／領域建模／問題拆解，跟既有 `agentic-dev-workflow` 的 `domain-modeling`／`brainstorming` 及 `code-quality-review` 的 `codebase-design` 重疊，不是設計/UI 技能，不匯入。
+- `design-audit`：UI/UX 稽核並產出分階段改版計畫，跟既有 `hallmark` 的 `audit`/`redesign` 動詞與獨立的 `redesign-skill`（審計優先的既有專案升級路徑）重疊，不匯入。
+- `bencium-aeo`：AI 搜尋引擎優化（Answer Engine Optimization）內容產生，屬於 `marketing` 分類既有的 `ai-seo` 範疇，不是設計/UI 技能，不匯入。
+- `insurgent-campaign`：草根行銷戰役策略，屬於 `marketing` 分類既有的 `marketing-plan`／`marketing-ideas`／`co-marketing` 範疇，不是設計/UI 技能，不匯入。
+- `negentropy-lens`：用熵/負熵透鏡評估系統與架構決策的決策支援框架，跟既有 `code-quality-review` 的 `codebase-design` 及 `agentic-dev-workflow` 的判斷型工具重疊，不是設計/UI 技能，不匯入。
+- `renaissance-architecture`：軟體架構＋UI/UX 第一性原理思維，同時跟既有的架構決策工具（`codebase-design` 等）與反樣板設計叢集（"創造而非複述" 訴求與 `taste-skill`/`hallmark` 重疊）兩邊都重疊，不匯入。
+- `claude-design`（hermes-agent）：一次性 HTML artifact（落地頁/簡報/原型）設計流程，跟既有的 `web-artifacts-builder`／`frontend-design` 重疊，不匯入。
+- `p5js`（hermes-agent）：p5.js 生成藝術/著色器/互動/3D 草圖，跟既有的 `algorithmic-art`（同樣是 p5.js 生成藝術）直接重疊，不匯入。
+- `sketch`（hermes-agent）：一次性 HTML mockup，產生 2-3 個版本供比較，跟既有的 `prototype-variants`（多版本 UI 在視覺選擇器背後即時比較）機制上幾乎一致，不匯入。
+
+`vercel-labs/agent-skills` 這個來源沒有「匯入/不匯入」的問題——比對後發現它就是已安裝的 `vercel-react-view-transitions` 的同一個上游來源，只是版本較新，處理方式是同步落差（見下方「同日重新同步」小節），不是新增授權項目。
+
+### Stage B（分類與落點）
+
+6 個新增子技能全部判定為「偶爾需要」（情境明確：無障礙稽核、排版規則、agentic UX 設計、依真實網站風格建頁、正式 `DESIGN.md` 規格檔、資訊圖生成）。依主題（而非來源）全部併入既有的 `scaffolding-templating`（設計/視覺樣板叢集），未另立新分類——`AccessLint` 的 5 個技能落在新的「Accessibility auditing」表格區塊，bencium.io 的 2 個技能落在新的「Typography & agentic UX philosophy」表格區塊，hermes-agent 的 3 個技能落在新的「Design reference catalogs & spec generators」表格區塊。
+
+### Stage C（執行）
+
+1. **命名衝突查核**：
+   - AccessLint 的 5 個 frontmatter 名稱（`accessibility-audit`／`accessibility-scan`／`accessibility-inspect`／`accessibility-diff`／`accessibility-fix`）與本倉庫全文查重，無衝突。
+   - `typography`（bencium.io）：來源自己的 frontmatter 已經是 `name: ui-typography`（跟資料夾名稱 `typography` 不同），本倉庫全文查重 `typography`／`ui-typography` 兩種寫法皆無衝突——但為了讓資料夾名稱與 frontmatter `name:` 欄位保持一致（沿用 2026-08-09 `prototype-variants` 那次建立的慣例），資料夾統一命名為 `ui-typography`，而不是照搬來源的資料夾名稱 `typography`。
+   - `relationship-design`：資料夾名稱與本倉庫查重無衝突；其 frontmatter `name:` 欄位是一個非慣用格式的字串（`Agentic UX Design - Relationship-Centric Interfaces`，含空格與大小寫），因為不構成實際衝突，依本倉庫「不擅自修正廠商格式」的慣例原樣保留，只在本節記錄這個觀察供未來留意。
+   - `popular-web-designs`／`design-md`／`baoyu-infographic`：三者的資料夾名稱與 frontmatter `name:` 皆與本倉庫全文查重，無衝突。其中 `design-md` 特別檢查了跟已安裝的 `stitch-skill` 是否為同名——確認不是（`stitch-skill` 的 frontmatter `name:` 是 `stitch-design-taste`），只是概念上容易混淆（見下方 Stage D 的排歧義說明）。
+2. **內部交叉引用驗證**：AccessLint 的 5 個 SKILL.md 都用 `../shared/methodology.md` 相對路徑指回同一個 `shared/` 資料夾，`accessibility-inspect` 另外指向自己的 `references/checkpoints.md`——複製整個 `skills/` 子樹（5 個技能資料夾＋`shared/` 皆為同層手足）之後，兩者都驗證存在且路徑正確。bencium.io 與 hermes-agent 的檔案/資料夾（`css-templates.md`／`html-entities.md`／`CHECKLIST.md`／`EXAMPLES.md`／`REFERENCE.md`／`templates/starter.md`／`templates/` 54 檔／`references/` 樹）全部是相對於自己資料夾的路徑，搬移後不需修正。
+3. **未搬入廠商自己的索引/腳手架檔案**：AccessLint 的 `.claude-plugin/plugin.json`（讀取但未搬入，用於取得作者/版本資訊）、`README.md`／`CHANGELOG.md`／`docs/`／`benchmark/`；bencium.io 每個技能各自的 `.claude-plugin/plugin.json`；hermes-agent 的根目錄 `README.md`／`CLAUDE.md`／`AGENTS.md`。**例外**：AccessLint 的 `.mcp.json` 雖然也是安裝設定檔、沒有直接搬入資料夾，但因為它宣告的 MCP server（`accesslint`，透過 `npx -y @accesslint/mcp@latest`）是 `accessibility-audit`／`accessibility-fix` 實際運作所需的相依，屬於「操作上必要的資訊」而非單純廠商行銷文件，已在 `scaffolding-templating/SKILL.md` 新增的表格區塊裡明確記錄這個需求，而不是像一般廠商 README 一樣直接略過。hermes-agent 的 `baoyu-infographic/PORT_NOTES.md` 例外保留（不同於一般 README/CHANGELOG，這份記錄的是移植者自己對這個技能的調整決策，屬於技能內容的一部分）。
+4. **授權歸屬**：3 個來源分散併入同一個既有分類（`scaffolding-templating`），比照多來源匯入的慣例，在根目錄 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增三節：AccessLint（MIT，作者 AccessLint／support@accesslint.com——來源倉庫本身沒有附帶明確著作權年份/持有人字串，用 `plugin.json`／`marketplace.json` 記載的作者身份代入標準 MIT 範本）、bencium.io（MIT，著作權行取自同一個 marketplace 裡 `eu-ai-act-reviewer` 技能自帶的 `LICENSE` 檔案——`typography`／`relationship-design` 兩個技能自己的資料夾都沒有個別附 `LICENSE`）、NousResearch/hermes-agent（MIT，Copyright (c) 2025 Nous Research，並在同一節內額外具名 credit `baoyu-infographic` 的原作者 宝玉/JimLiu 與 `popular-web-designs` 的資料來源 Teknium/VoltAgent，比照先前 Shubham Saboo／Matt Van Horn 那次「一批內多位作者」的記錄方式）。
+5. **全域必用資格查核**：AccessLint 的 5 個、hermes-agent 的 3 個都是明確場景觸發語氣（「稽核我的網站無障礙」「這個變更有沒有破壞無障礙」「產生資訊圖」等），未列入「全域必用」清單。`relationship-design` 自己的 frontmatter 更進一步明講「ONLY use when specifically asked, not for general UI/UX tasks」，同樣不列入。**`ui-typography` 是本次唯一需要比照 `ip-guard` 先例、主動說明而非單方面判斷的案例**：它自己的 description 寫著「auto-apply every rule in this skill silently…even if the user doesn't mention typography…whenever generating UI output」——這句話的廣度已經超過 `SKILL.md`「🔁 Universal」表格裡現有任何一條（那 5 條都只在觸碰特定敏感面向時觸發，這句讀起來像是「任何會產出 UI 的回合」都要觸發）。比照 `ip-guard` 那次的決策邏輯，本次預設**不**把它加進 Universal 表格——因為升級成全域必用，會讓「這台機器上所有專案往後每一次 HTML/CSS/React 產出」都多一層排版規則檢查的開銷，是遠超過一般技能安裝的影響範圍決策。已在 `scaffolding-templating/SKILL.md` 的新表格區塊與根目錄 `SKILL.md` 的 Universal 表格前言都記錄了這個判斷與理由，若未來要調整為全域必用，應該重新確認這個理由而非直接改動。
+
+### Stage D（文件更新）
+
+`scaffolding-templating/SKILL.md`（description 補充、新增「Accessibility auditing」「Typography & agentic UX philosophy」「Design reference catalogs & spec generators」三個表格區塊、「How to use this skill」新增第 10、11 點）、`library-api-reference/SKILL.md`（`vercel-react-view-transitions` 那一列的描述補上 `router.push(href, { transitionTypes })` 與 shared-element readiness/prefetching，無新增授權項目）、根目錄 `SKILL.md`（description 210→220、Quick lookup、Full skill list `scaffolding-templating` 37→47、Total 210→220、Universal 表格前言新增 `ui-typography` 的說明、稽核區塊新增 3 個 `THIRD-PARTY IMPORT` 段落＋1 個「SAME-DAY RESYNC」段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增 3 節）、`README.md`（簡介段落、版權聲明、`scaffolding-templating` 小節）、`TRIGGER-MAP.md`（同步新增觸發範例，併入既有的內容/設計小節）、`skills-search.html`（`DATA` 陣列同步新增 10 筆）。
+
+### 同日重新同步（非新匯入）：`vercel-react-view-transitions`
+
+已安裝的 `library-api-reference/references/vercel-react-view-transitions/` 來自 2026-08-09 匯入的 `emilkowalski/skills` 那次一併帶入的 `vercel-labs/agent-skills` 來源（已在 `THIRD-PARTY-LICENSES.md` 記錄過授權）。本次逐檔比對同一個上游倉庫目前的 `skills/react-view-transitions/`，發現 `README.md`、`SKILL.md`、`references/nextjs.md` 三個檔案有落差（上游新增了 `router.push(href, { transitionTypes })` API 文件、一個「When Content Must Be Ready」的預先擷取/快取小節、以及 `SKILL.md` 裡的「Shared Element Readiness」小節），其餘 `AGENTS.md`／`metadata.json`／`references/css-recipes.md`／`references/implementation.md`／`references/patterns.md` 逐位元組相同，無需更動。已用上游版本覆蓋這 3 個落差檔案，並重新逐檔 diff 確認完全一致。**這不是新的授權項目**——`THIRD-PARTY-LICENSES.md` 不需要新增章節，只在本節記錄這是同一天的內容重新同步，而非新匯入。
+
+### 最終結果
+
+18 個頂層技能維持不變，`scaffolding-templating` 37→47，全倉庫子技能總數 210→220。4 個 clone 來源中：3 個（AccessLint、bencium.io、NousResearch/hermes-agent）貢獻新內容共 10 個子技能全部收錄；第 4 個（`vercel-labs/agent-skills`）確認只是既有 `vercel-react-view-transitions` 的同源更新，已同步落差，不算新匯入。bencium.io／hermes-agent 兩個來源裡另有 10 個技能（3 個 UX 設計師技能＋`human-architect-mindset`＋`design-audit`＋`bencium-aeo`＋`insurgent-campaign`＋`negentropy-lens`＋`renaissance-architecture`＋`claude-design`＋`p5js`＋`sketch`）因與既有技能重疊或超出設計範疇，確認不匯入。`ui-typography` 未列入「全域必用」清單（比照 `ip-guard` 先例的判斷，理由見上）。
+
+## 2026-08-16（三）：使用者指定的 9 項精準抽取／整包安裝
+
+同一天第三次處理同一批來源（`bencium-marketplace`、`hermes-agent`）。前一節（續）已經把兩個來源整體評估過一輪，結論是「10 個子技能匯入、10 個不匯入」。這一次不是重新評估，而是使用者親自看過其他 agent 做的詳細比對報告後，**明確指定 9 項非常精準的動作**——大多數不是「整包安裝」，而是「只抽這一個機制、折進某個既有檔案」。本節記錄這 9 項的執行結果，逐項寫清楚抽了什麼、捨棄了什麼、為什麼。
+
+### 執行前提
+
+- 來源本機 clone 路徑不變：`external_repos/bencium-marketplace`、`external_repos/hermes-agent`。
+- 每一項抽取前都先讀來源檔案原文取得精確文字，不用記憶或猜測措辭。
+- 每一個新資料夾／檔名，先對全倉庫 grep 查重，才建立。
+- 折進既有檔案的每個片段都在該檔案裡留一句話的來源標註（技能名＋來源 repo＋授權），不寫大段引言方塊。
+
+### 逐項紀錄
+
+**1. `frontend-design` 新增「Surface-First」步驟（來源：hermes-agent `claude-design`）**
+從 `claude-design/SKILL.md` 抽出「先講清楚這是哪一種介面，再動手設計」的機制——7 個具名 archetype（Monitor / Operate / Compare / Configure / Decide-Learn / Explore / Command-Inspect），以及「用一句話陳述是哪一種 surface，再設計」的規則。折進 `scaffolding-templating/references/design/frontend-design/SKILL.md`，位置在既有「Process」流程小節之前，作為新的前置步驟。`claude-design` 其餘內容（十分制 slop 診斷評分、hosted-tool 對應表、deck/prototype 細則）**不**安裝——這些跟既有 `web-artifacts-builder`／本檔案自己的內容重疊，前一節（續）已經評估過整包不匯入，這次只精準抽這一個機制。
+
+**2. 整包安裝 `p5js`（來源：hermes-agent）**
+完整複製 `SKILL.md` ＋ 完整 `references/`（10 個檔案：core-api、shapes-and-geometry、visual-effects、animation、typography、color-systems、webgl-and-3d、interaction、export-pipeline、troubleshooting）＋ `templates/viewer.html` ＋ `scripts/`（setup.sh、serve.sh、render.sh、export-frames.js，四個腳本都讀過全文，是標準 Puppeteer headless 擷取 + ffmpeg 編碼流程，沒有可疑的網路外連或混淆手法）。目標路徑：`scaffolding-templating/references/design/p5js/`，跟既有 `algorithmic-art` 平行放置。來源自己的 `README.md` 只是重複 `SKILL.md` 的表格內容，依慣例不搬入。前一節（續）評估過「`p5js` 跟既有 `algorithmic-art` 重疊，不匯入」——這次使用者重新檢視後改變主意，明確要求整包安裝，並在 `scaffolding-templating/SKILL.md` 新增雙向交叉引用釐清兩者差異：`algorithmic-art` 是窄一點的「哲學優先」p5.js 工具；`p5js` 是更廣的技巧庫（curl noise、boid flocking、L-system、圓形堆疊、Voronoi、reaction-diffusion、pixel sorting）加上真正能用的匯出管線（Puppeteer headless、ffmpeg MP4、SVG、CCapture.js）。
+
+**3. 整包安裝 `sketch`（來源：hermes-agent）**
+來源只有單一 `SKILL.md`，沒有 `references/`／`templates/` 子樹（已核對過來源目錄）。複製到 `scaffolding-templating/references/design/sketch/SKILL.md`。同樣是前一節（續）評估過「跟既有 `prototype-variants` 機制幾乎一致，不匯入」的項目，這次使用者要求整包安裝，並在 `scaffolding-templating/SKILL.md` 新增交叉引用區分兩者：`sketch` 是每個變體各自獨立資料夾＋各自 README（`sketches/NNN-stance-name/index.html` + `README.md`），最後用比較表呈現；`prototype-variants` 是多個變體共享同一個即時視覺選擇器，在同一個產物裡切換，不是分開的檔案。額外發現：`sketch` 自己的「Attribution」小節記載它改編自 GSD（Get Shit Done）專案的 `/gsd-sketch` 工作流程——MIT © 2025 Lex Christopherson（上游 repo 現已封存/無人維護）——因此 `THIRD-PARTY-LICENSES.md` 的 hermes-agent 段落同時具名credit hermes-agent 與 Lex Christopherson 兩位作者，比照先前 baoyu-infographic／popular-web-designs 的雙作者記錄模式。
+
+**4a. 從 `bencium-innovative-ux-designer` 抽出玻璃擬態禁令（來源：bencium.io）**
+讀取來源 `SKILL.md` 找到兩處明確禁令：`## Foundational Design Principles` 底下「NEVER Use These AI-Generated Aesthetics」列出「Effects: Glass morphism, Apple design mimicry, liquid/blob backgrounds」；以及 `Bold Visual Expression` 小節明確寫「NO glass morphism effects (this is the one banned technique)」，緊接著解釋陰影／漸層允許使用，玻璃擬態是唯一被明文禁止的技巧。
+
+**4b. 翻轉既有 `redesign-skill` 裡衝突的建議**
+`scaffolding-templating/references/design/redesign-skill/SKILL.md` 的「Surface Upgrades」小節原本把「True glassmorphism」列為推薦的升級技巧（`backdrop-filter: blur` + 1px 內邊框 + 內陰影模擬邊緣折射）。找到這條規則後，依使用者決定**整條翻轉成禁令**，並在原地留一句話說明：這是使用者決定，起因是發現跟 bencium.io 的 `bencium-innovative-ux-designer` 衝突，並引用該來源的具體文字。**刻意沒有動 `hallmark`**——前一輪比對也發現 `hallmark` 自己的素材把玻璃擬態視為「Apple 系品牌時情境合理」，這個矛盾使用者只要求處理 `redesign-skill`，`hallmark` 保持原樣。這個未處理的張力已經在 `scaffolding-templating/SKILL.md`「How to use this skill」第 13 點明確標註「flagged, not resolved」，讓未來的閱讀者看得到但不強迫現在解決。
+
+**5. 從 `bencium-impact-designer` 抽出「Creative Reframing Prompts」（來源：bencium.io）**
+讀取來源找到完整清單，共三組共 15 個提示，比先前比對報告舉的兩個例子（Sagmeister、protest poster）多得多：Designer lens（Sagmeister／Neville Brody／Studio Dumbar／Dieter Rams／David Carson）、Context shift（magazine spread／museum exhibit／street signage／vinyl record cover／protest poster）、Era lens（1960s Swiss International／1990s Emigre-Ray Gun／1920s Bauhaus／2000s Flash era／Cyberpunk 2077）。折進 `scaffolding-templating/references/design/taste-skill/SKILL.md` 的 Section 0（Brief Inference）底下，新增 §0.E，明確標示為「optional lateral-thinking nudge」，不是強制規則。來源的 40 個美學工作室名稱目錄與骰子擲點式的「Force Variety」機制**不**安裝——跟 `taste-skill` 自己的三軸數值撥盤系統重疊。
+
+**6. 從 `design-audit` 抽出「先讀專案文件＋分階段核准」工作流程（來源：bencium.io）**
+讀取來源找到兩塊：`## Before You Start` 要求在形成任何意見前先讀 `DESIGN_SYSTEM.md`／`FRONTEND_GUIDELINES.md`／`APP_FLOW.md`／`PRD.md`／`TECH_STACK.md`／`LESSONS.md`（以及 progress、live app）；以及 `### Step 4: Wait for Approval`——呈現計畫、不動手實作、逐階段取得核准才能進下一階段。折進既有 `hallmark` 的 `audit` 動詞（`scaffolding-templating/references/design/hallmark/references/verbs/audit.md`），新增「Alternate mode: doc-grounded, phased audit」小節，**只在專案真的有這些具名文件時觸發**，明確標註是同一個 `audit` 動詞的「另一種、更嚴格」模式，不取代預設的扁平嚴重度清單行為。來源的 14 維度稽核檢查表**不**安裝——跟 `audit.md` 檔案裡自己既有的維度表完全重複。
+
+**7. 從 `human-architect-mindset` 抽出「Loyalty」哲學框架（來源：bencium.io）**
+讀取來源 `SKILL.md` 找到 Foundation 小節（The AI Perfection Trap、The Human Moat、Loyalty in Architecture 的四類作法、The Loyalty Question）；接著發現 `REFERENCE.md` 裡還有更完整的 `The Loyalty Decision Matrix`（5 列情境對照表）與 5 個具名反樣式（The Endless Pivot、The Greenfield Fallacy、The Trend Chase、The Premature Abstraction、The Shiny Object Syndrome），以及 `CHECKLIST.md` 的 `Phase 0: Loyalty Audit`（Betrayal Test 四問）。判斷 `agentic-dev-workflow/SKILL.md` 本身是密集的路由表格結構、沒有適合塞進長篇哲學論述的位置（跟 `karpathy-guidelines` 當初被獨立成檔的理由一樣），因此**新增一個獨立參考檔** `agentic-dev-workflow/references/loyalty-mindset/SKILL.md`，並在主檔案的表格裡加一列、intro 段落加一句來源說明。來源的 Domain Modeling／Systems Thinking／Constraint Navigation／AI-Aware Decomposition 四大支柱與 Spec-Driven-Development 延伸章節**不**安裝——跟既有 `domain-modeling`／`brainstorming`／`code-quality-review` 的 `codebase-design` 重複。
+
+**8. 從 `bencium-aeo` 抽出「Authority Level Determines Strategy」表格（來源：bencium.io）**
+讀取來源找到完整表格（Challenger vs. Established 兩列，含「Rank-5 sites gained 115% visibility... Rank-1 sites that over-optimized lost 30%」的 Princeton 研究數據點）。折進既有 `marketing/references/paid-acquisition/ai-seo/SKILL.md`，緊接在既有 Pillar 2（Princeton GEO 9 法排名表）之後新增一個補充小節，明確標註是「additive to」而非取代既有的新鮮度／引用／查詢測試指引。
+
+**9. 整包安裝 `insurgent-campaign`（來源：bencium.io）**
+完整複製 `SKILL.md` ＋ 完整 `references/`（7 個檔案：asymmetry-audit-table、authenticity-playbook、campaign-archetypes、channel-tier-stack、hungarian-case-study、lift-test-templates、sector-riders）。這是行銷策略內容，不是設計內容，因此讀 `marketing/SKILL.md` 找它既有的 `references/<sub-domain>/<leaf-skill>/SKILL.md` 慣例（兩層巢狀，例如 `references/research-strategy/attribution/`），放到 `marketing/references/research-strategy/insurgent-campaign/`，跟既有的 `attribution`、`marketing-plan` 同層。在 `marketing/SKILL.md` 新增一個小節交叉引用 `attribution`：兩者共用同一套增量／lift-test 測量研究基礎（Lewis & Rao 2015 QJE），但 `insurgent-campaign` 多了一整套分階段（intake → ideation → asymmetry audit → MMF gate → channel stack → shape 選擇 → 30 天計畫）的弱勢方策略工作流程，`attribution` 沒有這個。前一節（續）評估過整包不匯入（理由是跟既有 `marketing-plan`／`marketing-ideas`／`co-marketing` 重疊），這次使用者重新檢視後改變主意，明確要求整包安裝。
+
+### 命名查重與授權整理
+
+- 新資料夾／檔名 `p5js`、`sketch`、`insurgent-campaign`（資料夾名稱與 frontmatter `name:` 兩種寫法）都先對全倉庫 grep 查重，均無衝突（`sketch` 一詞在別處只以一般文字出現，例如觸發語句範例，從未作為技能資料夾或 frontmatter 名稱）。
+- `THIRD-PARTY-LICENSES.md` 沒有新增任何一節——兩個來源（bencium.io、NousResearch/hermes-agent）都已經在同一天稍早的匯入裡建過節，這次只**延伸既有段落**：hermes-agent 段落的標題與清單新增 `p5js`／`sketch`（含 `sketch` 的雙作者 GSD/Lex Christopherson 具名credit），並補一句話說明 `claude-design` 的 Surface-First 只抽了片段；bencium.io 段落的標題與清單新增 `insurgent-campaign`（整包）與另外 5 個只抽片段的來源技能清單（`bencium-innovative-ux-designer`／`bencium-impact-designer`／`design-audit`／`human-architect-mindset`／`bencium-aeo`），並註明這 5 個都用同一份既有的 MIT 授權區塊，不需要各自附完整授權全文。
+
+### 文件更新範圍
+
+`scaffolding-templating/SKILL.md`（新增「Generative art & disposable UI sketching」表格區塊收納 `p5js`／`sketch`＋雙向交叉引用、「How to use this skill」新增第 12、13 點）、`agentic-dev-workflow/SKILL.md`（新增 `loyalty-mindset` 表格列、intro 段落補一句來源說明）、`marketing/SKILL.md`（研究策略列補上 `insurgent-campaign`、新增交叉引用小節）、根目錄 `SKILL.md`（`scaffolding-templating` 47→50、`marketing` 47→48、`agentic-dev-workflow` 24→25、全倉庫子技能總數 220→225、稽核區塊新增一整段 THIRD-PARTY IMPORT 紀錄＋逐一核對過的手算算式）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（延伸既有兩節，見上）、`README.md`／`TRIGGER-MAP.md`／`skills-search.html`（新增 `p5js`／`sketch`／`insurgent-campaign` 三個整包安裝項目的條目；5 個折進既有檔案的片段判斷不需要各自獨立的搜尋/觸發條目，因為它們是既有技能既有觸發語境下的補充內容，不是新的觸發場景——已在各自被折入的既有條目描述裡補一句話帶到）。
+
+**arithmetic 附註**：`scaffolding-templating` 從 47 到 50 是 +3，不是預期的 +2（只裝了 `p5js`／`sketch` 兩個新檔案）——逐檔重新點過 `scaffolding-templating/references/` 底下所有 `SKILL.md` 後發現，前一節（續）陳述的 47 這個數字本身就少算了一個（本次批次前的實際檔案數是 48，不是 47）。這是前一輪 session 的一次性算術誤差，不是本次新增的問題；已在根目錄 `SKILL.md` 的稽核區塊留一段說明修正到哪一步、為什麼沒有往回追溯更早的每一次異動，往後的總數以本節修正後的 225 為準。
+
+### 最終結果
+
+18 個頂層技能維持不變。9 項動作中：4 項是新的獨立 `SKILL.md` 檔案（`p5js`、`sketch` 進 `scaffolding-templating`；`insurgent-campaign` 進 `marketing`；`loyalty-mindset` 進 `agentic-dev-workflow`，這個不是整包安裝而是新建的精簡參考檔），5 項是折進既有檔案的片段抽取（不算新增子技能檔案）。`scaffolding-templating` 實際 48→50（見上方 arithmetic 附註：前一輪陳述的 47 本身少算一個），`marketing` 47→48，`agentic-dev-workflow` 24→25，全倉庫子技能總數 220→225（`context-engineering-collection` 自己的 16 個維持不變、未觸碰）。`redesign-skill` 的玻璃擬態建議已翻轉成禁令；`hallmark` 刻意保持原樣未動，張力已記錄但不在本次範圍內處理。
+
+### 補記：`ui-typography` 語言範疇修正（同一天，9 項動作之後）
+
+使用者檢視當天稍早匯入的 `ui-typography`（bencium.io）後，指出它原本的「只要產生 UI 就默默自動套用全部規則」語氣，對這個工作區大量使用繁體中文的實際情況是有問題的——它的規則（彎引號、en/em dash 區分、斷字、全大寫字母加字距、以字元數計算的行長）全部是拉丁字母排版特有的慣例，對中文完全不適用，若不分語言就自動套用，可能對中文 UI 文案產生實際錯誤的排版建議，而不只是「多此一舉」。
+
+**處理**：直接修改 `scaffolding-templating/references/design/ui-typography/SKILL.md`——frontmatter description 加上明確的語言範疇限定(僅英文可見文字自動套用；中文/CJK 文字退回一般觸發模式，只有使用者明確要求排版/校對時才用)，並新增一段「Language Scope — English/Latin-script only」章節，列出彎引號、斷字、字距、行長規則為何不適用於中文。同步更新 `scaffolding-templating/SKILL.md` 的 `ui-typography` 表格列說明與「Universal-tier judgment call」段落，補一段「2026-08-16 refinement」註記——強調這是對既有判斷的**細化**，不是推翻：即使限定在英文範疇，這個技能依然刻意不列入全域必用清單（維持 8 月 16 日稍早的判斷）。未觸碰 `THIRD-PARTY-LICENSES.md`（沒有新增授權內容，只是修改既有已授權內容的範疇限定文字）。本機安裝：單檔覆蓋複製 `ui-typography/SKILL.md` 到 `C:\Users\user\.claude\skills\`，已驗證。子技能檔案數無變化(未新增/刪除檔案，純內容修正)。
+
+## 2026-08-16（四）：四個外部 UI 參考的深度整合（react-bits／React Aria／shadcn/ui／Magic UI）
+
+使用者貼了四個連結（`github.com/DavidHDev/react-bits`、`react-aria.adobe.com`、`github.com/shadcn-ui/ui`、`github.com/magicuidesign/magicui`）問能不能整合進本倉庫。不同於本檔案前幾節的「整包安裝或不裝」二選一，這次先經過完整討論才動手，過程分三輪：
+
+### 第一輪：初步調查與方案
+
+讀了 `pick-ui-library`（已有 base-ui 推薦）、`ui-styling`（shadcn 覆蓋但可能過時）、`animate`／`animation-vocabulary`（動畫決策/命名，非元件庫）確認現有覆蓋範圍後，回報四個庫都能整合、且大多數不重疊：shadcn/ui 已有深度覆蓋（`ui-styling`）、React Aria 全空缺、react-bits 與 magicui 屬同一類（動畫特效元件庫）需要區分。使用者要求先討論整合方式再動手。
+
+### 第二輪：確認整合深度、範圍、重疊處理
+
+用 AskUserQuestion 問了三題（整合深度／這次要處理哪些庫／react-bits 跟 magicui 重疊怎麼處理），使用者選擇：**深度整合**（比照 `library-api-reference/references/vercel-react-view-transitions` 的模式：SKILL.md + README.md + 按主題拆分的 references/*.md）、**全部四庫都要**（shadcn/ui 只需更新，不必重裝）、**react-bits 跟 magicui 兩邊各自獨立並交叉引用**。
+
+補充研究時發現兩個原本沒預期的關鍵事實：
+1. **shadcn/ui 官方自己就有兩份完整的 Claude skill**（`skills/shadcn/`、`skills/migrate-radix-to-base/`），內容比本倉庫既有的 `ui-styling` 新且完整（registry 系統、MCP server、CLI、styling/forms/composition/icons/chat 規則、完整的 Radix→Base UI 遷移引擎）。
+2. **Magic UI 官方也有一份完整的 Claude skill**（`skills/magic-ui/`），但只涵蓋 CLI 安裝流程與元件分類，不含實際原始碼。
+3. **react-bits 的授權不是純 MIT**，而是「MIT + Commons Clause License Condition v1.0」——明文禁止「重新散布元件本身（單獨、打包或改版皆算）」，這直接排除了把它的元件原始碼複製進本倉庫參考文件的可能性（本倉庫本身會被打包/複製到 `~/.claude/skills/`，等同重新散布）。
+
+把這個授權限制解釋給使用者聽（差別在於：magicui/shadcn 可以在我們自己的參考文件裡靜態存一份程式碼副本，react-bits 不行，只能存指引，程式碼永遠即時從官方 CLI 現抓）後，使用者確認理解並在第三輪給出最終指示。
+
+### 第三輪：最終指示與執行
+
+使用者的最終指示：**除了 react-bits 之外都要放入原始碼並深度整合**；**react-bits 要比較所有內容並寫清楚使用時機、跟 magicui 的具體差異**；三個動作——新增這幾個 skill 到專案（1）、合併進專案且所有文件都要更新（2）、重新安裝到這台電腦（3）。
+
+**執行方式**：先做研究確認每個來源的實際檔案結構（GitHub API 列目錄、逐檔 curl 讀取 README/LICENSE），確認 React Aria 官方文件網站在本環境連線失敗（多次 ECONNRESET/SSL handshake 錯誤，`curl -4` 強制 IPv4 後 GitHub raw 內容才抓得到，文件網站本身仍抓不到），改用 `adobe/react-spectrum` 原始碼建置。接著派出 4 個背景 agent 平行處理：
+
+1. **shadcn 官方 skill 整包搬入**（`shadcn-official`＋`migrate-radix-to-base`，共 21 個檔案，逐位元組原樣搬入）——成功完成。
+2. **magicui 深度整合**（官方 3 個檔案逐位元組搬入＋本倉庫自撰、內嵌 20 個真實元件原始碼的 `source-catalog.md`）——成功完成。
+3. **react-bits 純比較文件**（零內嵌原始碼，跟 magicui／`animate`／`animation-vocabulary`／`pick-ui-library` 的比較表，161 個真實元件名稱經 GitHub API 目錄列表核實）——成功完成。
+4. **React Aria 深度整合**——**執行到一半失敗**：達到帳號 session 用量上限（"session limit · resets 5:20am"），中斷於正在寫 `hooks.md` 的當下。檢查 agent 留下的檔案發現 `SKILL.md`／`hooks.md`／`components.md` 三份其實都已完整寫完（agent 在被中斷前就已經完成，只差最後一份 `patterns.md` 沒開始），因此由主線程直接接手，額外抓取 `Field.tsx`／`Popover.tsx` 兩個官方 Tailwind starter 原始檔補完 `patterns.md`（表單組合、collection 共用 API、overlay 疊層/dismissal、hook vs. 元件的取捨），並自行完成名稱撞名檢查（無衝突）。
+
+**最終落點與檔案數**：
+- `scaffolding-templating/references/design/shadcn-official/`（11 檔，vendored）
+- `scaffolding-templating/references/design/migrate-radix-to-base/`（10 檔，vendored）
+- `scaffolding-templating/references/design/magicui/`（SKILL.md＋2 份 vendored reference＋1 份自撰 source-catalog.md，內嵌 20 個真實元件）
+- `scaffolding-templating/references/design/react-bits/`（1 檔，純比較文件，零原始碼）
+- `library-api-reference/references/react-aria/`（SKILL.md＋3 份 reference，內嵌 ~14 個真實元件＋3 個真實 hook 範例，全部來自 `adobe/react-spectrum` 官方 Tailwind starter kit 與套件 README，非憑記憶杜撰）
+
+**文件更新範圍**：`scaffolding-templating/references/design/pick-ui-library/SKILL.md`（新增 React Aria 列與 base-ui 並列比較、新增「Animated component galleries」小節收 magicui／react-bits、新增 migrate-radix-to-base 交叉引用）、`scaffolding-templating/references/design/ui-styling/SKILL.md`（新增指向 `shadcn-official` 的交叉引用註記）、`scaffolding-templating/SKILL.md`（新增 4 個表格列、description 補充、「Picking within this cluster」段落新增交叉引用句）、`library-api-reference/SKILL.md`（新增 `react-aria` 表格列、description 補充、新增一條 cross-domain gotcha）、`THIRD-PARTY-LICENSES.md`（新增 4 節：shadcn／magicui／react-bits（含授權限制專門說明）／Adobe react-aria，Apache-2.0 全文複用 Shubham Saboo 節已有的版本不重複貼）、根目錄 `SKILL.md`（`scaffolding-templating` 50→54、`library-api-reference` 16→17、全倉庫子技能總數 225→230，全 skill list 表格與 HTML 註解區塊的逐倉庫清單同步新增 5 個名稱）、`README.md`（intro 段落延伸算式、版權聲明新增 4 條、`scaffolding-templating`／`library-api-reference` 兩節新增條目與計數）、本檔案（本節）、`TRIGGER-MAP.md`／`skills-search.html`（新增 5 個新技能的觸發範例/搜尋條目）。
+
+**名稱撞名檢查**：`shadcn`、`migrate-radix-to-base`、`magic-ui`、`react-bits`、`react-aria` 五個 frontmatter `name:` 皆已逐一 grep 全倉庫確認無衝突，未發生任何重新命名。
+
+### 最終結果
+
+18 個頂層技能維持不變。5 個新增子技能檔案（`shadcn-official`／`migrate-radix-to-base`／`magicui`／`react-bits` 進 `scaffolding-templating`；`react-aria` 進 `library-api-reference`），皆為整包搬入或本倉庫自撰的獨立新檔案，非既有檔案的片段抽取。`scaffolding-templating` 50→54，`library-api-reference` 16→17，全倉庫子技能總數 225→230。react-bits 因授權限制刻意不內嵌原始碼——這是本倉庫第一次因為第三方授權條款而主動限縮某個技能的內容深度，而非因為內容重疊或範疇不符；這個先例（Commons Clause 禁止重新散布）未來遇到類似授權的來源時應該直接比照辦理，不需要重新討論。

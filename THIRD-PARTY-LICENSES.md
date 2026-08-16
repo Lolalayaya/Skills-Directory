@@ -480,6 +480,348 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## Firecrawl — `firecrawl/cli` + `firecrawl/skills`
+
+The following sub-skills, imported 2026-08-16, originate from Firecrawl's own official open-source skill repos ([github.com/firecrawl/cli](https://github.com/firecrawl/cli), [github.com/firecrawl/skills](https://github.com/firecrawl/skills)):
+
+- `library-api-reference/references/`: `firecrawl-build`, `firecrawl-build-scrape`, `firecrawl-build-search`, `firecrawl-build-interact`, `firecrawl-build-onboarding`
+- `browser-automation/references/`: `firecrawl-cli` (+ its `rules/install.md`, `rules/security.md`), `firecrawl-agent`, `firecrawl-crawl`, `firecrawl-download`, `firecrawl-interact`, `firecrawl-map`, `firecrawl-monitor`, `firecrawl-parse`, `firecrawl-scrape`, `firecrawl-search`, `firecrawl-developer-index`, `firecrawl-research-index`
+
+The user linked `github.com/firecrawl/firecrawl` (the main product monorepo, which contains no skill content) — that repo's own pointer READMEs name these two actual skill repos, which were fetched instead. Both repos' own root docs (`README.md`, `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, marketplace/plugin manifests) were dropped rather than copied, per this repo's own convention that `SKILL.md` is the only index going forward.
+
+```
+ISC License
+
+Copyright (c) Firecrawl
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+```
+
+## ultimatile — `arxiv-skills`
+
+The following sub-skills, imported 2026-08-16 and folded into this repo's existing `library-api-reference` category, originate from ultimatile's open-source skill collection ([github.com/ultimatile/arxiv-skills](https://github.com/ultimatile/arxiv-skills)):
+
+- `library-api-reference/references/`: `arxiv-lookup`, `arxiv-doc-builder` (+ its full `arxiv_doc_builder/` Python package, `tests/`, `references/`)
+
+The source repo's own `README.md`, `ruff.toml`, and `.pre-commit-config.yaml` were dropped rather than copied, per this repo's own convention that `SKILL.md` is the only index going forward.
+
+```
+MIT License
+
+Copyright (c) 2026 ultimatile
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Master-cai — `Research-Paper-Writing-Skills`
+
+The following sub-skill, imported 2026-08-16 and folded into this repo's existing `internal-writing-comms` category, originates from Master-cai's open-source skill ([github.com/Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills)):
+
+- `internal-writing-comms/references/`: `research-paper-writing` (+ its `references/` tree, including `references/examples/`)
+
+The source repo's own `README.md`, `README_zh.md`, and `agents/openai.yaml` (OpenAI Agent Builder display metadata, not Claude Code skill content) were dropped rather than copied.
+
+```
+MIT License
+
+Copyright (c) 2026 Master-cai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## kevintsai1202 — `Humanizer-zh-TW`
+
+The following sub-skill, imported 2026-08-16 and folded into this repo's existing `internal-writing-comms` category, originates from kevintsai1202's open-source skill ([github.com/kevintsai1202/Humanizer-zh-TW](https://github.com/kevintsai1202/Humanizer-zh-TW)):
+
+- `internal-writing-comms/references/`: `humanizer-zh-tw`
+
+Per the skill's own metadata, it is a Traditional Chinese fork of op7418/humanizer-zh, itself translated from blader/humanizer, cross-referencing hardikpandya/stop-slop. The source repo's own `README.md` was dropped rather than copied.
+
+```
+MIT License
+
+Copyright (c) 2026 歸藏
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## AccessLint — `skills` (AccessLint/skills)
+
+The following 5 sub-skills, imported 2026-08-16 and folded into this repo's existing `scaffolding-templating` category, originate from AccessLint's open-source skill collection ([github.com/AccessLint/skills](https://github.com/AccessLint/skills)):
+
+- `scaffolding-templating/references/design/accesslint/`: `accessibility-audit`, `accessibility-scan`, `accessibility-inspect` (+ its own `references/checkpoints.md`), `accessibility-diff`, `accessibility-fix`, plus the shared `shared/methodology.md` all 5 reference by relative path
+
+The source repo's own `README.md`, `CHANGELOG.md`, `docs/`, and `benchmark/` (marketing/benchmark scaffolding, not skill content) were dropped rather than copied; its `.claude-plugin/plugin.json` (version 0.10.2) was read for author/version metadata but not copied in. The plugin's own `.mcp.json` declares a required MCP server (`accesslint`, via `npx -y @accesslint/mcp@latest`) that `accessibility-audit`/`accessibility-fix` depend on — noted operationally in `scaffolding-templating/SKILL.md` rather than treated as vendor scaffolding, since it's load-bearing for those two skills to function. No explicit copyright-holder line was found in the source repo (its `README.md`'s License section states only "MIT"); the block below uses the author identity from `plugin.json`/`marketplace.json` (AccessLint, support@accesslint.com, accesslint.com).
+
+```
+MIT License
+
+Copyright (c) 2026 AccessLint
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## bencium.io — `typography` + `relationship-design` + `insurgent-campaign`
+
+The following sub-skills, folded into this repo's existing categories, originate from bencium.io's Claude Code plugin marketplace ([github.com/bencium/marketplace](https://github.com/bencium) — see that repo's `.claude-plugin/marketplace.json`):
+
+- `scaffolding-templating/references/design/`: `ui-typography` (imported 2026-08-16; source folder `typography/skills/typography/`, frontmatter `name: ui-typography` as shipped — kept as the folder name here too, for folder/frontmatter consistency; no actual name collision found in this repo either way), `relationship-design` (imported 2026-08-16)
+- `marketing/references/research-strategy/`: `insurgent-campaign` (imported 2026-08-16, later same-day batch — full `SKILL.md` + its `references/` tree: `asymmetry-audit-table.md`, `authenticity-playbook.md`, `campaign-archetypes.md`, `channel-tier-stack.md`, `hungarian-case-study.md`, `lift-test-templates.md`, `sector-riders.md`)
+
+Neither of the first two source plugin folders (`typography/`, `relationship-design/`) vendors its own `LICENSE` file; the marketplace's root `README.md` states "License: MIT" for the collection as a whole, and a sibling skill in the same marketplace (`eu-ai-act-reviewer/skills/eu-ai-act-reviewer/LICENSE`) provides the exact copyright line used below. Each source plugin's own `.claude-plugin/plugin.json` confirms `author: { name: "bencium.io", url: "https://bencium.io" }`, including `insurgent-campaign`'s. Vendor root docs (including `insurgent-campaign`'s own root `README.md`) were not copied in.
+
+**Also from this same marketplace, but NOT vendored as whole skills — only one named mechanism was extracted from each into an already-existing file in this repo**, per a user-directed set of 9 precision extractions/installs (see `SKILL-AUDIT.md`'s "2026-08-16（三）" section for the full per-item reasoning and what was left out of each):
+
+- `bencium-innovative-ux-designer`'s glassmorphism ban ("NO glass morphism effects (this is the one banned technique)") → used to flip `scaffolding-templating/references/design/redesign-skill/SKILL.md`'s previous glassmorphism *recommendation* into a ban.
+- `bencium-impact-designer`'s "Creative Reframing Prompts" (Designer lens / Context shift / Era lens) → folded into `scaffolding-templating/references/design/taste-skill/SKILL.md` as an optional §0.E lateral-thinking nudge.
+- `design-audit`'s doc-grounded, phased/approval-gated audit workflow → folded into `scaffolding-templating/references/design/hallmark/references/verbs/audit.md` as an alternate mode of the existing `audit` verb.
+- `human-architect-mindset`'s "Loyalty" foundation (The Human Moat, the Loyalty Decision Matrix, 5 named anti-patterns) → extracted into a new standing-reference file, `agentic-dev-workflow/references/loyalty-mindset/SKILL.md`.
+- `bencium-aeo`'s "Authority Level Determines Strategy" table (Challenger vs. Established, Princeton Rank-5/Rank-1 data point) → folded into `marketing/references/paid-acquisition/ai-seo/SKILL.md` as a supplementary section.
+
+Each source plugin above (`bencium-innovative-ux-designer`, `bencium-impact-designer`, `design-audit`, `human-architect-mindset`, `bencium-aeo`) confirms the same `author: { name: "bencium.io", url: "https://bencium.io" }` in its own `.claude-plugin/plugin.json`, covered by the same MIT license block below — no separate license text is needed since none of these five contributed a whole vendored file, only a folded-in fragment with its own inline provenance note at the point of use.
+
+```
+MIT License
+
+Copyright (c) 2026 Bencium Limited
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## NousResearch/hermes-agent — `popular-web-designs` + `design-md` + `baoyu-infographic` + `p5js` + `sketch`
+
+The following sub-skills, folded into this repo's existing `scaffolding-templating` category, originate from Nous Research's `hermes-agent` repo ([github.com/NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent), `skills/creative/`):
+
+- `scaffolding-templating/references/design/`: `popular-web-designs` (imported 2026-08-16, + its `templates/`, 54 files), `design-md` (imported 2026-08-16, + its `templates/starter.md`), `baoyu-infographic` (imported 2026-08-16, + its `PORT_NOTES.md` and `references/` tree: `analysis-framework.md`, `base-prompt.md`, `structured-content-template.md`, `layouts/`, `styles/`), `p5js` (imported 2026-08-16, later same-day batch — full `SKILL.md` + its `references/` tree, 10 files + `templates/viewer.html` + `scripts/` tree: `setup.sh`, `serve.sh`, `render.sh`, `export-frames.js`), `sketch` (imported 2026-08-16, later same-day batch — single `SKILL.md`, no bundled `references/`/`templates/` in the source)
+
+The source repo's own root `README.md`/`CLAUDE.md`/`AGENTS.md` and per-plugin marketplace manifests (vendor scaffolding, not skill content) were not copied in; `p5js`'s own `README.md` was likewise dropped (it only restated the `SKILL.md`'s own tables), per the same convention.
+
+Also from `hermes-agent`'s `skills/creative/`, but NOT vendored as a whole skill — only one named mechanism was extracted into an existing file: `claude-design`'s "Surface-First" 7-archetype naming step was folded into `scaffolding-templating/references/design/frontend-design/SKILL.md` (see that file's own inline provenance note and `SKILL-AUDIT.md`'s "2026-08-16（三）" section for what was left out).
+
+**Two-author attribution, same pattern as the Shubham Saboo / Matt Van Horn section above**: `baoyu-infographic`'s own `SKILL.md` frontmatter reads `author: 宝玉 (JimLiu)`, `license: MIT`, `homepage: https://github.com/JimLiu/baoyu-skills#baoyu-infographic` — it was adapted BY hermes-agent/Nous Research from 宝玉 (JimLiu)'s original `baoyu-infographic` skill, not authored fresh by Nous Research. Both are credited: the repo-level MIT license below (Nous Research) covers the adaptation and the `hermes-agent` repo as a whole; 宝玉/JimLiu is credited by name as the original author of the underlying skill design. Separately, `popular-web-designs`'s own frontmatter credits `author: Hermes Agent + Teknium (design systems sourced from VoltAgent/awesome-design-md)` — also noted here since it's a second instance of the same "adapted from, not authored by, the importing repo" pattern. A third instance: `sketch`'s own "Attribution" section in its `SKILL.md` credits it as adapted from the GSD (Get Shit Done) project's `/gsd-sketch` workflow — MIT © 2025 Lex Christopherson ([github.com/gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done), now archived/unmaintained upstream). Both hermes-agent (repo-level MIT below) and Lex Christopherson (original workflow author) are credited for this file.
+
+```
+MIT License
+
+Copyright (c) 2025 Nous Research
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## shadcn — `shadcn-official` + `migrate-radix-to-base`
+
+Two skills vendored verbatim (byte-for-byte, no paraphrasing) from shadcn/ui's own official repo ([github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui), `skills/` directory), imported 2026-08-16 into this repo's existing `scaffolding-templating` category, alongside this repo's own pre-existing hand-authored `ui-styling` skill (which now cross-references these two rather than duplicating their content):
+
+- `scaffolding-templating/references/design/shadcn-official/`: vendored from `skills/shadcn/` — `SKILL.md`, `cli.md`, `customization.md`, `mcp.md`, `registry.md`, `rules/base-vs-radix.md`, `rules/chat.md`, `rules/composition.md`, `rules/forms.md`, `rules/icons.md`, `rules/styling.md` (11 files). The source's own `agents/openai.yml`, `assets/*.png`, and `evals/evals.json` were not vendored — internal CI/eval tooling for shadcn's own maintainers, not needed to consume the skill.
+- `scaffolding-templating/references/design/migrate-radix-to-base/`: vendored from `skills/migrate-radix-to-base/` — `SKILL.md`, `class-mapping.md`, `consumer-props.md`, `disclosure.md`, `display-misc.md`, `form-controls.md`, `menus.md`, `overlays.md`, `universal-patterns.md`, `wrapper-shapes.md` (10 files).
+
+Both frontmatter `name:` values (`shadcn`, `migrate-radix-to-base`) were checked against the whole repo before import — no collisions, kept as-is.
+
+```
+MIT License
+
+Copyright (c) 2023 shadcn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Magic UI Design — `magicui`
+
+Imported 2026-08-16 into `scaffolding-templating/references/design/magicui/`, from [github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui). Two parts:
+
+- Vendored verbatim from the source repo's own official Claude skill (`skills/magic-ui/`): `SKILL.md`, `references/components.md`, `references/recipes.md` — with one deliberate addition (not a vendoring edit): a "Full Source Catalog" section appended to the end of `SKILL.md` pointing at the file below.
+- A new file authored for this repo, not vendored: `references/source-catalog.md` — real, unmodified `.tsx` source for 20 representative components fetched directly from the source repo's `apps/www/registry/magicui/` (permitted under this library's plain MIT license, unlike `react-bits` below).
+
+Frontmatter `name: magic-ui` checked against the whole repo before import — no collision.
+
+```
+MIT License
+
+Copyright (c) Magic UI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+```
+
+## David Haz — `react-bits` (⚠️ non-standard license — read before reusing)
+
+Imported 2026-08-16 into `scaffolding-templating/references/design/react-bits/SKILL.md`, from [github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits). **Single new file, no component source code** — this is the one deliberate exception to this repo's usual "embed real source" pattern for a design-component library, because of the license below.
+
+react-bits uses **"MIT + Commons Clause License Condition v1.0"**, not plain MIT. The Commons Clause rider forbids selling, sublicensing, or **redistributing the components themselves — alone, in a bundle, or as a ported version**. Because this repo is itself a bundle of reference material that gets copied/distributed (including onto a local `~/.claude/skills/` install), statically storing any react-bits component source (`.tsx`/`.jsx`/`.css`) here would fall under that restriction. The vendored `SKILL.md` therefore contains only category names, comparison prose, and the official CLI install command (which pulls fresh code directly into an end user's *own* project at time of use — the license-permitted path) — never a stored code snippet. See that file's own license note for the reader-facing explanation.
+
+```
+MIT License + Commons Clause License Condition v1.0
+
+Copyright (c) 2026 David Haz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, and distribute the Software as part of
+an application, website, or product, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+Commons Clause Restriction: You may use this Software, including for any
+commercial purpose, so long as you do not sell, sublicense, or redistribute
+the components themselves — whether alone, in a bundle, or as a ported
+version.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Adobe — `react-aria` (Apache-2.0)
+
+Imported 2026-08-16 into `library-api-reference/references/react-aria/` (`SKILL.md`, `references/hooks.md`, `references/components.md`, `references/patterns.md`), authored for this repo directly from source material in Adobe's `adobe/react-spectrum` monorepo ([github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum)) rather than vendored wholesale — the live docs site (`react-aria.adobe.com`) was unreachable from this environment across repeated attempts, so content was built from the repo's own package READMEs (`packages/react-aria/README.md`, `packages/react-aria-components/README.md`), its `AGENTS.md` layering explanation, and real embedded component source pulled from Adobe's own official Tailwind starter kit (`starters/tailwind/src/`) — not invented from training-data memory. Licensed Apache-2.0, which permits this kind of reuse with attribution.
+
+Frontmatter `name: react-aria` checked against the whole repo before import — no collision.
+
+(See the Apache License 2.0 full text under the Shubham Saboo section above — same license, not reproduced twice.)
+
+```
+Copyright 2019 Adobe
+```
+
 ## `context-engineering-collection`
 
 Kept whole as a single top-level folder rather than distributed, so its own [`LICENSE`](context-engineering-collection/LICENSE) (MIT, Context Engineering Agent Skills Contributors) still applies directly — no duplication needed here.

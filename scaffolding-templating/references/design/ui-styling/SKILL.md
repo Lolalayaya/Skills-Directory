@@ -17,6 +17,8 @@ Comprehensive skill for creating beautiful, accessible user interfaces combining
 - shadcn/ui: https://ui.shadcn.com/llms.txt
 - Tailwind CSS: https://tailwindcss.com/docs
 
+> For the latest shadcn CLI/registry/MCP-server details (registry publishing, namespaces, `components.json`, the `shadcn` MCP server for AI-assisted install/search) and shadcn's own styling/forms/composition/icons rules, see the sibling skill `shadcn-official` (vendored verbatim from shadcn/ui's own official Claude skill) in this same `references/design/` tree — this file stays focused on the general component/theming/accessibility workflow below.
+
 ## When to Use This Skill
 
 Use when:
