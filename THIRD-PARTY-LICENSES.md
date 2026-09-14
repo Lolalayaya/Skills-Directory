@@ -822,6 +822,16 @@ Frontmatter `name: react-aria` checked against the whole repo before import — 
 Copyright 2019 Adobe
 ```
 
+## Patrick Szymkowiak — `rtk` (Apache-2.0)
+
+Imported 2026-09-14 into `incident-runbooks/references/`: `issue-triage`, `pr-triage`, `repo-recap`, `pr-review`, `full-triage` (renamed from the source's `rtk-triage` — see [`SKILL-AUDIT.md`](SKILL-AUDIT.md) for why), originating from Patrick Szymkowiak's [`rtk-ai/rtk`](https://github.com/rtk-ai/rtk) repo's `.claude/skills/` directory. Only these 5 of the repo's 12 skills were kept — the other 7 (`code-simplifier`, `design-patterns`, `performance`, `security-guardian`, `ship`, `rtk-tdd`, `tdd-rust`) are hardcoded to RTK's own Rust CLI internals (specific file paths, performance targets, its own binary) and were judged non-portable; see `SKILL-AUDIT.md`. Content was translated from French to English (the source defaulted to French output with an `en` override; this repo standardizes on English-only) and de-branded (RTK-specific hardcoded repo references, save paths, and attribution footers replaced with generic/dynamic equivalents) — substance and mechanics otherwise unchanged. Two bundled templates (`templates/issue-comment.md`, `templates/review-comment.md`) were carried over the same way.
+
+(See the Apache License 2.0 full text under the Shubham Saboo section above — same license, not reproduced twice.)
+
+```
+Copyright 2026 Patrick Szymkowiak
+```
+
 ## `context-engineering-collection`
 
 Kept whole as a single top-level folder rather than distributed, so its own [`LICENSE`](context-engineering-collection/LICENSE) (MIT, Context Engineering Agent Skills Contributors) still applies directly — no duplication needed here.

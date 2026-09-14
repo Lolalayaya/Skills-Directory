@@ -45,8 +45,13 @@
 | 「審查意見回來了，我該怎麼回應」 | `receiving-code-review` | 教你怎麼嚴謹評估、回應審查意見 |
 | 「這個 bug 到底為什麼會發生」 | `systematic-debugging` | 先找根因、影響範圍，再提修法（已融合 mattpocock 原 `diagnosing-bugs` 的「先建可靠紅色訊號迴圈」方法論） |
 | 「這段程式碼到底為什麼會這樣寫」「重構前先幫我查一下這裡的歷史」 | `commit-archaeologist` | 用本地 git 歷史（非僅 blame）重建程式碼存在的原因：起源 commit、後續變更、常一起改的檔案、意圖線索 |
-| 「這些外部回報的 bug/需求幫我分類處理」 | `triage` | 用狀態機把湧入的原始回報整理成 agent 可接手的 issue |
+| 「這些外部回報的 bug/需求幫我分類處理」 | `triage` | 用狀態機把湧入的原始回報整理成 agent 可接手的 issue（處理單一 issue/PR） |
 | 「我口頭描述一個 bug，幫我拆成 issue」 | `qa` | 背景探索程式碼理解領域語言，拆解建成 GitHub issue |
+| 「幫我整批稽核一下這個 repo 的 open issues」「這些 issue 有沒有重複的」「哪些 issue 該關掉了」 | `issue-triage` | 整批稽核所有 open issues：分類、Jaccard 重複偵測、PR 交叉引用、安全風險關鍵字、staleness；可選深入分析並草擬留言（需核准才會貼出） |
+| 「幫我整批 review 一下這些 open PR」「這些 PR 有沒有衝突/重疊」 | `pr-triage` | 整批稽核所有 open PR：大小分級、CI 狀態、overlap/cluster 偵測；可選派 code-reviewer subagent 深入 review |
+| 「幫我產生一份現況摘要給團隊看」「這個 repo 最近的 PR/issue/release 狀況」 | `repo-recap` | 產生輕量的 Markdown 現況摘要（PR+issue+release+執行摘要），自動複製到剪貼簿 |
+| 「幫我一個一個 review 這些 PR，可以的話就 merge」 | `pr-review` | 從最小的 PR 開始逐一互動式 review + merge，每個都要你明確核准 |
+| 「幫我做一次完整的 backlog 健檢，issue 跟 PR 一起看」「這週的 sprint 前先看一下 backlog 有沒有重工/漏洞」 | `full-triage` | 整合 `issue-triage`+`pr-triage`，再做交叉分析（雙重認領、安全性缺口、P0/P1 無人接、自己 PR 卡住原因），存成帶日期的報告 |
 | 這個專案本來就用 OpenSpec 慣例管理變更 | `openspec-workflow`（含 explore/propose/apply/sync/archive 5 個階段） | 走 OpenSpec 的完整變更生命週期，取代 `brainstorming`→`writing-plans` |
 | 「幫我掃一下這個 codebase 有沒有架構能改善的地方」 | `improve-codebase-architecture` | 掃描深模組化機會，產出視覺化 HTML 報告 |
 | 「這個模組的介面該怎麼設計」 | `codebase-design` | 深模組設計詞彙（interface/depth/seam/adapter） |

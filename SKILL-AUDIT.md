@@ -670,3 +670,71 @@ Clone 使用者給的 `firecrawl.git` 後發現這是 Firecrawl 公司自己的�
 ### 最終結果
 
 18 個頂層技能維持不變。5 個新增子技能檔案（`shadcn-official`／`migrate-radix-to-base`／`magicui`／`react-bits` 進 `scaffolding-templating`；`react-aria` 進 `library-api-reference`），皆為整包搬入或本倉庫自撰的獨立新檔案，非既有檔案的片段抽取。`scaffolding-templating` 50→54，`library-api-reference` 16→17，全倉庫子技能總數 225→230。react-bits 因授權限制刻意不內嵌原始碼——這是本倉庫第一次因為第三方授權條款而主動限縮某個技能的內容深度，而非因為內容重疊或範疇不符；這個先例（Commons Clause 禁止重新散布）未來遇到類似授權的來源時應該直接比照辦理，不需要重新討論。
+
+---
+
+## 2026-09-14：評估三個第三方倉庫（rtk／headroom／codegraph），只有 rtk 的 5 個技能可用
+
+使用者提供 3 個倉庫網址，要求（1）新增這個/這些 skill 到專案中、（2）嘗試合併到專案中（記得所有文件都要更新）、（3）重新安裝到這部電腦：
+- `https://github.com/rtk-ai/rtk.git`
+- `https://github.com/headroomlabs-ai/headroom.git`
+- `https://github.com/colbymchenry/codegraph.git`
+
+### 階段 A（評估）：第一次描述性掃描判斷錯誤，改用完整 git tree 才發現真相
+
+先用 WebFetch 各自抓一次 GitHub 頁面渲染摘要，得到的結論是「rtk 沒有 SKILL.md／headroom 沒有 SKILL.md／codegraph 有 `.claude/skills/`」。這個結論後來證實**部分錯誤**——WebFetch 只看到渲染後的頁面內容，沒有抓到完整檔案樹。改用 GitHub API（`repos/{owner}/{repo}/git/trees/HEAD?recursive=1`）逐一抓三個倉庫的完整檔案清單後，真相是：
+
+- **`headroom`**：全倉庫確實沒有任何 `SKILL.md`（只有 `.claude/.headroom_wrap_settings.lock` 與幾支 Claude provider 整合程式碔），第一次的判斷在這裡是對的——純屬巧合，不是方法本身可靠。
+- **`rtk`**：`.claude/skills/` 底下其實有 **12 個技能**（`code-simplifier`／`design-patterns`／`issue-triage`／`performance`／`pr-review`／`pr-triage`／`repo-recap`／`rtk-tdd`／`rtk-triage`／`security-guardian`／`ship`／`tdd-rust`），第一次判斷「沒有 SKILL.md」是**錯的**。
+- **`codegraph`**：`.claude/skills/` 底下有 **2 個技能**（`add-lang`、`agent-eval`），第一次判斷「有 skills」是對的，但只掃到目錄存在，沒有意識到只有 2 個。
+
+**教訓**：對外部倉庫做評估時，WebFetch 頁面摘要不能取代讀完整檔案樹——這是本倉庫 Phase A「不能只看 description、要讀完整內容」規則第一次被證實同樣適用在「來源倉庫本身有沒有技能」這一步，而不只是「技能內容是否重疊」那一步。
+
+**逐一讀完 14 個候選技能全文**（12 個 rtk + 2 個 codegraph，非僅讀 description）後分類：
+
+| 技能 | 判定 | 理由 |
+|---|---|---|
+| `issue-triage`（rtk，364 行） | ✅ 可移植 | 全文透過 `gh repo view` 動態抓 owner/repo，無任何 RTK 專屬機制 |
+| `pr-triage`（rtk，332 行） | ✅ 可移植 | 同上，動態抓 owner/repo |
+| `repo-recap`（rtk，216 行） | ✅ 可移植 | 原文已完全通用 |
+| `pr-review`（rtk，227 行） | ✅ 可移植（含 1 處 bug 修正） | 發現 `gh api repos/rtk-ai/rtk/pulls/<num>/reviews` 寫死 repo 路徑，違反本技能自己「一律動態抓」的規則，屬於原始碼本身的 bug，移植時一併修正 |
+| `rtk-triage`（rtk，244 行） | ✅ 可移植（需改名） | 邏輯通用（issue-triage + pr-triage 交叉分析），但名稱、存檔路徑 `claudedocs/RTK-YYYY-MM-DD.md`、標題 `# RTK Triage` 全部寫死 RTK 品牌，需改名去除 |
+| `code-simplifier`（rtk） | ❌ 不可移植 | 內容是 RTK 自己 Rust 原始碼裡具體變數/檔案的簡化規則（`LazyLock` regex、fallback 邏輯等） |
+| `design-patterns`（rtk） | ❌ 不可移植 | 範例程式碼直接寫 RTK 自己的 `FilterConfig`／`GitFilter`／`main.rs` match dispatch |
+| `performance`（rtk） | ❌ 不可移植 | 效能目標寫死「啟動 <10ms、記憶體 <5MB」，指令是 `hyperfine 'rtk git status'`，只對 RTK 這個特定 binary 有意義 |
+| `security-guardian`（rtk） | ❌ 不可移植 | 威脅模型鎖定 RTK 自己的 shell 執行/hook 整合面 |
+| `ship`（rtk） | ❌ 不可移植 | 完整發版 SOP 都是 `Cargo.toml`／`cargo build --release`／crates.io，是 Rust binary 專案專屬流程 |
+| `rtk-tdd`（rtk） | ❌ 不可移植 | 雖標題通用，範例圍繞 RTK CLI filter 模式，且跟本倉庫既有 `product-verification/test-driven-development`（語言無關）高度重疊 |
+| `tdd-rust`（rtk） | ❌ 不可移植 | 跟 `rtk-tdd` 內容高度重複（RTK 自己倉庫內部就有兩個名字不同、講同一件事的技能），且更深入 RTK 專屬細節（token savings ≥60% 斷言、main.rs 佈線） |
+| `add-lang`（codegraph） | ❌ 不可移植 | 整份都是編輯 codegraph 自己的 `src/types.ts`／`src/extraction/grammars.ts`，離開該倉庫毫無意義 |
+| `agent-eval`（codegraph） | ❌ 不可移植 | 驅動 codegraph 自己的 `scripts/agent-eval/audit.sh`，是該專案的內部評測工具 |
+
+**與使用者的往返**：把上述發現攤開後，用 AskUserQuestion 問使用者要匯入哪個範圍（只裝 5 個通用的 / 全部裝 / 逐一挑選）。使用者先要求「可以更詳細說明嗎」，於是把每個技能的具體證據（行數、原文摘錄、RTK 痕跡的實際程式碼片段）逐一列出後，使用者確認：**只匯入建議的 5 個，且不要保留法文**（原始技能預設輸出法文、`en` 參數才切英文，是原作者個人偏好）。
+
+### 階段 B（分類與落點）
+
+5 個技能全部依主題併入既有的 `incident-runbooks`（不新增分類），歸類為「核心常用」（bulk GitHub 稽核在有 GitHub 專案的情境下屬於高頻需求）。
+
+**與既有 `incident-runbooks/references/triage`（mattpocock-skills 匯入）的重疊查核**：完整讀完 `triage/SKILL.md` 後確認並非重複——`triage` 用 label 狀態機把**單一** issue/PR 處理成 agent-ready 的 brief；rtk 這 5 個技能是**整批**稽核所有 open issues/PRs（重複偵測、staleness、風險分級、overlap），且會用 subagent 平行深入分析多個項目、產出稽核報表。機制、輸出形狀都不同，判定為互補而非重複，依「功能重疊預設不物理合併，只加互斥說明」規則處理：`triage` 自己的 domain-table 列註記為「single-issue」，5 個新技能各自開頭加一句「跟 `../triage` 不一樣」的說明。
+
+### 階段 C（執行）
+
+1. **命名衝突查核**：`issue-triage`／`pr-triage`／`repo-recap`／`pr-review`（資料夾名稱＋frontmatter `name:`）grep 全倉庫，皆無衝突。`rtk-triage` 本身雖不會字面衝突，但因下列兩個理由主動改名為 **`full-triage`**：(a) 名稱／存檔路徑／標題都寫死 RTK 品牌；(b) 「rtk-triage」這個名字容易被誤讀成跟既有 `triage` 是同一件事的變體。
+2. **內部交叉引用修正**：`issue-triage`／`pr-triage`／`repo-recap`／`pr-review` 四份文件互相引用彼此（例如 issue-triage 的「Quand utiliser」表格提到 `/repo-recap`），搬移＋改名後全部檢查並改為新路徑 `../issue-triage/SKILL.md` 等相對連結，並新增與既有 `../triage` 的互斥說明連結。
+3. **語言與品牌去除**：
+   - 全部 5 份 SKILL.md 從法文翻譯為英文，移除原本的「Langue／`en`/`fr` 參數切換」邏輯，改為純英文單一輸出（使用者明確要求不要法文）。
+   - `full-triage`（原 `rtk-triage`）：存檔路徑從 `claudedocs/RTK-YYYY-MM-DD.md` 改為 `./triage-reports/{repo-name}-YYYY-MM-DD.md`（動態抓 repo 名稱，不寫死）；標題從 `# RTK Triage` 改為 `# Full Triage`。
+   - `pr-review`：修正寫死的 `repos/rtk-ai/rtk/pulls/<num>` 為動態 `repos/{owner}/{repo}/pulls/<num>`（先前判定的原始碼 bug）；「boldguy 語氣」改名為一般化的「direct, considerate tone」描述；RTK 專屬的常衝突檔案清單（`CHANGELOG.md`／`src/discover/rules.rs` 等）改寫成「若這個倉庫有自己文件化的常衝突檔案清單，比照處理」的通用提示。
+   - 兩份範本檔案（`templates/issue-comment.md`／`templates/review-comment.md`）移除 RTK 專屬的留言署名（"Triaged via rtk"／"Automated review via rtk"）與「RTK-specific context/checks」小節，改為「project-specific context/checks」的通用提示。
+4. **授權歸屬**：`rtk` 為 Apache-2.0（作者 Patrick Szymkowiak），內容分散進單一頂層技能的 5 個子資料夾，比照既有慣例在 [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md) 新增一節，Apache-2.0 全文複用 Shubham Saboo 節已有版本不重複貼。
+5. **全域必用資格查核**：5 份文件皆為明確的「backlog 稽核/review/recap」場景觸發，沒有「invoke before any response」語氣，不列入「全域必用」清單。
+
+### 階段 D（文件更新）
+
+`incident-runbooks/SKILL.md`（description 擴充、Domains 表新增 5 列、「How to use this skill」新增 0b 點區分 single-issue vs bulk）、`README.md`（`incident-runbooks` 小節子技能數 4→9、新增 5 條說明、intro 段落延伸算式 230→235、版權聲明新增 1 條）、根目錄 `SKILL.md`（Quick lookup、Full skill list 第 9 列子技能數 4→9、Total 230→235＝251、HTML 註解稽核區塊 incident-runbooks 列表更新、新增 `THIRD-PARTY IMPORT — rtk` 段落）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增 rtk 一節）、`TRIGGER-MAP.md`（新增觸發範例，併入既有的開發流程/品質保證小節）、`skills-search.html`（`DATA` 陣列新增 5 列）。
+
+**本機安裝**：把更新後的 `incident-runbooks` 資料夾整份複製覆蓋到 `C:\Users\user\.claude\skills\incident-runbooks\`（若原本已安裝），讓全域安裝同步含有這 5 個新子技能。
+
+### 最終結果
+
+18 個頂層技能維持不變。`incident-runbooks` 4→9（新增 `issue-triage`／`pr-triage`／`repo-recap`／`pr-review`／`full-triage`），全倉庫子技能總數 230→235。`headroom` 未貢獻任何內容（無 SKILL.md）；`codegraph` 的 2 個技能與 `rtk` 的其餘 7 個技能皆因綁死來源倉庫自身細節而未匯入。這是本倉庫第一次「使用者以為 3 個網址 = 3 個技能，實際讀完內容後只有 1 個來源、5 個子技能真正可用」的案例——WebFetch 頁面摘要判斷來源倉庫是否含有技能並不可靠，未來遇到外部倉庫網址時應直接用 GitHub API 抓完整檔案樹確認，而非僅信任頁面渲染摘要。

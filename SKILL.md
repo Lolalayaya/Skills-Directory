@@ -31,7 +31,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates, make a frontend build stop looking like generic AI output, build/review/audit an interface animation, name a motion effect, pick a UI library, compare UI variants live, audit/scan/fix WCAG accessibility, enforce UI typography rules, design an agentic/relationship-centric UX, generate an infographic, or author a `DESIGN.md` token spec | `scaffolding-templating` |
 | Review code for quality/SOLID/security (two frameworks available), run Semgrep, request/receive a code review, scan for deep-module opportunities, set up quality-gate hooks, check IP/license compliance and dependency security before shipping generated code/content | `code-quality-review` |
 | Deploy to Vercel (interactive or CI/token-based) | `cicd-deployment` |
-| Diagnose a bug/test failure systematically before proposing a fix, or triage incoming bug reports into agent-ready issues | `incident-runbooks` |
+| Diagnose a bug/test failure systematically before proposing a fix, triage incoming bug reports into agent-ready issues, or bulk-audit/review/merge/recap a repo's GitHub issue and PR backlog | `incident-runbooks` |
 | Generate an interactive setup/migration wizard (day-to-day ops guardrails still unfilled) | `infrastructure-ops` |
 | Anything marketing: ads, SEO, copywriting, pricing, onboarding, churn, email/SMS, referrals, launches, positioning, attribution | `marketing` |
 | Create/edit/audit a Claude Code skill itself | `skill-authoring` |
@@ -54,7 +54,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system + anti-AI-slop frontend taste systems + animation/motion engineering + WCAG accessibility pipeline + typography/agentic-UX + design reference catalogs/spec generators + p5.js generative art/export pipeline + disposable UI sketch variants + shadcn/ui's own official skill/migration engine + two animated component galleries (Magic UI, react-bits) | 54 |
 | 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, IP/license + dependency-security guardrails, architecture scanning | 14 — see comment block below |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
-| 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + issue triage | 4 |
+| 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + single-issue triage + bulk GitHub issue/PR backlog triage | 9 |
 | 10 | `infrastructure-ops` | Interactive setup/migration wizard (day-to-day ops still unfilled) | 1 |
 | 11 | `marketing` | Full-funnel marketing, 5 internal sub-groups | 48 |
 | 12 | `skill-authoring` | Build/audit/optimize skills themselves | 5 |
@@ -65,7 +65,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires, research-paper writing, AI-tell removal | 7 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 230 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 246 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180 → +9 from importing Emil Kowalski's third-party `emilkowalski/skills` pack on 2026-08-09 (MIT license, 9 sub-skills — animation/motion engineering + 2 UI-decision tools — folded into `scaffolding-templating`, one renamed to avoid a name collision — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 189 → +17 from importing Firecrawl's own official `firecrawl/cli` + `firecrawl/skills` repos on 2026-08-16 (ISC license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): 5 app-integration skills → `library-api-reference`, 12 live-web-tool + search-index skills → `browser-automation` → 206 → +2 from importing ultimatile's third-party `arxiv-skills` the same day (MIT license, `arxiv-lookup` + `arxiv-doc-builder`, folded into `library-api-reference` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 208 → +1 from importing Master-cai's third-party `research-paper-writing` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 209 → +1 from importing kevintsai1202's third-party `Humanizer-zh-TW` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 210. A 5th source offered the same day, `guillaumemeyer/watermarks-remover`, was **declined** — not imported, see the note at the end of the audit trail below and `SKILL-AUDIT.md` for the full reasoning. → +10 from importing four more sources on 2026-08-16 (evaluated via user-directed comparison against installed skills, not a raw repo import — see `SKILL-AUDIT.md`): AccessLint (5, MIT) → `scaffolding-templating`, bencium.io typography+relationship-design (2, MIT) → `scaffolding-templating`, NousResearch/hermes-agent popular-web-designs+design-md+baoyu-infographic (3, MIT) → `scaffolding-templating` → 220 → +4 from a user-directed set of 9 precision extractions/whole-skill-installs the same day, spanning `bencium-marketplace` and `hermes-agent` (see `SKILL-AUDIT.md`'s "2026-08-16（三）" section): 2 whole-skill installs (`p5js`, `sketch`, both MIT, hermes-agent) → `scaffolding-templating`, 1 whole-skill install (`insurgent-campaign`, MIT, bencium.io) → `marketing`, 1 new standing-reference file (`loyalty-mindset`, extracted from bencium.io's `human-architect-mindset`) → `agentic-dev-workflow`; the remaining 5 items in that batch were surgical fragment-extractions folded into already-existing files (`frontend-design`, `redesign-skill`, `taste-skill`, `hallmark`'s `audit` verb, `ai-seo`) and correctly add **no** new sub-domain `SKILL.md` files → 224 → +1 correction found during this same batch's verification pass: a direct file-count of `scaffolding-templating/references/design/` + `references/general/` turned up 50 sub-domain `SKILL.md` files after adding `p5js`/`sketch`, not 49 — meaning the *prior* session's stated baseline of 47 (before this batch) was itself off by one (should have been 48). Not traced further back through every earlier delta (out of this batch's scope); corrected forward from here. → 225 → +5 from a user-directed deep integration of four external UI references the same day (evaluated via discussion before any file was written, not a raw repo import — see `SKILL-AUDIT.md`'s "2026-08-16（四）" section): shadcn/ui's own official repo ([github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui), MIT) contributed 2 skills vendored byte-for-byte (`shadcn-official`, `migrate-radix-to-base`) → `scaffolding-templating`; Magic UI Design's own official repo ([github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT) contributed 1 skill (`magicui`) → `scaffolding-templating`, its official CLI-workflow skill vendored verbatim plus a new supplementary reference authored for this repo embedding real source for 20 representative components; Adobe's `react-spectrum` monorepo ([github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum), Apache-2.0) contributed 1 skill (`react-aria`) → `library-api-reference`, authored directly from the repo's own package READMEs/`AGENTS.md`/official Tailwind starter kit source (not vendored wholesale, and not from the live docs site, which was unreachable from this environment); DavidHDev's `react-bits` ([github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits), **MIT + Commons Clause** — a non-standard license clause forbidding redistribution of the components themselves) contributed 1 skill (`react-bits`) → `scaffolding-templating`, deliberately containing zero embedded component source (catalog/comparison content only) because of that clause — the first time a license restriction, rather than content overlap or scope mismatch, has driven this repo to deliberately narrow a skill's content depth → 230. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 235 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 251 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180 → +9 from importing Emil Kowalski's third-party `emilkowalski/skills` pack on 2026-08-09 (MIT license, 9 sub-skills — animation/motion engineering + 2 UI-decision tools — folded into `scaffolding-templating`, one renamed to avoid a name collision — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 189 → +17 from importing Firecrawl's own official `firecrawl/cli` + `firecrawl/skills` repos on 2026-08-16 (ISC license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): 5 app-integration skills → `library-api-reference`, 12 live-web-tool + search-index skills → `browser-automation` → 206 → +2 from importing ultimatile's third-party `arxiv-skills` the same day (MIT license, `arxiv-lookup` + `arxiv-doc-builder`, folded into `library-api-reference` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 208 → +1 from importing Master-cai's third-party `research-paper-writing` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 209 → +1 from importing kevintsai1202's third-party `Humanizer-zh-TW` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 210. A 5th source offered the same day, `guillaumemeyer/watermarks-remover`, was **declined** — not imported, see the note at the end of the audit trail below and `SKILL-AUDIT.md` for the full reasoning. → +10 from importing four more sources on 2026-08-16 (evaluated via user-directed comparison against installed skills, not a raw repo import — see `SKILL-AUDIT.md`): AccessLint (5, MIT) → `scaffolding-templating`, bencium.io typography+relationship-design (2, MIT) → `scaffolding-templating`, NousResearch/hermes-agent popular-web-designs+design-md+baoyu-infographic (3, MIT) → `scaffolding-templating` → 220 → +4 from a user-directed set of 9 precision extractions/whole-skill-installs the same day, spanning `bencium-marketplace` and `hermes-agent` (see `SKILL-AUDIT.md`'s "2026-08-16（三）" section): 2 whole-skill installs (`p5js`, `sketch`, both MIT, hermes-agent) → `scaffolding-templating`, 1 whole-skill install (`insurgent-campaign`, MIT, bencium.io) → `marketing`, 1 new standing-reference file (`loyalty-mindset`, extracted from bencium.io's `human-architect-mindset`) → `agentic-dev-workflow`; the remaining 5 items in that batch were surgical fragment-extractions folded into already-existing files (`frontend-design`, `redesign-skill`, `taste-skill`, `hallmark`'s `audit` verb, `ai-seo`) and correctly add **no** new sub-domain `SKILL.md` files → 224 → +1 correction found during this same batch's verification pass: a direct file-count of `scaffolding-templating/references/design/` + `references/general/` turned up 50 sub-domain `SKILL.md` files after adding `p5js`/`sketch`, not 49 — meaning the *prior* session's stated baseline of 47 (before this batch) was itself off by one (should have been 48). Not traced further back through every earlier delta (out of this batch's scope); corrected forward from here. → 225 → +5 from a user-directed deep integration of four external UI references the same day (evaluated via discussion before any file was written, not a raw repo import — see `SKILL-AUDIT.md`'s "2026-08-16（四）" section): shadcn/ui's own official repo ([github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui), MIT) contributed 2 skills vendored byte-for-byte (`shadcn-official`, `migrate-radix-to-base`) → `scaffolding-templating`; Magic UI Design's own official repo ([github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT) contributed 1 skill (`magicui`) → `scaffolding-templating`, its official CLI-workflow skill vendored verbatim plus a new supplementary reference authored for this repo embedding real source for 20 representative components; Adobe's `react-spectrum` monorepo ([github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum), Apache-2.0) contributed 1 skill (`react-aria`) → `library-api-reference`, authored directly from the repo's own package READMEs/`AGENTS.md`/official Tailwind starter kit source (not vendored wholesale, and not from the live docs site, which was unreachable from this environment); DavidHDev's `react-bits` ([github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits), **MIT + Commons Clause** — a non-standard license clause forbidding redistribution of the components themselves) contributed 1 skill (`react-bits`) → `scaffolding-templating`, deliberately containing zero embedded component source (catalog/comparison content only) because of that clause — the first time a license restriction, rather than content overlap or scope mismatch, has driven this repo to deliberately narrow a skill's content depth → 230 → +5 from importing Patrick Szymkowiak's third-party `rtk` repo on 2026-09-14 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): the user supplied three repo URLs (`rtk-ai/rtk`, `headroomlabs-ai/headroom`, `colbymchenry/codegraph`) expecting one skill each, but full-content assessment (not just description-skimming) found only 5 of `rtk`'s 12 `.claude/skills/` entries were portable — `issue-triage`, `pr-triage`, `repo-recap`, `pr-review`, and `rtk-triage` (renamed `full-triage` to drop the RTK branding and avoid reading as a duplicate of this repo's own `triage`) — all folded into `incident-runbooks` as a new bulk GitHub-backlog-triage group, translated from the source's French-default output to English-only per user request, and de-branded (a hardcoded `rtk-ai/rtk` API path, RTK-specific save paths/attribution footers, and a "boldguy" persona name replaced with dynamic/generic equivalents). The other 7 `rtk` skills (`code-simplifier`, `design-patterns`, `performance`, `security-guardian`, `ship`, `rtk-tdd`, `tdd-rust`) and both of `codegraph`'s skills (`add-lang`, `agent-eval`) were evaluated and declined as non-portable — hardcoded to each source repo's own file layout, binary, or performance targets. `headroom` was evaluated the same session and contains no Claude Code skill at all (no `SKILL.md` anywhere in the repo) — nothing to import from it. Full placement reasoning: `SKILL-AUDIT.md`. → 235. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -192,10 +192,13 @@ code-quality-review (14, was 6, +6 from the mattpocock-skills import,
 cicd-deployment (2):
   deploy-to-vercel, vercel-cli-with-tokens
 
-incident-runbooks (4, was 1, +2 from the mattpocock-skills import,
-  +1 from the awesome-llm-apps import):
+incident-runbooks (9, was 1, +2 from the mattpocock-skills import,
+  +1 from the awesome-llm-apps import, +5 from the rtk import on
+  2026-09-14 — see THIRD-PARTY IMPORT below):
   systematic-debugging (absorbed mattpocock-skills' diagnosing-bugs —
-  see THIRD-PARTY IMPORT below), triage, qa, commit-archaeologist
+  see THIRD-PARTY IMPORT below), triage, qa, commit-archaeologist,
+  issue-triage, pr-triage, repo-recap, pr-review, full-triage (renamed
+  from rtk's rtk-triage)
 
 infrastructure-ops (1, was 0 placeholder, +1 from the third-party
   import):
@@ -1385,6 +1388,112 @@ scaffolding-templating (`p5js`, `sketch`, plus the frontend-design/
 redesign-skill/taste-skill/hallmark fragment edits), marketing
 (`insurgent-campaign`, plus the ai-seo fragment edit), agentic-dev-workflow
 (`loyalty-mindset`).
+=======================================================================
+
+=======================================================================
+THIRD-PARTY IMPORT — rtk (Patrick Szymkowiak, Apache-2.0 license),
+2026-09-14. Full license text and attribution: THIRD-PARTY-LICENSES.md.
+
+User supplied 3 repo URLs (rtk-ai/rtk, headroomlabs-ai/headroom,
+colbymchenry/codegraph) expecting each to contribute a skill. Initial
+description-only pass (WebFetch on each repo's rendered page) wrongly
+concluded rtk and headroom had no `.claude/skills/` at all — corrected
+by fetching each repo's actual git tree via the GitHub API, which found
+rtk has 12 skills and codegraph has 2; headroom genuinely has none (no
+SKILL.md anywhere in its tree, only `.claude/.headroom_wrap_settings.lock`
+and Claude-provider integration code). This is the second time in this
+repo's history that description-only or page-only assessment produced a
+wrong placement/scoping conclusion — full-tree/full-content reading is
+mandatory, not just this repo's own SKILL.md files as Phase A already
+required, but the *source* repo's file listing too.
+
+All 12 rtk skills and both codegraph skills were read in full before
+deciding. Only 5 of rtk's 12 were judged portable — genuinely reusable
+GitHub-workflow automation with no dependency on RTK's own binary, file
+layout, or performance targets:
+- `issue-triage` (364 lines) — bulk audit of open issues: categorize,
+  Jaccard-similarity duplicate detection, PR cross-ref, risk keywords,
+  staleness; opt-in per-issue subagent deep-analysis; draft-then-approve
+  comment/label/close actions. No RTK-specific mechanics found.
+- `pr-triage` (332 lines) — same shape for open PRs: size/CI/overlap/
+  cluster detection; opt-in code-reviewer subagent deep review. No
+  RTK-specific mechanics found.
+- `repo-recap` (216 lines) — lightweight shareable Markdown status
+  summary (PRs/issues/releases + executive summary). Already fully
+  generic in the source.
+- `pr-review` (227 lines) — interactive smallest-first PR review/merge
+  loop with mandatory per-PR sign-off. Found one actual bug in the
+  source: `gh api repos/rtk-ai/rtk/pulls/<num>/reviews` hardcodes the
+  rtk-ai/rtk repo path, contradicting the sibling skills' own "always
+  derive owner/repo via `gh repo view`, never hardcode" rule — fixed to
+  derive dynamically when porting in.
+- `rtk-triage` (244 lines) — orchestrates issue-triage + pr-triage and
+  adds cross-analysis (double-covered issues, security findings with no
+  PR, orphaned P0/P1 bugs, our own dirty/conflicting PRs). Renamed
+  `full-triage`: the source name, its save path
+  (`claudedocs/RTK-YYYY-MM-DD.md`), and its `# RTK Triage` heading were
+  all RTK-branded, and the name would also misread as a duplicate of
+  this repo's own pre-existing `incident-runbooks/references/triage`.
+
+Declined as non-portable (hardcoded to their source repo's own file
+layout, binary, or performance targets — would not trigger usefully
+anywhere else): rtk's `code-simplifier`, `design-patterns`, `performance`
+(RTK's own Rust filter-module conventions and <10ms/<5MB targets),
+`security-guardian` (RTK's own CLI-proxy threat model and hook scripts),
+`ship` (RTK's own crates.io/Cargo.toml release flow), `rtk-tdd` and
+`tdd-rust` (both RTK filter-development TDD — also near-duplicates of
+each other within the source repo itself, and largely redundant with
+this repo's own language-agnostic
+`product-verification/references/test-driven-development`); codegraph's
+`add-lang` and `agent-eval` (both drive codegraph's own TypeScript
+source tree and benchmark harness).
+
+**Language**: source skills defaulted to French output with an `en`
+override (an rtk-specific author preference); user explicitly asked for
+English-only, so all "Langue"/language-switch sections were removed
+and every file rewritten as English-only. `repo-recap` was already
+English by default — only its French option branch was dropped.
+
+**De-branding, beyond the pr-review hardcode fix above**: RTK-specific
+attribution footers ("Triaged via rtk", "Automated review via rtk") were
+removed from both bundled comment templates; each template's
+"RTK-specific context/checks" subsection was generalized into a
+"project-specific context/checks" note pointing at whatever conventions
+the actual host repo documents, instead of RTK's own; pr-review's
+"boldguy" persona name and its RTK-specific frequently-conflicting-files
+list (CHANGELOG.md, src/discover/rules.rs, etc.) were replaced with a
+generic tone description and a pointer to the host repo's own
+CONTRIBUTING notes if any.
+
+**Naming-collision check**: `issue-triage`, `pr-triage`, `repo-recap`,
+`pr-review` (folder name + frontmatter `name:`) grepped against the full
+repo — no collisions. `rtk-triage` would not have collided literally
+either, but was renamed to `full-triage` anyway per Phase B/C reasoning
+above (RTK branding + confusability with the pre-existing `triage`).
+
+**Overlap check (Phase A/B)**: cross-referenced against the pre-existing
+`incident-runbooks/references/triage` (Matt Pocock's skill, imported
+2026-07-31). Read in full: `triage` moves *one* issue/PR through a
+label state machine into an agent-ready spec; the 5 new skills bulk-audit
+the *entire* open backlog for duplicates/staleness/risk/overlap and
+optionally act on many items at once. Different mechanics, different
+output shape, genuinely complementary — not merged, per the standing
+"don't merge on thematic overlap alone" rule. Cross-reference notes
+added both directions (`triage`'s own domain-table row now says
+"single-issue"; each of the 5 new skills' own SKILL.md opens with a
+"not the same as ../triage" note).
+
+Folded into incident-runbooks (not a new top-level category) as
+`references/issue-triage/`, `references/pr-triage/`, `references/
+repo-recap/`, `references/pr-review/`, `references/full-triage/` —
+listed in that skill's own Domains table as a new bulk-backlog-triage
+group, with `incident-runbooks/SKILL.md`'s top-level description and
+"How to use this skill" section updated to route between single-issue
+`triage` and the new bulk group.
+
+Not added to the Universal table: none of the 5 carry "invoke before
+any response"/"MUST use" language — all are scoped to explicit
+backlog-audit/review/recap requests.
 =======================================================================
 -->
 
