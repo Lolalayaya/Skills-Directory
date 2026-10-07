@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  body { font-family: Satoshi, sans-serif; }
+  /* Inter is only a fallback, not default */
+  .heading { font-family: Satoshi, Inter, sans-serif; }
+  /* Dark mode via CSS variables */
+  :root { --bg: #fafafa; --text: #18181b; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0a0a0a; --text: #fafafa; } }
+</style>
+</head>
+<body>
+<nav class="h-16 flex items-center px-6">
+  <span>Craftwork</span>
+</nav>
+
+<section class="hero pt-24 min-h-[100dvh]">
+  <h1>Made by hand</h1>
+  <p>Premium consumer goods from our studio in Kyoto. €40-80k range.</p>
+  <button>Book a Demo</button>
+</section>
+
+<section class="py-16">
+  <img src="https://picsum.photos/seed/craft-hero/1600/900" alt="Studio">
+  <img src="https://picsum.photos/seed/craft-detail/800/600" alt="Detail">
+  <img src="https://picsum.photos/seed/craft-process/800/600" alt="Process">
+</section>
+
+<section class="py-16">
+  <p>Every 2018-2026 piece is unique. #d4c5a9 and #c4a882 tones.</p>
+</section>
+
+<footer class="py-12">
+  <button>Book a Demo</button>
+</footer>
+</body>
+</html>

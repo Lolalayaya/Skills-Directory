@@ -913,6 +913,7 @@ This skill is NOT for:
 * Code editors (use Monaco / CodeMirror with their official skinning).
 * Native mobile (use Apple HIG / Material directly).
 * Realtime collab UIs (presence, cursors, OT-aware - different problem class).
+* Slide decks / presentations (pitch decks, keynotes, "N slides about X") - use [`../taste-deck/SKILL.md`](../taste-deck/SKILL.md) instead, a fixed-stage deck system with a real-brand showcase library and value-layer fidelity this skill doesn't have.
 
 If the brief is one of the above, **say so explicitly**, point to the right tool, and only apply this skill's marketing-page / about-page / landing-page parts to the surfaces where they apply.
 

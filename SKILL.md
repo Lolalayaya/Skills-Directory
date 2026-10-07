@@ -27,8 +27,8 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | Prove a fix/feature actually works (Playwright), apply the verification/TDD discipline, or ban truncated/placeholder output | `product-verification` |
 | Figure out why a deployed (Vercel) app is slow/expensive from real metrics | `data-analysis` |
 | Keep a long task's plan/progress on disk across sessions and `/clear`, or turn a recurring pattern into a workflow spec | `business-automation` |
-| Create/edit .docx/.xlsx/.pptx/.pdf, build an MCP server, write React/Next.js/React Native code, wire Firecrawl into product code, or fetch/convert an arXiv paper to Markdown | `library-api-reference` |
-| Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates, make a frontend build stop looking like generic AI output, build/review/audit an interface animation, name a motion effect, pick a UI library, compare UI variants live, audit/scan/fix WCAG accessibility, enforce UI typography rules, design an agentic/relationship-centric UX, generate an infographic, or author a `DESIGN.md` token spec | `scaffolding-templating` |
+| Create/edit .docx/.xlsx/.pptx/.pdf, build an MCP server, write React/Next.js/React Native code, wire Firecrawl into product code, fetch/convert an arXiv paper to Markdown, or create/edit a Remotion programmatic video | `library-api-reference` |
+| Build a banner/logo/slide deck/theme, set up a design system, review UI or writing style, scaffold pages from templates, make a frontend build stop looking like generic AI output, build/review/audit an interface animation, name a motion effect, pick a UI library, compare UI variants live, audit/scan/fix WCAG accessibility, enforce UI typography rules, design an agentic/relationship-centric UX, generate an infographic, author a `DESIGN.md` token spec, run a closed-source-engine frontend-craft CLI (`impeccable`), or generate a real-brand value-locked HTML slide deck (`taste-deck`) | `scaffolding-templating` |
 | Review code for quality/SOLID/security (two frameworks available), run Semgrep, request/receive a code review, scan for deep-module opportunities, set up quality-gate hooks, check IP/license compliance and dependency security before shipping generated code/content | `code-quality-review` |
 | Deploy to Vercel (interactive or CI/token-based) | `cicd-deployment` |
 | Diagnose a bug/test failure systematically before proposing a fix, triage incoming bug reports into agent-ready issues, or bulk-audit/review/merge/recap a repo's GitHub issue and PR backlog | `incident-runbooks` |
@@ -50,8 +50,8 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 2 | `product-verification` | Prove work actually works before claiming done, plus full-output enforcement | 4 |
 | 3 | `data-analysis` | Metrics-driven optimization (Vercel only, for now) | 1 |
 | 4 | `business-automation` | Persistent file-based task planning across sessions, plus workflow-spec design | 5 (1 core +2 language variants +2 from third-party imports) |
-| 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs, React Aria headless components/hooks, Firecrawl SDK integration, arXiv paper tooling | 17 |
-| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system + anti-AI-slop frontend taste systems + animation/motion engineering + WCAG accessibility pipeline + typography/agentic-UX + design reference catalogs/spec generators + p5.js generative art/export pipeline + disposable UI sketch variants + shadcn/ui's own official skill/migration engine + two animated component galleries (Magic UI, react-bits) | 54 |
+| 5 | `library-api-reference` | Office file formats, MCP building, Vercel/React APIs, React Aria headless components/hooks, Firecrawl SDK integration, arXiv paper tooling, Remotion programmatic video | 18 |
+| 6 | `scaffolding-templating` | Templates/scaffolds — general + full design system + anti-AI-slop frontend taste systems + animation/motion engineering + WCAG accessibility pipeline + typography/agentic-UX + design reference catalogs/spec generators + p5.js generative art/export pipeline + disposable UI sketch variants + shadcn/ui's own official skill/migration engine + two animated component galleries (Magic UI, react-bits) + a closed-source-engine frontend-craft CLI (impeccable) + a real-brand value-locked deck generator (taste-deck) | 56 |
 | 7 | `code-quality-review` | Code review (two frameworks), static analysis, secure coding, IP/license + dependency-security guardrails, architecture scanning | 14 — see comment block below |
 | 8 | `cicd-deployment` | Deploy to Vercel, interactive or CI | 2 |
 | 9 | `incident-runbooks` | Systematic debugging + diagnostic write-ups + single-issue triage + bulk GitHub issue/PR backlog triage | 9 |
@@ -65,7 +65,7 @@ These sub-domains carry "always / before any / MUST" language in their own sourc
 | 17 | `internal-writing-comms` | Doc co-authoring, internal comms formats, article drafting/editing, questionnaires, research-paper writing, AI-tell removal | 7 |
 | 18 | `context-engineering-collection` | Context/harness engineering, multi-agent systems (untouched, never split) | 16 |
 
-Total: 235 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 251 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180 → +9 from importing Emil Kowalski's third-party `emilkowalski/skills` pack on 2026-08-09 (MIT license, 9 sub-skills — animation/motion engineering + 2 UI-decision tools — folded into `scaffolding-templating`, one renamed to avoid a name collision — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 189 → +17 from importing Firecrawl's own official `firecrawl/cli` + `firecrawl/skills` repos on 2026-08-16 (ISC license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): 5 app-integration skills → `library-api-reference`, 12 live-web-tool + search-index skills → `browser-automation` → 206 → +2 from importing ultimatile's third-party `arxiv-skills` the same day (MIT license, `arxiv-lookup` + `arxiv-doc-builder`, folded into `library-api-reference` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 208 → +1 from importing Master-cai's third-party `research-paper-writing` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 209 → +1 from importing kevintsai1202's third-party `Humanizer-zh-TW` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 210. A 5th source offered the same day, `guillaumemeyer/watermarks-remover`, was **declined** — not imported, see the note at the end of the audit trail below and `SKILL-AUDIT.md` for the full reasoning. → +10 from importing four more sources on 2026-08-16 (evaluated via user-directed comparison against installed skills, not a raw repo import — see `SKILL-AUDIT.md`): AccessLint (5, MIT) → `scaffolding-templating`, bencium.io typography+relationship-design (2, MIT) → `scaffolding-templating`, NousResearch/hermes-agent popular-web-designs+design-md+baoyu-infographic (3, MIT) → `scaffolding-templating` → 220 → +4 from a user-directed set of 9 precision extractions/whole-skill-installs the same day, spanning `bencium-marketplace` and `hermes-agent` (see `SKILL-AUDIT.md`'s "2026-08-16（三）" section): 2 whole-skill installs (`p5js`, `sketch`, both MIT, hermes-agent) → `scaffolding-templating`, 1 whole-skill install (`insurgent-campaign`, MIT, bencium.io) → `marketing`, 1 new standing-reference file (`loyalty-mindset`, extracted from bencium.io's `human-architect-mindset`) → `agentic-dev-workflow`; the remaining 5 items in that batch were surgical fragment-extractions folded into already-existing files (`frontend-design`, `redesign-skill`, `taste-skill`, `hallmark`'s `audit` verb, `ai-seo`) and correctly add **no** new sub-domain `SKILL.md` files → 224 → +1 correction found during this same batch's verification pass: a direct file-count of `scaffolding-templating/references/design/` + `references/general/` turned up 50 sub-domain `SKILL.md` files after adding `p5js`/`sketch`, not 49 — meaning the *prior* session's stated baseline of 47 (before this batch) was itself off by one (should have been 48). Not traced further back through every earlier delta (out of this batch's scope); corrected forward from here. → 225 → +5 from a user-directed deep integration of four external UI references the same day (evaluated via discussion before any file was written, not a raw repo import — see `SKILL-AUDIT.md`'s "2026-08-16（四）" section): shadcn/ui's own official repo ([github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui), MIT) contributed 2 skills vendored byte-for-byte (`shadcn-official`, `migrate-radix-to-base`) → `scaffolding-templating`; Magic UI Design's own official repo ([github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT) contributed 1 skill (`magicui`) → `scaffolding-templating`, its official CLI-workflow skill vendored verbatim plus a new supplementary reference authored for this repo embedding real source for 20 representative components; Adobe's `react-spectrum` monorepo ([github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum), Apache-2.0) contributed 1 skill (`react-aria`) → `library-api-reference`, authored directly from the repo's own package READMEs/`AGENTS.md`/official Tailwind starter kit source (not vendored wholesale, and not from the live docs site, which was unreachable from this environment); DavidHDev's `react-bits` ([github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits), **MIT + Commons Clause** — a non-standard license clause forbidding redistribution of the components themselves) contributed 1 skill (`react-bits`) → `scaffolding-templating`, deliberately containing zero embedded component source (catalog/comparison content only) because of that clause — the first time a license restriction, rather than content overlap or scope mismatch, has driven this repo to deliberately narrow a skill's content depth → 230 → +5 from importing Patrick Szymkowiak's third-party `rtk` repo on 2026-09-14 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): the user supplied three repo URLs (`rtk-ai/rtk`, `headroomlabs-ai/headroom`, `colbymchenry/codegraph`) expecting one skill each, but full-content assessment (not just description-skimming) found only 5 of `rtk`'s 12 `.claude/skills/` entries were portable — `issue-triage`, `pr-triage`, `repo-recap`, `pr-review`, and `rtk-triage` (renamed `full-triage` to drop the RTK branding and avoid reading as a duplicate of this repo's own `triage`) — all folded into `incident-runbooks` as a new bulk GitHub-backlog-triage group, translated from the source's French-default output to English-only per user request, and de-branded (a hardcoded `rtk-ai/rtk` API path, RTK-specific save paths/attribution footers, and a "boldguy" persona name replaced with dynamic/generic equivalents). The other 7 `rtk` skills (`code-simplifier`, `design-patterns`, `performance`, `security-guardian`, `ship`, `rtk-tdd`, `tdd-rust`) and both of `codegraph`'s skills (`add-lang`, `agent-eval`) were evaluated and declined as non-portable — hardcoded to each source repo's own file layout, binary, or performance targets. `headroom` was evaluated the same session and contains no Claude Code skill at all (no `SKILL.md` anywhere in the repo) — nothing to import from it. Full placement reasoning: `SKILL-AUDIT.md`. → 235. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
+Total: 238 sub-domains across the 17 non-`context-engineering-collection` skills + `context-engineering-collection`'s own 16 (never touched by the consolidation) = 254 sub-skill-level `SKILL.md` files. History: 137 originally installed → −7 removed at the 2026-07-31 health check → 130 → +30 from importing and distributing the third-party `mattpocock-skills` pack the same day (MIT license, Matt Pocock — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 160 → +1 from importing forrestchang's third-party `andrej-karpathy-skills` pack on 2026-08-01 (single skill, `karpathy-guidelines`, folded into `agentic-dev-workflow` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 161 → +4 from importing 4 of the 5 skills in Shubham Saboo's third-party `awesome-llm-apps` repo's `agent_skills/` folder on 2026-08-01 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): `commit-archaeologist` → `incident-runbooks`, `project-graveyard` → `business-automation`, `scope-creep-detector` → `code-quality-review`, `thinking-out-loud` → `agentic-dev-workflow` (the 5th, `advisor-orchestrator-worker`, was excluded as redundant with this environment's native `Workflow` tool) → 165 → +1 from importing Mugdha Vairagade's third-party `claude-skill-ip-guard` on 2026-08-02 (Apache-2.0 license, single skill `ip-guard`, folded into `code-quality-review` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 166 → +12 from importing Leonxlnx's third-party `taste-skill` pack on 2026-08-05 (MIT license, 12 sub-skills, 11 folded into `scaffolding-templating` and 1 — `output-skill` — folded into `product-verification` since it isn't a design skill — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 178 → +1 from importing Nutlope's third-party `hallmark` on 2026-08-05 (MIT license, single skill, folded into `scaffolding-templating` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 179 → +1 from importing the AnySearch Team's third-party `anysearch-skill` on 2026-08-07 (Apache-2.0 license, single skill `anysearch`, folded into `browser-automation` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 180 → +9 from importing Emil Kowalski's third-party `emilkowalski/skills` pack on 2026-08-09 (MIT license, 9 sub-skills — animation/motion engineering + 2 UI-decision tools — folded into `scaffolding-templating`, one renamed to avoid a name collision — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 189 → +17 from importing Firecrawl's own official `firecrawl/cli` + `firecrawl/skills` repos on 2026-08-16 (ISC license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): 5 app-integration skills → `library-api-reference`, 12 live-web-tool + search-index skills → `browser-automation` → 206 → +2 from importing ultimatile's third-party `arxiv-skills` the same day (MIT license, `arxiv-lookup` + `arxiv-doc-builder`, folded into `library-api-reference` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 208 → +1 from importing Master-cai's third-party `research-paper-writing` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 209 → +1 from importing kevintsai1202's third-party `Humanizer-zh-TW` the same day (MIT license, folded into `internal-writing-comms` — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)) → 210. A 5th source offered the same day, `guillaumemeyer/watermarks-remover`, was **declined** — not imported, see the note at the end of the audit trail below and `SKILL-AUDIT.md` for the full reasoning. → +10 from importing four more sources on 2026-08-16 (evaluated via user-directed comparison against installed skills, not a raw repo import — see `SKILL-AUDIT.md`): AccessLint (5, MIT) → `scaffolding-templating`, bencium.io typography+relationship-design (2, MIT) → `scaffolding-templating`, NousResearch/hermes-agent popular-web-designs+design-md+baoyu-infographic (3, MIT) → `scaffolding-templating` → 220 → +4 from a user-directed set of 9 precision extractions/whole-skill-installs the same day, spanning `bencium-marketplace` and `hermes-agent` (see `SKILL-AUDIT.md`'s "2026-08-16（三）" section): 2 whole-skill installs (`p5js`, `sketch`, both MIT, hermes-agent) → `scaffolding-templating`, 1 whole-skill install (`insurgent-campaign`, MIT, bencium.io) → `marketing`, 1 new standing-reference file (`loyalty-mindset`, extracted from bencium.io's `human-architect-mindset`) → `agentic-dev-workflow`; the remaining 5 items in that batch were surgical fragment-extractions folded into already-existing files (`frontend-design`, `redesign-skill`, `taste-skill`, `hallmark`'s `audit` verb, `ai-seo`) and correctly add **no** new sub-domain `SKILL.md` files → 224 → +1 correction found during this same batch's verification pass: a direct file-count of `scaffolding-templating/references/design/` + `references/general/` turned up 50 sub-domain `SKILL.md` files after adding `p5js`/`sketch`, not 49 — meaning the *prior* session's stated baseline of 47 (before this batch) was itself off by one (should have been 48). Not traced further back through every earlier delta (out of this batch's scope); corrected forward from here. → 225 → +5 from a user-directed deep integration of four external UI references the same day (evaluated via discussion before any file was written, not a raw repo import — see `SKILL-AUDIT.md`'s "2026-08-16（四）" section): shadcn/ui's own official repo ([github.com/shadcn-ui/ui](https://github.com/shadcn-ui/ui), MIT) contributed 2 skills vendored byte-for-byte (`shadcn-official`, `migrate-radix-to-base`) → `scaffolding-templating`; Magic UI Design's own official repo ([github.com/magicuidesign/magicui](https://github.com/magicuidesign/magicui), MIT) contributed 1 skill (`magicui`) → `scaffolding-templating`, its official CLI-workflow skill vendored verbatim plus a new supplementary reference authored for this repo embedding real source for 20 representative components; Adobe's `react-spectrum` monorepo ([github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum), Apache-2.0) contributed 1 skill (`react-aria`) → `library-api-reference`, authored directly from the repo's own package READMEs/`AGENTS.md`/official Tailwind starter kit source (not vendored wholesale, and not from the live docs site, which was unreachable from this environment); DavidHDev's `react-bits` ([github.com/DavidHDev/react-bits](https://github.com/DavidHDev/react-bits), **MIT + Commons Clause** — a non-standard license clause forbidding redistribution of the components themselves) contributed 1 skill (`react-bits`) → `scaffolding-templating`, deliberately containing zero embedded component source (catalog/comparison content only) because of that clause — the first time a license restriction, rather than content overlap or scope mismatch, has driven this repo to deliberately narrow a skill's content depth → 230 → +5 from importing Patrick Szymkowiak's third-party `rtk` repo on 2026-09-14 (Apache-2.0 license — see [`THIRD-PARTY-LICENSES.md`](THIRD-PARTY-LICENSES.md)): the user supplied three repo URLs (`rtk-ai/rtk`, `headroomlabs-ai/headroom`, `colbymchenry/codegraph`) expecting one skill each, but full-content assessment (not just description-skimming) found only 5 of `rtk`'s 12 `.claude/skills/` entries were portable — `issue-triage`, `pr-triage`, `repo-recap`, `pr-review`, and `rtk-triage` (renamed `full-triage` to drop the RTK branding and avoid reading as a duplicate of this repo's own `triage`) — all folded into `incident-runbooks` as a new bulk GitHub-backlog-triage group, translated from the source's French-default output to English-only per user request, and de-branded (a hardcoded `rtk-ai/rtk` API path, RTK-specific save paths/attribution footers, and a "boldguy" persona name replaced with dynamic/generic equivalents). The other 7 `rtk` skills (`code-simplifier`, `design-patterns`, `performance`, `security-guardian`, `ship`, `rtk-tdd`, `tdd-rust`) and both of `codegraph`'s skills (`add-lang`, `agent-eval`) were evaluated and declined as non-portable — hardcoded to each source repo's own file layout, binary, or performance targets. `headroom` was evaluated the same session and contains no Claude Code skill at all (no `SKILL.md` anywhere in the repo) — nothing to import from it. Full placement reasoning: `SKILL-AUDIT.md`. → 235 → +3 from a 2026-10-07 batch covering three more sources (two repo URLs plus one fetched via the official `skills` CLI rather than git): Paul Bakaus's `impeccable` (Apache-2.0 — see `THIRD-PARTY-LICENSES.md`) contributed 1 skill → `scaffolding-templating`, vendored in full (~40 reference files + scripts) but with a new first-run confirmation gate added around its closed-source auto-downloaded binary (not present upstream — see `SKILL-AUDIT.md` for the full risk discussion and the user's explicit decision); changemaner's `design-taste-frontend` (MIT) contributed 1 skill, `taste-deck` → `scaffolding-templating`, a **partial** import after a background-agent full-content comparison found its general frontend-design content near word-for-word identical to this repo's own pre-existing `taste-skill` — only the deck/slide-generation half (not covered anywhere else in this repo) was kept, the duplicate half declined; `remotion-dev/skills` (non-standard source-available "Remotion License", flagged like `react-bits` — see `THIRD-PARTY-LICENSES.md`) contributed 1 skill, `remotion-best-practices` → `library-api-reference`, vendored byte-for-byte via `npx skills use` rather than git clone, no overlap with existing content → 238. Full reasoning for every addition/removal/merge: `SKILL-AUDIT.md`.
 
 ## How to use this index
 
@@ -142,16 +142,18 @@ business-automation (5, was 3 after the 2026-07-31 removals, +1 from the
   planning-with-files, planning-with-files-zh, planning-with-files-zht,
   loop-me, project-graveyard
 
-library-api-reference (17, was 9, +5 from the firecrawl/skills import,
+library-api-reference (18, was 9, +5 from the firecrawl/skills import,
   +2 from the arxiv-skills import, +1 from the adobe/react-spectrum
-  import on 2026-08-16 — see THIRD-PARTY IMPORT below):
+  import on 2026-08-16, +1 from the remotion-dev/skills import on
+  2026-10-07 (fetched via the `skills` CLI, not git clone) — see
+  THIRD-PARTY IMPORT below):
   docx, xlsx, pptx, pdf, mcp-builder, vercel-react-best-practices,
   vercel-react-native-skills, vercel-react-view-transitions,
   vercel-composition-patterns, react-aria, firecrawl-build,
   firecrawl-build-scrape, firecrawl-build-search, firecrawl-build-interact,
-  firecrawl-build-onboarding, arxiv-lookup, arxiv-doc-builder
+  firecrawl-build-onboarding, arxiv-lookup, arxiv-doc-builder, remotion
 
-scaffolding-templating (54, was 16 after the REMOVALS below, +12 from the
+scaffolding-templating (56, was 16 after the REMOVALS below, +12 from the
   taste-skill import, +1 from the hallmark import, +9 from the
   emilkowalski/skills import, +10 from the AccessLint +
   bencium.io + hermes-agent imports on 2026-08-16, +2 from the same-day
@@ -162,7 +164,9 @@ scaffolding-templating (54, was 16 after the REMOVALS below, +12 from the
   AccessLint/bencium.io/ hermes-agent batch was 47; a direct file-count
   during the later p5js/sketch batch's own verification found 48
   pre-existing sub-domain SKILL.md files at that point, not 47 —
-  corrected here, not traced further back):
+  corrected here, not traced further back; +1 from the impeccable import
+  and +1 from the design-taste-frontend partial import, both 2026-10-07
+  — see THIRD-PARTY IMPORT below):
   programmatic-seo, design, design-system, ui-styling, shadcn-official
   (frontmatter name `shadcn`), migrate-radix-to-base, magicui,
   react-bits, ui-ux-pro-max,
@@ -179,7 +183,8 @@ scaffolding-templating (54, was 16 after the REMOVALS below, +12 from the
   `prototype` — see THIRD-PARTY IMPORT below), accessibility-audit,
   accessibility-scan, accessibility-inspect, accessibility-diff,
   accessibility-fix, ui-typography, relationship-design,
-  popular-web-designs, design-md, baoyu-infographic, p5js, sketch
+  popular-web-designs, design-md, baoyu-infographic, p5js, sketch,
+  impeccable, taste-deck
 
 code-quality-review (14, was 6, +6 from the mattpocock-skills import,
   +1 from the awesome-llm-apps import, +1 from the claude-skill-ip-guard
@@ -1494,6 +1499,133 @@ group, with `incident-runbooks/SKILL.md`'s top-level description and
 Not added to the Universal table: none of the 5 carry "invoke before
 any response"/"MUST use" language — all are scoped to explicit
 backlog-audit/review/recap requests.
+=======================================================================
+
+=======================================================================
+THIRD-PARTY IMPORT — impeccable (Paul Bakaus, Apache-2.0 license) +
+design-taste-frontend (changemaner, MIT license, partial) +
+remotion-dev/skills (Remotion, non-standard source-available license),
+2026-10-07. Full license text and attribution: THIRD-PARTY-LICENSES.md.
+
+User supplied 2 repo URLs (pbakaus/impeccable,
+changemaner/design-taste-frontend) plus a direct instruction to run
+`npx skills use "https://github.com/remotion-dev/skills" --skill
+"remotion-best-practices"` and follow its generated output. All three
+turned out larger/more complicated than "one skill per source":
+
+**impeccable**: not a markdown skill but a commercial-grade product
+(v4.5.0) — ~40 reference docs covering a full frontend-craft command
+set (shape/init/document/extract/critique/audit/polish/bolder/quieter/
+distill/harden/onboard/animate/colorize/typeset/layout/delight/
+overdrive/clarify/adapt/optimize/live/generate), plus a
+`scripts/impeccable` launcher that downloads and executes a
+closed-source compiled binary on first run. The launcher script itself
+was read in full (POSIX sh + a Windows .cmd mirror) and found to
+download only from `github.com/pbakaus/impeccable/releases/`
+(the source repo's own official Releases, not a third-party server),
+checksum-verified against a `.sha256` sidecar before execution,
+failing closed on any verification problem — a legitimate, well-built
+update mechanism, not an arbitrary unverified fetch. The actual engine
+binary remains closed-source and unauditable regardless. Flagged this
+explicitly to the user (initially overstated as "pbakaus's own server"
+before double-checking the actual download URL in the script — corrected
+to "GitHub Releases of the same repo" once verified) and asked for a
+scope decision; the user chose to vendor the skill in full (not
+docs-only) but asked for an added safety gate. A new "Setup → 0.
+First-run confirmation gate" section was written into the vendored
+`SKILL.md` (not present upstream) requiring an explicit user
+confirmation before the first download+execute, with a documented
+fallback (read PRODUCT.md/DESIGN.md manually) if declined. Vendored
+whole from the source repo's `.claude/skills/impeccable/` directory
+(the repo also ships identical copies for `.agent/`, `.agents/`,
+`.cursor/` — only the Claude Code copy was needed). Sub-attribution
+carried forward per the source's own NOTICE.md: `reference/ios.md` and
+`reference/android.md` derive from ehmo's `platform-design-skills`
+(MIT). Folded into scaffolding-templating as
+`references/design/impeccable/`, with no physical merge into the
+existing taste-skill/hallmark/animation-engineering/AccessLint cluster
+it thematically overlaps — it's architecturally a different system
+(verb-based CLI router with its own PRODUCT.md/DESIGN.md project-state
+files) not a prose rule set, so coexistence rather than merge, per the
+standing "don't merge on overlap alone" rule. Full overlap-checking was
+done against the main SKILL.md plus spot-checks of a few reference
+files, not all ~40 individually, given the scale — disclosed here
+rather than silently claiming exhaustive coverage.
+
+**design-taste-frontend**: large (500+ files, ~16MB) — an anti-AI-slop
+frontend + slide-deck skill built around a 30-real-brand showcase
+library, mostly bilingual English/Simplified-Chinese. A background
+agent (general-purpose, run async while the other two sources were
+being handled) did a full-content comparison against this repo's
+pre-existing `scaffolding-templating/references/design/taste-skill/`
+(1218 lines) and confirmed the source's SKILL.md §0-14 plus 4 of its 5
+externalized reference files are near word-for-word identical to
+taste-skill — same three-dial system (verified directly: `DESIGN_VARIANCE
+8`/`MOTION_INTENSITY 6`/`VISUAL_DENSITY 4` match character-for-character
+including the 1-10 scale descriptions), same AI-tell catalog, same
+redesign protocol, same pre-flight checklist. That duplicate half was
+declined. Only the genuinely novel deck-generation half was imported,
+confirmed not covered by any existing skill (including the pre-existing
+lightweight `slides` skill, which lacks fixed-stage/safety-area/
+value-layer fidelity entirely): `reference/deck-mode.md` (full §15-16
+fixed-stage deck contract + CJK typography fallback), `freeplay-
+declaration.md`, `deploy-guide.md`, `annotation-guide.md`,
+`manifest-schema.md`, `design-manifest.json`, and the full `showcase/`
++ `refero-styles/` asset library (30 brands' real design tokens + demo
+decks + Python QA/export scripts + 62 self-hosted OFL-licensed Google
+Fonts). `brand-style-reference.md` was excluded per the source's own
+explicit text stating it isn't covered by the repo's MIT license (real
+brand names/trademarks) — respected, not second-guessed. Authored a new
+`SKILL.md` router (this repo's own writing, not vendored, since the
+upstream router was the duplicate half) as
+`scaffolding-templating/references/design/taste-deck/SKILL.md`, named
+to avoid both a literal collision and a conceptual one (reads clearly
+as "the deck-focused sibling of taste-skill", not a competing full
+system). Cross-reference notes added in all directions: taste-skill's
+own "Out of Scope" section now points deck briefs to taste-deck;
+taste-deck points general frontend briefs back to taste-skill/hallmark;
+the pre-existing `slides` skill now cross-references taste-deck for the
+value-locked case. Vendored Chinese-language files left untranslated
+(flagged in taste-deck's own Notes section) since the user only asked
+for a scope decision on this source, not a translation, unlike the
+earlier rtk import where French removal was explicitly requested.
+
+**remotion-dev/skills**: fetched via the official `skills` CLI (a
+legitimate open agent-skills distribution tool maintained by Guillermo
+Rauch and others, verified via npm registry metadata before running it
+— not the unrelated same-named package from 2016) rather than git
+clone, the first import done this way. Output redirected to a file and
+read in full per the user's own instruction before following any of
+it; it was a clean, inert router skill (no destructive or suspicious
+directives) that resolved to Remotion's own official
+`remotion-best-practices` router (v4.0.533) plus its full sub-skill set
+(create/markup/maps-with-3-provider-techniques/multimedia/
+interactivity/studio/render/captions/saas/docs/upgrade) — 141 files,
+~1.5MB, vendored byte-for-byte into
+`library-api-reference/references/remotion/`. No overlap with any
+existing content (first Remotion-related skill here). Flagged as a
+non-standard license: Remotion's own "Remotion License" is free for
+individuals/non-profits/for-profit orgs ≤3 employees, requires a paid
+Company License above that, and forbids reselling/relicensing a
+derivative — same treatment as the earlier react-bits Commons Clause
+flag, not mislabeled as plain MIT/Apache.
+
+**Naming-collision checks**: `impeccable`, `taste-deck`, and
+`remotion-best-practices` (folder names + frontmatter `name:`) grepped
+against the full repo — no collisions. (One grep false-negative during
+this check: an overly-strict `^name: impeccable$` anchor missed the
+match because the vendored file uses CRLF line endings post-checkout;
+re-run without the trailing anchor confirmed no actual collision —
+noted here so a future session doesn't waste time re-diagnosing the
+same regex quirk.)
+
+**Universal-tier check**: none of the 3 new top-level sub-skills carry
+"invoke before any response"/"MUST use" language — all are scoped to
+explicit design/deck/video requests. Not added to the Universal table.
+
+Folded into 2 existing top-level skills (not a new category):
+scaffolding-templating (`impeccable`, `taste-deck`), library-api-reference
+(`remotion`, frontmatter name `remotion-best-practices`).
 =======================================================================
 -->
 

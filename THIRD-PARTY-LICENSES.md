@@ -832,6 +832,70 @@ Imported 2026-09-14 into `incident-runbooks/references/`: `issue-triage`, `pr-tr
 Copyright 2026 Patrick Szymkowiak
 ```
 
+## Paul Bakaus — `impeccable` (Apache-2.0)
+
+Imported 2026-10-07 into `scaffolding-templating/references/design/impeccable/` (`SKILL.md` + full `reference/` of ~40 files + `scripts/`), originating from Paul Bakaus's [`pbakaus/impeccable`](https://github.com/pbakaus/impeccable) repo's `.claude/skills/impeccable/` directory (the source repo also vendors identical copies into `.agent/`, `.agents/`, `.cursor/` for other tool ecosystems — only the Claude Code copy was taken, since this repo only needs one).
+
+**Modified from upstream** (disclosed per this repo's own transparency practice, not a silent fork): a new "Setup → 0. First-run confirmation gate" section was added to the vendored `SKILL.md`, not present in the source. The skill's own launcher (`scripts/impeccable`, a plain-text, fully-read shell/batch script — confirmed no suspicious patterns) downloads a **closed-source compiled binary** from `github.com/pbakaus/impeccable/releases/` on its first invocation per machine/version (checksum-verified against a `.sha256` sidecar, fails closed without one — this is a legitimate, well-engineered update mechanism, not an arbitrary/unverified fetch, but the binary itself remains unauditable, unlike every other tool vendored into this repo so far). The upstream skill runs this silently as step 1 of its own Setup. This repo's copy gates that specific first-download-and-execute moment behind an explicit user confirmation instead — see `SKILL-AUDIT.md` for the full reasoning and the user's explicit decision to accept the risk with that mitigation in place.
+
+**Sub-attribution** (per the source's own `NOTICE.md`): `reference/ios.md` and `reference/android.md` are distilled from ehmo's `platform-design-skills` (MIT) — https://github.com/ehmo/platform-design-skills.
+
+Frontmatter `name: impeccable` checked against the whole repo before import — no collision.
+
+(See the Apache License 2.0 full text under the Shubham Saboo section above — same license, not reproduced twice.)
+
+```
+Copyright 2026 Paul Bakaus
+```
+
+## changemaner — `design-taste-frontend` (MIT) — partial import as `taste-deck`
+
+Imported 2026-10-07 as `scaffolding-templating/references/design/taste-deck/`, originating from changemaner's [`design-taste-frontend`](https://github.com/changemaner/design-taste-frontend) repo. **Partial, not wholesale**: a background-agent comparison (full-content read on both sides, not description-skimming — see `SKILL-AUDIT.md`) found the source's general frontend-design content (its `SKILL.md` §0-14 plus `reference/{pre-flight-checklist,ai-tell-catalog,redesign-protocol,dial-definitions}.md`) is near word-for-word identical to this repo's own pre-existing `scaffolding-templating/references/design/taste-skill/` (imported 2026-08-05 from a different upstream, Leonxlnx's `taste-skill`) — same dial system, same banned-pattern examples, same checklists. That duplicate content was declined. Only the genuinely novel deck/slide-generation half was kept: `reference/deck-mode.md` (vendored as top-level `deck-mode.md`), `freeplay-declaration.md`, `deploy-guide.md`, `annotation-guide.md`, `manifest-schema.md`, `design-manifest.json`, and the full `showcase/` + `refero-styles/` asset library (30 real-brand design-token sources + demo decks + QA/export Python scripts + self-hosted Google Fonts, all individually OFL-licensed and redistributable).
+
+**Explicitly excluded, per the source's own text, not this repo's judgment**: `brand-style-reference.md` states in its own first line that it is "not distributed under the repo's MIT license" (it's a style-learning report referencing real brands' public websites/trademarks) — respected as-is, not vendored.
+
+**Language note**: several vendored files (`deck-mode.md`, `deploy-guide.md`, `annotation-guide.md`, `manifest-schema.md`, `freeplay-declaration.md`) mix English with Simplified Chinese, matching the source project's working language — left as-is (not translated) since the content is functional and translation wasn't requested; flagged in `taste-deck/SKILL.md`'s own Notes section.
+
+Frontmatter `name: taste-deck` checked against the whole repo before import — no collision. Cross-reference notes added in both directions: `taste-skill/SKILL.md` §13 (Out of Scope) now points deck briefs to `taste-deck`; `taste-deck/SKILL.md` points general frontend briefs back to `taste-skill`/`hallmark`; the existing lightweight `slides/SKILL.md` now cross-references `taste-deck` for the value-locked case.
+
+```
+MIT License
+
+Copyright (c) 2026 changemaner
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Remotion — `remotion-dev/skills` (⚠️ non-standard license — read before reusing)
+
+Imported 2026-10-07 into `library-api-reference/references/remotion/`, fetched via the official `skills` CLI (`npx skills use "https://github.com/remotion-dev/skills" --skill "remotion-best-practices"`) rather than a raw git clone — this is the first import done through that distribution mechanism rather than `git clone`/raw-file fetch. The CLI resolved the router skill `remotion-best-practices` (v4.0.533) plus its full set of sub-skills (`remotion-create`, `remotion-markup`, `remotion-maps` with provider techniques for Cesium/Mapbox/MapLibre/MapTiler, `remotion-multimedia`, `remotion-interactivity`, `remotion-studio`, `remotion-render`, `remotion-captions`, `remotion-saas`, `remotion-docs`, `remotion-upgrade`) and wrote them to a local temp directory, vendored here byte-for-byte (141 files, ~1.5MB).
+
+**Not plain MIT/Apache like most of this repo.** Remotion itself (`remotion-dev/remotion`, of which `remotion-dev/skills` is `packages/skills`) ships under the project's own "Remotion License": free for individuals, non-profits, and for-profit organizations with ≤3 employees, to create videos/images (commercially or not); a paid Company License is required above that size; explicitly **forbids copying/modifying Remotion to sell, rent, license, relicense, or sublicense your own derivative of Remotion**. This repo's own standing disclaimers already scope all content here to personal study/reference use, not commercial redistribution (see the copyright notice in `README.md`) — consistent with the Free License's "individual" tier — but this is flagged explicitly, the same way `react-bits`' Commons Clause was flagged, rather than mislabeled as a standard permissive license. Read the full terms at the source before any other kind of reuse: https://github.com/remotion-dev/remotion/blob/main/LICENSE.md.
+
+No overlap with existing content — first Remotion-related skill in this repo.
+
+```
+Remotion License (see https://github.com/remotion-dev/remotion/blob/main/LICENSE.md for full, current text — not reproduced in full here because the source itself says the license may change in Remotion 5.0 and links to the authoritative current version rather than pinning one)
+
+Copyright © 2026 Remotion
+```
+
 ## `context-engineering-collection`
 
 Kept whole as a single top-level folder rather than distributed, so its own [`LICENSE`](context-engineering-collection/LICENSE) (MIT, Context Engineering Agent Skills Contributors) still applies directly — no duplication needed here.

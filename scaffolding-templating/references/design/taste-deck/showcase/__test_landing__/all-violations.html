@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+  body { font-family: Inter, sans-serif; color: #000000; background: #ffffff; }
+  .marquee { animation: marquee-scroll 20s linear infinite; }
+  .marquee-2 { animation: marquee-scroll-2 15s linear infinite; }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+  @keyframes marquee-scroll-2 { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .hero-glow { text-shadow: 0 0 20px #6366f1; }
+  .grad-text { background-clip: text; -webkit-text-fill-color: transparent; }
+  .card-border { border-radius: 16px; }
+  .btn-border { border-radius: 8px; }
+  .tag-border { border-radius: 4px; }
+  .progress-track { border-radius: 9999px; background: #e5e7eb; width: 100%; height: 8px; }
+  .progress-fill { background: #6366f1; width: 72%; height: 8px; border-radius: 9999px; }
+  .neon { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+  .custom-cursor { cursor: none; }
+  .will-change-1 { will-change: transform; }
+  .will-change-2 { will-change: opacity; }
+  .will-change-3 { will-change: transform, opacity; }
+  .will-change-4 { will-change: left; }
+  .will-change-5 { will-change: top; }
+  .will-change-6 { will-change: right; }
+  .transition-bad { transition: width 0.3s ease, height 0.3s ease, top 0.2s; }
+</style>
+</head>
+<body>
+<nav class="h-32 flex items-center justify-between px-6" style="cursor: none;">
+  <span>V0.6 BETA</span>
+</nav>
+
+<section class="hero pt-32 min-h-[100dvh] flex flex-col justify-center">
+  <div>Elevate your workflow</div>
+  <div>Seamless integration for Next-Gen teams</div>
+  <div>00 / INDEX</div>
+  <div>Scroll to explore ↓</div>
+  <div>Lisbon 14:23 · 18°C</div>
+  <div>99.99% uptime · 10x faster · 1,000,000 users</div>
+  <div class="grad-text">Building the future of work</div>
+</section>
+
+<section class="grid grid-cols-3 gap-6 py-16">
+  <div class="card">Feature 1</div>
+  <div class="card">Feature 2</div>
+  <div class="card">Feature 3</div>
+</section>
+
+<section class="uppercase tracking-widest py-8">
+  <span class="uppercase tracking-wider">CAPABILITIES</span>
+</section>
+<section class="py-8">
+  <span class="uppercase tracking-wide">INTEGRATIONS</span>
+</section>
+<section class="py-8">
+  <span class="uppercase tracking-tight">PRICING</span>
+</section>
+
+<section>
+  <ul class="divide-y divide-gray-200">
+    <li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li>
+    <li>Item 5</li><li>Item 6</li><li>Item 7</li><li>Item 8</li>
+    <li>Item 9</li><li>Item 10</li><li>Item 11</li><li>Item 12</li>
+  </ul>
+</section>
+
+<section>
+  <table>
+    <tr><td>A</td></tr><tr><td>B</td></tr><tr><td>C</td></tr><tr><td>D</td></tr>
+    <tr><td>E</td></tr><tr><td>F</td></tr><tr><td>G</td></tr><tr><td>H</td></tr>
+    <tr><td>I</td></tr><tr><td>J</td></tr><tr><td>K</td></tr><tr><td>L</td></tr>
+    <tr><td>M</td></tr><tr><td>N</td></tr><tr><td>O</td></tr><tr><td>P</td></tr>
+    <tr><td>Q</td></tr><tr><td>R</td></tr><tr><td>S</td></tr><tr><td>T</td></tr>
+    <tr><td>U</td></tr><tr><td>V</td></tr>
+  </table>
+</section>
+
+<section class="py-8">
+  <img src="https://images.unsplash.com/photo-1234567890" alt="unsplash">
+  <img src="https://images.unsplash.com/photo-9876543210" alt="unsplash2">
+</section>
+
+<section class="py-8">
+  <span class="z-50">Layer 1</span><span class="z-50">Layer 2</span>
+  <span class="z-50">Layer 3</span><span class="z-50">Layer 4</span>
+  <span class="z-50">Layer 5</span>
+</section>
+
+<section class="py-8">
+  <p>Acme Corp and Nexus Inc partner with SmartFlow to Elevate results.</p>
+  <p>— John Doe and Jane Doe from TechFlow — Sarah Chan</p>
+  <p>「Inspired by innovation」— A quote with an em—dash</p>
+  <div class="progress-track"><div class="progress-fill"></div></div>
+</section>
+
+<footer class="py-8">
+  <button>Get in Touch</button>
+  <button>Contact Us</button>
+  <a href="#">Let's Talk</a>
+  <button>Sign Up</button>
+  <button>Get Started</button>
+  <span>🎮 🚀 🎨 💡 🔧</span>
+</footer>
+
+<script>
+  window.addEventListener("scroll", function() {
+    console.log(window.scrollY);
+  });
+  function animate() {
+    requestAnimationFrame(() => setState(window.scrollY / 1000));
+  }
+</script>
+</body>
+</html>

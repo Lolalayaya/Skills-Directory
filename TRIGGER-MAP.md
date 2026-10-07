@@ -131,7 +131,9 @@
 | 「幫我審查一下這個 UI 符不符合無障礙規範」 | `web-design-guidelines` | 依 Web Interface Guidelines 審查 UI 程式碼 |
 | 「幫我審查一下這份文件的語氣」 | `writing-guidelines` | 依 Writing Guidelines 審查文案語氣 |
 | 「幫我做一份簡報」 | `slides` | 用 Chart.js + design token 做策略性 HTML 簡報 |
+| 「幫我做一份投影片，要像某個真實品牌（像 Linear/Mercury/IKEA 那種質感）」「幫我做個 pitch deck，顏色字體都要照官網抄」 | `taste-deck` | 固定舞台 1920×1080 HTML 投影片，從 30 套真實品牌素材庫 1:1 複製色彩/字體/間距，四道 QA 關卡把關，非憑空想像配色 |
 | 「幫我做一個落地頁/portfolio，不要看起來像 AI 生成的」 | `taste-skill`（或 `hallmark`，二選一、別混用） | 兩套機制不同、規則會互相打架（例如禁用字體清單互相矛盾）：要接官方設計系統(Fluent/Material/Carbon等)或單次輕量建置 → `taste-skill`；同專案要做多頁且不能重複、或要用 audit(只評分不改)/study(從URL/截圖萃取風格) → `hallmark` |
+| 「幫我 critique/audit/polish 一下這個 UI」「這個設計太安全了幫我 bolder 一點」「幫我做 live 即時調整這個元件」 | `impeccable` | 完整前端打磨指令集（critique/audit/polish/bolder/animate/harden/onboard/live/generate 等），自帶專案狀態檔；CLI 首次執行會下載閉源二進位檔，已加執行前確認關卡 |
 | 「幫我把這個網站改版升級一下，不要動到原本的框架」 | `redesign-skill`（或 `hallmark redesign`） | 稽核既有專案的樣板感問題，原地修正不重寫 |
 | 「幫我從這個 URL/截圖抓設計風格套用到我的內容」 | `hallmark`（`study` 動詞） | 從 URL 或截圖萃取設計 DNA（巨觀結構、字體配對、色彩），不是像素級複製 |
 | 「幫我做一套品牌識別板/Logo 系統的圖」 | `brandkit` | 品牌識別板、Logo 系統的圖片生成（文字型品牌語氣文件用 `brand`） |
@@ -166,6 +168,7 @@
 | 「幫我把 Firecrawl 的 API key 弄進這個專案」 | `firecrawl-build-onboarding` | 首次接入：授權流程、SDK 安裝、`.env` 設定 |
 | 「這篇 arXiv 論文的期刊 DOI 是多少」／「幫我找這篇論文的 arXiv 編號」 | `arxiv-lookup` | 用 arXiv ID 查期刊 DOI，或用標題/關鍵字查 arXiv ID |
 | 「幫我把這篇 arXiv 論文轉成 Markdown，方便我照著實作」 | `arxiv-doc-builder` | 抓取論文（優先 LaTeX、PDF 為後備）轉成結構化 Markdown |
+| 「幫我用 Remotion 做一個程式化影片」「用 React 寫一段轉場/字幕/地圖動畫的影片」 | `remotion` | Remotion 官方完整技能集：建立專案、React Markup、地圖動畫、多媒體、Studio 預覽、算繪、SaaS 化、升級；注意非標準授權（較大營利公司需付費） |
 | 「幫我一起寫一份提案/技術規格」 | `doc-coauthoring` | 結構化共寫文件流程 |
 | 「幫我照公司格式寫一份狀態報告/電子報」 | `internal-comms` | 套用公司慣用的內部溝通格式 |
 | 「幫我把這些寫作靈感先記下來，還沒想好怎麼組織」 | `writing-fragments` | 純探索，挖掘素材片段，不急著定結構 |

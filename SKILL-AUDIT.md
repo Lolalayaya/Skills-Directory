@@ -738,3 +738,60 @@ Clone 使用者給的 `firecrawl.git` 後發現這是 Firecrawl 公司自己的�
 ### 最終結果
 
 18 個頂層技能維持不變。`incident-runbooks` 4→9（新增 `issue-triage`／`pr-triage`／`repo-recap`／`pr-review`／`full-triage`），全倉庫子技能總數 230→235。`headroom` 未貢獻任何內容（無 SKILL.md）；`codegraph` 的 2 個技能與 `rtk` 的其餘 7 個技能皆因綁死來源倉庫自身細節而未匯入。這是本倉庫第一次「使用者以為 3 個網址 = 3 個技能，實際讀完內容後只有 1 個來源、5 個子技能真正可用」的案例——WebFetch 頁面摘要判斷來源倉庫是否含有技能並不可靠，未來遇到外部倉庫網址時應直接用 GitHub API 抓完整檔案樹確認，而非僅信任頁面渲染摘要。
+
+---
+
+## 2026-10-07：評估三個來源（impeccable／design-taste-frontend／remotion-dev/skills），兩個都不是「單純文件」
+
+使用者給了兩個 repo 網址（`pbakaus/impeccable`、`changemaner/design-taste-frontend`）要求（1）新增、（2）合併（記得所有文件都要更新）、（3）重新安裝到這部電腦，另外直接指示執行 `npx skills use "https://github.com/remotion-dev/skills" --skill "remotion-best-practices"` 並照它產生的輸出繼續走。三個來源都比「一個來源一個技能」複雜得多。
+
+### impeccable：閉源引擎 + 高度重疊，兩個都要跟使用者確認
+
+**內容**：不是單純 Markdown 技能，是一個 v4.5.0 的商業級產品（Apache-2.0）——`.claude/skills/impeccable/` 底下有 ~40 份 reference 文件，涵蓋完整的前端打磨指令集（`shape`／`init`／`document`／`extract`／`critique`／`audit`／`polish`／`bolder`／`quieter`／`distill`／`harden`／`onboard`／`animate`／`colorize`／`typeset`／`layout`／`delight`／`overdrive`／`clarify`／`adapt`／`optimize`／`live`／`generate`），外加 `scripts/impeccable` 啟動器。
+
+**風險點 1：啟動器會下載並執行閉源編譯檔**。逐行讀完 `scripts/impeccable`（POSIX sh）與 `scripts/impeccable.cmd`（Windows），確認：
+- 下載來源是 `https://github.com/pbakaus/impeccable/releases/`——也就是**同一個 repo 自己的官方 GitHub Release**，不是來路不明的第三方伺服器（這點一開始跟使用者講的時候講得比較含糊，說成「pbakaus 自己的伺服器」，後來核對腳本原始碼才確認並更正）。
+- 下載後一定對照 `.sha256` 校驗碼驗證，驗證失敗就拒絕執行（fail closed），沒有校驗檔案或沒有雜湊工具也一樣拒絕——是一套做得不錯的更新機制，不是隨便抓檔案執行。
+- 但引擎本體仍然是**閉源編譯檔**，沒有原始碼可讀，這點跟本倉庫目前收錄的所有其他技能都不同（連 `anysearch` 這類自帶 CLI 的技能，CLI 本身都是可讀的純文字腳本）。
+
+把這個發現攤開跟使用者確認範圍，使用者的決定是：**整包裝入（含 scripts），但要求執行前再提醒一次**。因此在搬進來的 `SKILL.md` 的 Setup 區塊，新增一段本倉庫自己寫的「0. 首次執行確認關卡」——只在「這台機器/這個版本從未下載過引擎」的那一次執行前，明確告知使用者「這會下載並執行一支閉源編譯檔（來源已驗證、有校驗碼，但內容本身無法審查）」，取得同意才繼續；一旦取得過同意，之後同一版本的呼叫不用重複問（因為已經是快取好、驗證過的本地檔案，風險等級跟一般已安裝的 CLI 工具一樣）。
+
+**風險點 2：跟既有的 taste-skill／hallmark／動畫工程/AccessLint 叢集高度主題重疊**。受限於時間，沒有逐一讀完全部 ~40 份 reference（只讀了主 SKILL.md 全文＋抽查幾份），這點在此如實記錄，不假裝做過窮舉比對。判斷依據：impeccable 的架構是「動詞式 CLI 路由器 + 自己的專案狀態檔（PRODUCT.md/DESIGN.md）」，跟 taste-skill（拨盘參數）、hallmark（verb + `.hallmark/log.json` 多樣性記憶）機制上完全不同，不是同一套規則換個包裝，依「功能重疊預設不物理合併」處理，整個併入 `scaffolding-templating` 自成一個子技能，不改既有三者。
+
+**版權歸屬**：Apache-2.0；`reference/ios.md`／`reference/android.md` 依原倉庫自己的 `NOTICE.md` 轉引自 ehmo 的 `platform-design-skills`（MIT），一併記錄進 `THIRD-PARTY-LICENSES.md`。
+
+### design-taste-frontend：背景 agent 全文比對後，確認是既有 taste-skill 的同源重寫
+
+**流程**：使用者明確要求「先做完整比對再回報，才動手」。派了一個背景 general-purpose agent 專門做這件事——完整讀完 design-taste-frontend 的 SKILL.md＋5 份外置 reference 檔，對照完整讀完本倉庫既有的 `taste-skill/SKILL.md`（1218 行）／`hallmark`／`frontend-design`／`slides`。
+
+**結論**（agent 回報，經本機直接核對樣本確認非虛構）：design-taste-frontend 的 SKILL.md §0-14 跟既有 `taste-skill` **逐句相同**——親自核對過三個拨盤變數 `DESIGN_VARIANCE: 8`／`MOTION_INTENSITY: 6`／`VISUAL_DENSITY: 4` 連 1-10 刻度說明文字都一字不差。來源自己的 README 也承認這是「v2 漸進揭露拆分」，血緣上就是同一份東西。
+
+**真正新的部分**（確認本倉庫完全沒有）：
+- **Deck Mode**：固定舞台 1920×1080、膠囊形分頁點、CONFIG 客製化契約、PDF/PPTX/Vercel/妙搭匯出管線——既有的 `slides` 技能只是陽春 16:9 容器，沒有固定舞台/安全區/值層一致性，是真實功能落差。
+- **30 套真實品牌素材庫**（`refero-styles/`＋`showcase/`）：真實品牌的 `tokens.json`／`variables.css` 等「1:1 複製」素材，配機器可查核的 QA 腳本——跟 `hallmark` 的 `study`（即時抽取）是完全不同機制。
+- **CJK 排版契約**：既有的 `ui-typography` 明文排除 CJK。
+- `check-landing.py`：42 項零依賴 Python 靜態檢查腳本。
+
+**決定**：使用者確認「只要裝不是完全相同的內容」。只匯入上述新內容（`deck-mode.md`／`freeplay-declaration.md`／`deploy-guide.md`／`annotation-guide.md`／`manifest-schema.md`／`design-manifest.json`＋整個 `showcase/`／`refero-styles/`），跳過跟 taste-skill 重複的 §0-14 與另外 4 份重複的 reference 檔。`brand-style-reference.md` 另外排除——不是因為重複，是因為該檔自己的文字聲明「本報告不隨倉庫 MIT 授權分發」（真實品牌商標歸屬問題），尊重原作者的排除聲明，不重新評估。
+
+新建 `scaffolding-templating/references/design/taste-deck/SKILL.md`（本倉庫自己撰寫的路由進入點，非原樣搬運，因為原本的進入點正是重複的那半），跟 `taste-skill`／`hallmark`／`slides` 互相加交叉引用說明。部分檔案混用簡體中文（來源專案的工作語言），未翻譯——使用者這次沒有像 rtk 那次一樣要求去語言化，所以如實保留，在 `taste-deck/SKILL.md` 自己的 Notes 裡註明。
+
+### remotion-best-practices：透過官方 `skills` CLI 取得，乾淨、不重疊，但授權非標準
+
+**取得方式**：使用者直接指示跑 `npx skills use "https://github.com/remotion-dev/skills" --skill "remotion-best-practices"`，輸出導到暫存檔讀取。執行前查過 npm registry，確認 `skills` 這個套件是 Guillermo Rauch（Vercel 創辦人）等人維護的「open agent skills ecosystem」正牌套件（不是 2016 年那個同名、無關的舊套件）。輸出內容本身乾淨——是 Remotion 官方的 `remotion-best-practices` 路由技能（v4.0.533）＋完整子技能集（create/markup/maps 三種地圈供應商技術/multimedia/interactivity/studio/render/captions/saas/docs/upgrade），141 個檔案、~1.5MB，整包逐位元組搬入，跟本倉庫既有內容無重疊。
+
+**授權**：Remotion 本身用非標準的「Remotion License」——個人／非營利／3人以下營利公司免費，更大的營利公司需要付費授權，且明文禁止「轉售/再授權/再轉授權衍生品」。比照 `react-bits` 的 Commons Clause 先例，在 `THIRD-PARTY-LICENSES.md` 明確標註，不誤標成一般 MIT/Apache。使用者確認的範圍是「整包搬入，明確標註」。
+
+### 命名衝突查核
+
+`impeccable`、`taste-deck`、`remotion-best-practices`（資料夾名稱＋frontmatter `name:`）皆已 grep 全倉庫確認無衝突。過程中一次 regex 失誤值得記錄：用 `^name: impeccable$`（含結尾錨點）查時找不到任何結果，一度誤以為是漏抓；後來發現是因為透過 `git clone` 下來的檔案在這台 Windows 環境是 CRLF 換行，`$` 錨點在 ripgrep 預設模式下沒對齊，去掉結尾錨點後正常抓到且確認無衝突。記錄下來避免未來 session 重複誤判成「找不到檔案」。
+
+### 文件更新範圍
+
+`scaffolding-templating/SKILL.md`（新增 `impeccable`／`taste-deck` 兩列、`taste-skill`「Out of Scope」新增 deck 導流句）、`scaffolding-templating/references/design/slides/SKILL.md`（新增指向 `taste-deck` 的交叉引用）、`library-api-reference/SKILL.md`（新增 `remotion` 一列）、根目錄 `SKILL.md`（Quick lookup 兩列、Full skill list 第 5／6 列子技能數更新、Total 235→238＝254、HTML 註解稽核區塊 `scaffolding-templating`／`library-api-reference` 列表更新、新增一段 `THIRD-PARTY IMPORT` 段落）、`README.md`（對應章節與版權聲明）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增 `impeccable`／`design-taste-frontend`／`remotion` 三節）、`TRIGGER-MAP.md`、`skills-search.html`。
+
+**本機安裝**：把更新後的 `scaffolding-templating` 與 `library-api-reference` 兩個資料夾複製覆蓋到 `C:\Users\user\.claude\skills\` 對應位置。
+
+### 最終結果
+
+18 個頂層技能維持不變。`scaffolding-templating` 54→56（新增 `impeccable`／`taste-deck`），`library-api-reference` 17→18（新增 `remotion`），全倉庫子技能總數 235→238。

@@ -30,6 +30,7 @@ Never summarize or paraphrase code snippets, function signatures, or gotcha tabl
 | Firecrawl onboarding | Get `FIRECRAWL_API_KEY`/SDK into a project for the first time, browser auth flow | [references/firecrawl-build-onboarding/SKILL.md](references/firecrawl-build-onboarding/SKILL.md) |
 | arXiv paper lookup | Get a journal DOI from an arXiv ID, or find an arXiv ID from a title/keyword search | [references/arxiv-lookup/SKILL.md](references/arxiv-lookup/SKILL.md) |
 | arXiv paper → Markdown | Fetch an arXiv paper (LaTeX source preferred, PDF fallback) and convert it to structured Markdown for implementation reference | [references/arxiv-doc-builder/SKILL.md](references/arxiv-doc-builder/SKILL.md) |
+| Remotion (programmatic video) | Build/edit a React-based video — project setup, markup (audio/captions/transitions/effects), map animations, multimedia, Studio preview, rendering, SaaS packaging (`<Player>`, Lambda/Vercel/Cloudflare). ⚠️ Non-standard license — see `THIRD-PARTY-LICENSES.md` before anything beyond individual/small-team use | [references/remotion/SKILL.md](references/remotion/SKILL.md) |
 
 ## How to use this skill
 
