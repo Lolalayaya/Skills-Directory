@@ -795,3 +795,33 @@ Clone 使用者給的 `firecrawl.git` 後發現這是 Firecrawl 公司自己的�
 ### 最終結果
 
 18 個頂層技能維持不變。`scaffolding-templating` 54→56（新增 `impeccable`／`taste-deck`），`library-api-reference` 17→18（新增 `remotion`），全倉庫子技能總數 235→238。
+
+---
+
+## 2026-10-21：匯入 guizang-ppt-skill（歸藏／op7418，AGPL-3.0，本倉庫第一個 copyleft 來源）
+
+使用者提供單一網址 `https://github.com/op7418/guizang-ppt-skill.git`，要求（1）新增、（2）合併（記得所有文件都要更新）、（3）重新安裝到這部電腦。依標準流程執行。
+
+**內容確認**：先用 GitHub API 抓完整檔案樹（不只看 WebFetch 頁面摘要，這是上次 rtk/headroom 誤判後養成的習慣），確認這是單一技能的獨立倉庫——根目錄直接是 `SKILL.md`＋`assets/`＋`references/`＋`scripts/`，跟當初的 `anysearch-skill` 同一種形狀，不是多技能 monorepo。
+
+**技能做什麼**：產生單檔 HTML 橫向翻頁網頁 PPT，內建兩套完整命名視覺系統——風格 A「電子雜誌×電子墨水」（Monocle 雜誌風、襯線標題、WebGL 流體背景）、風格 B「瑞士國際主義」（網格至上、單一高飽和錨點色、直角到底）；外加完整的演講者模式（講者視圖、觀眾屏同步與斷線恢復、排練計時/紀錄、激光筆、黑屏/凍結）。作者歸藏（op7418）是中文圈知名 AI 內容創作者，專案有多家企業贊助（360 安全龍蝦、Kimi work、Cola Skill、真格 Token Grant），並已上架多個 AI skill 平台，屬成熟、持續維護中的作品。完整讀完 632 行 SKILL.md＋約 10 份 reference 文件＋3 支 Node 驗證腳本。
+
+**授權是這次唯一真正需要使用者判斷的點**：AGPL-3.0——本倉庫至今匯入的所有來源都是 MIT／Apache-2.0／ISC，或是明確標註過的 source-available 授權（Remotion、react-bits 的 Commons Clause），這是第一次出現 copyleft 授權。而且**本倉庫本身在 GitHub 上是公開的**（用 `curl` 查過 API 回應 200 確認），這讓這次的授權判斷比以往更有份量。比照 impeccable 的閉源二進位檔問題、Remotion/react-bits 的非標準授權問題的處理方式,用 AskUserQuestion 把情況攤開給使用者（不單方面決定），使用者確認：**正常匯入，在 THIRD-PARTY-LICENSES.md 明確標註 AGPL-3.0**。
+
+AGPL 本身的「mere aggregation」條款（授權條文第 4 條，已原文收錄進 THIRD-PARTY-LICENSES.md）代表：把這份內容跟其他不同授權的檔案放在同一個倉庫裡，並不會讓整個倉庫變成 AGPL——真正有法律效力的義務，落在「之後有人修改了這個技能自己的檔案，再把修改後的版本對外發布，或當成網路服務跑起來」的那個人身上，而不是這次匯入動作本身。
+
+**腳本安全性查核**：`validate-presenter-mode.mjs`／`validate-swiss-deck.mjs`／`check-presenter-runtime-sync.mjs` 三支腳本全文讀完，純 Node、無 `eval`／`child_process`／非預期對外連線；比對到的 `.exec(` 其實是 RegExp 方法、`$$eval` 是 Playwright 的 DOM 操作 API，都不是 JS `eval()`。`validate-swiss-deck.mjs` 裡的 Playwright 實際渲染檢查，原始設計就會在沒裝 Playwright 時優雅降級成純靜態分析。
+
+**monorepo 情境下的修改**（公開揭露，不是偷改）：原技能的 `SKILL.md` 有一段「Step 0：啟動前檢查更新」，用 `git -C "<SKILL_ROOT>" fetch`／`pull` 檢查並拉取上游更新——這假設 `<SKILL_ROOT>` 自己是一個獨立的 git clone，有自己指向 `op7418/guizang-ppt-skill` 的 upstream remote（這正是原作者建議的獨立安裝方式）。但這份副本是被整合進 Skills-Directory 這個單一倉庫的子資料夾，沒有自己的 `.git`，這套機制在這個情境下會失效甚至誤動作（`git -C` 實際操作到的是 Skills-Directory 自己的 git 狀態）。在搬入的 `SKILL.md` 裡新增一段註記：這個情境下跳過 Step 0 的 git 檢查，改用「對整個 Skills-Directory 倉庫做 `git pull`」來取得更新；只有使用者照原作者建議、把這個技能單獨 clone 到 `~/.claude/skills/guizang-ppt-skill`（不經過 Skills-Directory）時，原始機制才適用。
+
+**重疊查核**：完整讀完本倉庫既有的 `slides`、`taste-deck` 兩個技能的全文做比對——三者機制完全不同（橫向翻頁+兩套自家命名美學 vs. Chart.js 策略型簡報 vs. 固定舞台+真實品牌值層鎖定），非重複，三個方向都互相加了交叉引用說明。
+
+**命名衝突查核**：`guizang-ppt-skill`（資料夾名稱＋frontmatter `name:`）grep 全倉庫，無衝突。
+
+**文件更新範圍**：`scaffolding-templating/SKILL.md`（新增一列 Domains 表格）、`scaffolding-templating/references/design/slides/SKILL.md`／`taste-deck/SKILL.md`（新增交叉引用）、根目錄 `SKILL.md`（Full skill list 第 6 列子技能數 56→57、Total 238→239＝255、HTML 註解稽核區塊更新、新增 `THIRD-PARTY IMPORT — guizang-ppt-skill` 段落）、`README.md`（對應章節、intro 段落延伸算式、版權聲明新增一條）、本檔案（本節）、`THIRD-PARTY-LICENSES.md`（新增一節，含 AGPL-3.0 全文）、`TRIGGER-MAP.md`、`skills-search.html`。
+
+**本機安裝**：把更新後的 `scaffolding-templating` 資料夾複製覆蓋到 `C:\Users\user\.claude\skills\scaffolding-templating\`。
+
+### 最終結果
+
+18 個頂層技能維持不變。`scaffolding-templating` 56→57（新增 `guizang-ppt-skill`），全倉庫子技能總數 238→239。這是本倉庫第一次收錄 copyleft（AGPL-3.0）授權的內容，且發生在倉庫本身公開可見的情況下——往後任何新來源若同樣是 AGPL／GPL 這類 copyleft 授權，應直接比照本節的處理方式（攤開給使用者確認、在 THIRD-PARTY-LICENSES.md 完整收錄授權全文並說明 mere-aggregation 的實際含義），不需要重新討論。

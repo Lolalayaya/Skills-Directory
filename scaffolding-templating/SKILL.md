@@ -37,6 +37,7 @@ Router skill for "codify the best-practice pattern once, then stamp it out consi
 | Writing guidelines review | Review docs/prose for writing-style-guide compliance — tone, voice | [references/design/writing-guidelines/SKILL.md](references/design/writing-guidelines/SKILL.md) |
 | Slide decks | Strategic HTML presentations with Chart.js, design tokens, responsive layouts | [references/design/slides/SKILL.md](references/design/slides/SKILL.md) |
 | Slide decks with real-brand value-layer fidelity | Fixed-stage (1920×1080) decks that must read as a *specific* real brand — picks from a 30-brand showcase library and copies its tokens 1:1, or a self-declared custom style when nothing fits; four mandatory QA gates, CJK fallback, PDF/PPTX export, deploy guide | [references/design/taste-deck/SKILL.md](references/design/taste-deck/SKILL.md) |
+| Horizontal-swipe web decks (magazine/Swiss style) | Single-file HTML decks with keyboard/scroll/touch horizontal paging, a full presenter mode (speaker view, audience-screen sync, rehearsal timing, laser pointer), and two complete named aesthetic systems (electronic-magazine/Monocle-style serif, or Swiss International grid-and-Helvetica) — pick one, never mix | [references/design/guizang-ppt-skill/SKILL.md](references/design/guizang-ppt-skill/SKILL.md) |
 
 ## Anti-AI-slop frontend taste systems
 

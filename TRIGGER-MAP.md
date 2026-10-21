@@ -134,6 +134,7 @@
 | 「幫我做一份投影片，要像某個真實品牌（像 Linear/Mercury/IKEA 那種質感）」「幫我做個 pitch deck，顏色字體都要照官網抄」 | `taste-deck` | 固定舞台 1920×1080 HTML 投影片，從 30 套真實品牌素材庫 1:1 複製色彩/字體/間距，四道 QA 關卡把關，非憑空想像配色 |
 | 「幫我做一個落地頁/portfolio，不要看起來像 AI 生成的」 | `taste-skill`（或 `hallmark`，二選一、別混用） | 兩套機制不同、規則會互相打架（例如禁用字體清單互相矛盾）：要接官方設計系統(Fluent/Material/Carbon等)或單次輕量建置 → `taste-skill`；同專案要做多頁且不能重複、或要用 audit(只評分不改)/study(從URL/截圖萃取風格) → `hallmark` |
 | 「幫我 critique/audit/polish 一下這個 UI」「這個設計太安全了幫我 bolder 一點」「幫我做 live 即時調整這個元件」 | `impeccable` | 完整前端打磨指令集（critique/audit/polish/bolder/animate/harden/onboard/live/generate 等），自帶專案狀態檔；CLI 首次執行會下載閉源二進位檔，已加執行前確認關卡 |
+| 「幫我做一份雜誌風/瑞士風的網頁 PPT」「Swiss Style PPT」「幫我做演講用的橫向翻頁簡報，要有演講者模式」 | `guizang-ppt-skill` | 單檔 HTML 橫向翻頁 PPT，兩套命名視覺系統（電子雜誌×電子墨水／瑞士國際主義）+ 完整演講者模式（講者視圖/觀眾屏同步/排練計時）；⚠️ AGPL-3.0 授權 |
 | 「幫我把這個網站改版升級一下，不要動到原本的框架」 | `redesign-skill`（或 `hallmark redesign`） | 稽核既有專案的樣板感問題，原地修正不重寫 |
 | 「幫我從這個 URL/截圖抓設計風格套用到我的內容」 | `hallmark`（`study` 動詞） | 從 URL 或截圖萃取設計 DNA（巨觀結構、字體配對、色彩），不是像素級複製 |
 | 「幫我做一套品牌識別板/Logo 系統的圖」 | `brandkit` | 品牌識別板、Logo 系統的圖片生成（文字型品牌語氣文件用 `brand`） |

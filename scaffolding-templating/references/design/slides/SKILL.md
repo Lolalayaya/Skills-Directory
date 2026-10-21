@@ -12,6 +12,7 @@ metadata:
 Strategic HTML presentation design with data visualization.
 
 > Need the deck to read as a *specific* real brand, with 1:1 copied colors/fonts/spacing and mandatory QA gates rather than freehand design-token choices? See [`../taste-deck/SKILL.md`](../taste-deck/SKILL.md) instead.
+> Need horizontal-swipe navigation, a full presenter/rehearsal mode with audience-screen sync, and one of two named aesthetic systems (electronic-magazine or Swiss International)? See [`../guizang-ppt-skill/SKILL.md`](../guizang-ppt-skill/SKILL.md) instead.
 
 ## When to Use
 

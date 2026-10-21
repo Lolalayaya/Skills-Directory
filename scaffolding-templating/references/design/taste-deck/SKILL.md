@@ -5,7 +5,7 @@ description: Generate fixed-stage HTML slide decks/presentations (pitch decks, k
 
 # Taste Deck — Fixed-Stage Slide Decks
 
-Generates single-file, standalone HTML presentation decks (1920×1080 fixed stage, fit-scaled to viewport, no build step) that read as a specific real brand's design system rather than a generic AI deck. Not for landing pages, portfolios, redesigns, or app UI — route those to [`../taste-skill/SKILL.md`](../taste-skill/SKILL.md) or [`../hallmark/SKILL.md`](../hallmark/SKILL.md) instead. Not for a lighter-weight, non-value-locked slide container either — the existing [`../slides/SKILL.md`](../slides/SKILL.md) covers that simpler case.
+Generates single-file, standalone HTML presentation decks (1920×1080 fixed stage, fit-scaled to viewport, no build step) that read as a specific real brand's design system rather than a generic AI deck. Not for landing pages, portfolios, redesigns, or app UI — route those to [`../taste-skill/SKILL.md`](../taste-skill/SKILL.md) or [`../hallmark/SKILL.md`](../hallmark/SKILL.md) instead. Not for a lighter-weight, non-value-locked slide container either — the existing [`../slides/SKILL.md`](../slides/SKILL.md) covers that simpler case. Not for a horizontal-swipe deck with a full presenter/rehearsal mode and a named electronic-magazine/Swiss-International aesthetic either — see [`../guizang-ppt-skill/SKILL.md`](../guizang-ppt-skill/SKILL.md) for that (vertical fixed-stage vs. horizontal swipe, real-brand-token fidelity vs. two curated in-house aesthetics — different mechanisms entirely, not a duplicate).
 
 ## Two routes
 
